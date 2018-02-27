@@ -1,0 +1,29 @@
+Package: FlowSorted.Blood.EPIC
+Type: Package
+Title: Illumina EPIC data on immunomagnetic sorted peripheral adult blood cells
+Version: 0.0.0.9000
+Date: 2018-02-23
+Authors@R: c( person(c("Lucas", "A."),
+        "Salas", role = c("cre", "aut"),
+        email = "lucas.a.salas.diaz@dartmouth.edu"),
+        person(c("Devin", "C."), "Koestler", role = c("cre", "aut"),
+        email = "dkoestler@kumc.edu"))
+Maintainer: Lucas A. Salas <lucas.a.salas.diaz@dartmouth.edu>, Devin C. Koestler <dkoestler@kumc.edu>
+Description: Raw data objects to be used for blood cell proportion
+        estimation in minfi and similar packages.
+License: Artistic-2.0
+Depends: R (>= 3.2.0), minfi (>= 1.21.2)
+LazyData: yes
+biocViews: ExperimentData, Homo_sapiens_Data, Tissue, MicroarrayData,
+        TissueMicroarrayData, MethylationArrayData
+NeedsCompilation: no
+Packaged: 2017-10-31 16:43:10 UTC; biocbuild
+Author: Lucas A. Salas [cre, aut],
+        Devin C. Koestler [cre, aut]
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
+RoxygenNote: 6.0.1
+Imports: minfi  (>= 1.21.2)
+URL: https://github.com/immunomethylomics/FlowSorted.Blood.EPIC
+BugReports: https://github.com/immunomethylomics/FlowSorted.Blood.EPIC/issues
