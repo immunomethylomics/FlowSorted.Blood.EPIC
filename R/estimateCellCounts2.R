@@ -1,56 +1,69 @@
-#' Modified estimateCellCounts function 
 #' estimateCellCounts2 function allows the use of customized reference datasets 
 #' and IDOL probes L-DMR lists
 #' @import minfi
 #' @examples
 #' # Step 1: Load the library(FlowSorted.Blood.EPIC)
 #' data(FlowSorted.Blood.EPIC)
-#' # Step 2 separate the reference from the testing dataset if you want to run examples for estimations
-#' # for this function example
-
+#' # Step 2 separate the reference from the testing dataset if you want to run 
+#' # examples for estimations for this function example
 #' cell.Mix <- which(FlowSorted.Blood.EPIC$CellType == "MIX")
-
 #' RGsetTargets <- FlowSorted.Blood.EPIC[, cell.Mix]
 #' sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
 #'                             seq(along = cell.Mix), sep = "_")
 #' # Step 3: use your favorite package for deconvolution.
-#' # You can also read in the IDOL optimized DMR library based on the EPIC array.  This
-#' # object is nothing more than a vector of length 450 consisting of the names of
-#' # the IDOL optimized CpGs.  These CpGs are used as the backbone for deconvolution
-#' # and were selected because their methylation signature differs across the six
-#' # normal leukocyte subtypes.
-
+#' # You can also read in the IDOL optimized DMR library based on the EPIC 
+#' # array.  Thisobject is nothing more than a vector of length 450 consisting 
+#' # of the names of the IDOL optimized CpGs.  These CpGs are used as the 
+#' # backbone for deconvolution and were selected because their methylation 
+#' # signature differs across the six normal leukocyte subtypes.
 #' data(IDOLOptimizedCpGs)
-
-#' # Step 4: Deconvolute a target data set consisting of EPIC DNA methlation data
-#' # profiled in blood, using your prefered method estimateCellCounts (minfi), or similar
-#' # We recommend using Noob as the preprocess method (processMethod = "preprocessNoob" in minfi)
-#' # for the target and reference datasets
-#' # Cell types included are cellTypes = c("CD8T", "CD4T", "NK", "Bcell", "Mono", "Neu")
+#' # Step 4: Deconvolute a target data set consisting of EPIC DNA methlation 
+#' # data profiled in blood, using your prefered method estimateCellCounts 
+#' # (minfi), or similar.
+#' # We recommend using Noob processMethod = "preprocessNoob" in minfi
+#' # for the target and reference datasets Cell types included are 
+#' # cellTypes = c("CD8T", "CD4T", "NK", "Bcell", "Mono", "Neu")
 #' # We also provide an IDOL optimized list of CpGs (IDOLOptimizedCpGs)
 #' # that can be used for optimized cell estimations
-#' # We offer an adaptation of the popular estimateCellCounts in minfi to allow the inclusion of customized reference arrays
-#' # to select the custom IDOL use probeSelect = "IDOL"
-#' countsEPIC<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", processMethod = "preprocessNoob",
-#'                                  probeSelect = "IDOL", cellTypes = c("CD8T", "CD4T", "NK",
-#'                                  "Bcell", "Mono", "Neu"), referencePlatform = "IlluminaHumanMethylationEPIC",
-#'                                  referenceset=FlowSorted.Blood.EPIC, IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
-#'                                  returnAll = FALSE)
-
-
+#' # We offer an adaptation of the popular estimateCellCounts in minfi to allow 
+#' # the inclusion of customized reference arrays to select the custom IDOL use 
+#' # probeSelect = "IDOL"
+#' countsEPIC<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
+#'                                 processMethod = "preprocessNoob",
+#'                                 probeSelect = "IDOL", 
+#'                                 cellTypes = c("CD8T", "CD4T", "NK", "Bcell", 
+#'                                 "Mono", "Neu"), 
+#'                                 referencePlatform = 
+#'                                 "IlluminaHumanMethylationEPIC",
+#'                                 referenceset=FlowSorted.Blood.EPIC, 
+#'                                 IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
+#'                                 returnAll = FALSE)
 #' 
-
 #' @export
-estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood", processMethod = c("auto", "preprocessNoob"), probeSelect = c("auto", "any", "IDOL"), cellTypes = c("CD8T", "CD4T", "NK", "Bcell", "Mono", "Neu"), 
-    referencePlatform = c("IlluminaHumanMethylation450k", "IlluminaHumanMethylationEPIC", "IlluminaHumanMethylation27k"), referenceset = NULL, IDOLOptimizedCpGs = NULL, returnAll = FALSE, meanPlot = FALSE, verbose = TRUE, 
+estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood", 
+                                processMethod = c("auto", "preprocessNoob"), 
+                                probeSelect = c("auto", "any", "IDOL"), 
+                                cellTypes = c("CD8T", "CD4T", "NK", "Bcell", 
+                                              "Mono", "Neu"), 
+                                referencePlatform = 
+                                    c("IlluminaHumanMethylation450k", 
+                                      "IlluminaHumanMethylationEPIC", 
+                                      "IlluminaHumanMethylation27k"), 
+                                referenceset = NULL, IDOLOptimizedCpGs = NULL, 
+                                returnAll = FALSE, meanPlot = FALSE, 
+                                verbose = TRUE, 
     ...) {
     minfi:::.isRGOrStop(rgSet)
     rgSet <- as(rgSet, "RGChannelSet")
     referencePlatform <- match.arg(referencePlatform)
-    rgPlatform <- sub("IlluminaHumanMethylation", "", annotation(rgSet)[which(names(annotation(rgSet)) == "array")])
+    rgPlatform <- sub("IlluminaHumanMethylation", "", 
+            annotation(rgSet)[which(names(annotation(rgSet)) == "array")])
     platform <- sub("IlluminaHumanMethylation", "", referencePlatform)
     if ((compositeCellType == "CordBlood") && (!"nRBC" %in% cellTypes)) 
-        message("[estimateCellCounts] Consider including 'nRBC' in argument 'cellTypes' for cord blood estimation.\n")
+message("[estimateCellCounts] Consider including 'nRBC' in argument 'cellTypes' for cord blood estimation.\n")
+    #if ((compositeCellType == "Blood") && (referencePlatform == "IlluminaHumanMethylationEPIC") &&
+    #    ("Gran" %in% cellTypes)) 
+    #    message("[estimateCellCounts] Replace 'Gran' for 'Neu' in argument 'cellTypes' for EPIC blood estimation.\n")
     referencePkg <- sprintf("FlowSorted.%s.%s", compositeCellType, platform)
     subverbose <- max(as.integer(verbose) - 1L, 0L)
     if (!require(referencePkg, character.only = TRUE)) {
@@ -62,14 +75,15 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood", processMetho
         referenceRGset <- get(referencePkg)
     }
     if (rgPlatform != platform) {
-        rgSet <- convertArray(rgSet, outType = referencePlatform, verbose = T)
+        rgSet <- convertArray(rgSet, outType = referencePlatform, verbose = TRUE)
     }
     if (!"CellType" %in% names(colData(referenceRGset))) 
         stop(sprintf("the reference sorted dataset (in this case '%s') needs to have a phenoData column called 'CellType'"), names(referencePkg))
     if (sum(colnames(rgSet) %in% colnames(referenceRGset)) > 0) 
         stop("the sample/column names in the user set must not be in the reference data ")
     if (!all(cellTypes %in% referenceRGset$CellType)) 
-        stop(sprintf("all elements of argument 'cellTypes' needs to be part of the reference phenoData columns 'CellType' (containg the following elements: '%s')", paste(unique(referenceRGset$cellType), collapse = "', '")))
+        stop(sprintf("all elements of argument 'cellTypes' needs to be part of the reference phenoData columns 'CellType' (containg the following elements: '%s')", 
+                     paste(unique(referenceRGset$cellType), collapse = "', '")))
     if (length(unique(cellTypes)) < 2) 
         stop("At least 2 cell types must be provided.")
     if ((processMethod == "auto") && (compositeCellType %in% c("Blood", "DLPFC"))) 
