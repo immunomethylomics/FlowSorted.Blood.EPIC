@@ -5,6 +5,11 @@
 \alias{FlowSorted.Blood.EPIC}
 \title{FlowSorted.Blood.EPIC}
 \format{A class: RGChannelSet, dimensions: 1051815 49}
+\source{
+\url{https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110554}
+The FlowSorted.Blood.EPIC objects is based in samples assayed
+by Brock Christensen and colleagues; manuscript submmited.
+}
 \usage{
 FlowSorted.Blood.EPIC
 }
@@ -38,5 +43,19 @@ the algorithm constrained projection/quadratic programming described
 in Houseman et al. 2012. For a slightly more accurate estimations we also
 offered an IDOL optimized CpG selection for cell deconvolution as the object 
 IDOLOptimizedCpGs.
+}
+\seealso{
+References \enumerate{
+\item DC Koestler et al. (2016). \emph{Improving cell mixture deconvolution by
+identifying optimal DNA methylation libraries (IDOL)}. BMC bioinformatics.
+17, 120.
+\item EA Houseman et al. (2012) \emph{DNA methylation arrays as surrogate
+measures of cell mixture distribution}. BMC Bioinformatics 13, 86.
+\item \pkg{minfi} package for tools for estimating cell type
+composition in blood using these data
+}
+
+# Do not run
+# data("FlowSorted.Blood.EPIC")
 }
 \keyword{datasets}

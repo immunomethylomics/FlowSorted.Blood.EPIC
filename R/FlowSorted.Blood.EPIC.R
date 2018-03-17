@@ -31,11 +31,7 @@
 #'
 #'
 #' @format A class: RGChannelSet, dimensions: 1051815 49 
-"FlowSorted.Blood.EPIC"
-#' # Do not run
-#' # data("FlowSorted.Blood.EPIC")
-#' 
-
+#' @source \url{https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110554}
 #' The FlowSorted.Blood.EPIC objects is based in samples assayed
 #' by Brock Christensen and colleagues; manuscript submmited.
 #' @seealso
@@ -51,4 +47,8 @@
 
 #' }
 #' 
+#' # Do not run
+#' # data("FlowSorted.Blood.EPIC")
+#' 
+"FlowSorted.Blood.EPIC"
 

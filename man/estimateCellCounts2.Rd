@@ -6,12 +6,68 @@
 and IDOL probes L-DMR lists}
 \usage{
 estimateCellCounts2(rgSet, compositeCellType = "Blood",
-  processMethod = c("auto", "preprocessNoob"), probeSelect = c("auto",
-  "any", "IDOL"), cellTypes = c("CD8T", "CD4T", "NK", "Bcell", "Mono", "Neu"),
+  processMethod = "preprocessNoob", probeSelect = c("auto", "any", "IDOL"),
+  cellTypes = c("CD8T", "CD4T", "NK", "Bcell", "Mono", "Neu"),
   referencePlatform = c("IlluminaHumanMethylation450k",
   "IlluminaHumanMethylationEPIC", "IlluminaHumanMethylation27k"),
   referenceset = NULL, IDOLOptimizedCpGs = NULL, returnAll = FALSE,
   meanPlot = FALSE, verbose = TRUE, ...)
+}
+\arguments{
+\item{rgSet}{The input RGChannelSet for the procedure.}
+
+\item{compositeCellType}{Which composite cell type is being deconvoluted. 
+Should be one of "Blood", "CordBlood", or "DLPFC".
+See details.}
+
+\item{processMethod}{How should the user and reference data be processed together? 
+Default input, "preprocessNoob" in minfi, you can use "auto" 
+for preprocessQuantile for Blood and DLPFC in 450K datasets 
+and preprocessNoob otherwise, according to existing 
+literature. Set it to any preprocessing function as a 
+character if you want to override it, like "preprocessFunnorm"}
+
+\item{probeSelect}{How should probes be selected to distinguish cell types? 
+Options include "IDOL", for using a customized set of probes 
+obtained from IDOL optimization, "both", which selects an 
+equal number (50) of probes (with F-stat p-value < 1E-8) 
+with the greatest magnitude of effect from the hyper- and 
+hypo-methylated sides, and "any", which selects the 100 probes 
+(with F-stat p-value < 1E-8) with the greatest magnitude of 
+difference regardless of direction of effect. This according 
+to minfi algorithm. Default input "auto" in minfi will use 
+"any" for cord blood and "both" otherwise. Please see minfi 
+estimateCellCounts references for more details.}
+
+\item{cellTypes}{A vector of length K that contains the cell type names.
+Default: c("CD8T", "CD4T", "NK", "Bcell", "Mono", "Neu").
+Please notice that this platform use Neutrophils instead 
+of Granulocytes. See details.}
+
+\item{referencePlatform}{The platform for the reference dataset; if the input rgSet 
+belongs to another platform, it will be converted using 
+minfi function convertArray.}
+
+\item{referenceset}{A custom reference rgset if it is not a package installed}
+
+\item{IDOLOptimizedCpGs}{a vector of probe names for cell deconvolution}
+
+\item{returnAll}{Should the composition table and the normalized user supplied 
+data be return? Default is False.}
+
+\item{meanPlot}{Whether to plots the average DNA methylation across the cell-type 
+discriminating probes within the mixed and sorted samples.}
+
+\item{verbose}{Should the function be verbose?}
+
+\item{...}{Other arguments for preprocessquantile}
+}
+\value{
+This function will return a list containing matrix ofcell count (counts), if
+returnAll=FALSE, or a list containing the counts, mean methylation per 
+cellType, and the normalized betas (if returnAll is set to TRUE). These 
+objects are important if you decide to use a different deconvolution 
+algorithm such as CIBERSORT or RPM.
 }
 \description{
 estimateCellCounts2 function allows the use of customized reference datasets 
@@ -28,12 +84,12 @@ sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
                             seq(along = cell.Mix), sep = "_")
 # Step 3: use your favorite package for deconvolution.
 # You can also read in the IDOL optimized DMR library based on the EPIC 
-# array.  Thisobject is nothing more than a vector of length 450 consisting 
+# array.  This object is nothing more than a vector of length 450 consisting 
 # of the names of the IDOL optimized CpGs.  These CpGs are used as the 
 # backbone for deconvolution and were selected because their methylation 
 # signature differs across the six normal leukocyte subtypes.
 data(IDOLOptimizedCpGs)
-# Step 4: Deconvolute a target data set consisting of EPIC DNA methlation 
+# Step 4: Deconvolute a target data set consisting of EPIC DNA methylation 
 # data profiled in blood, using your prefered method estimateCellCounts 
 # (minfi), or similar.
 # We recommend using Noob processMethod = "preprocessNoob" in minfi
@@ -42,17 +98,14 @@ data(IDOLOptimizedCpGs)
 # We also provide an IDOL optimized list of CpGs (IDOLOptimizedCpGs)
 # that can be used for optimized cell estimations
 # We offer an adaptation of the popular estimateCellCounts in minfi to allow 
-# the inclusion of customized reference arrays to select the custom IDOL use 
-# probeSelect = "IDOL"
-countsEPIC<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
+# the inclusion of customized reference arrays. 
+ countsEPIC<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
                                 processMethod = "preprocessNoob",
                                 probeSelect = "IDOL", 
                                 cellTypes = c("CD8T", "CD4T", "NK", "Bcell", 
                                 "Mono", "Neu"), 
                                 referencePlatform = 
                                 "IlluminaHumanMethylationEPIC",
-                                referenceset=FlowSorted.Blood.EPIC, 
                                 IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
                                 returnAll = FALSE)
-
 }
