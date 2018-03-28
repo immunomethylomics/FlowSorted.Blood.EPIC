@@ -14,7 +14,7 @@ estimateCellCounts2(rgSet, compositeCellType = "Blood",
   meanPlot = FALSE, verbose = TRUE, ...)
 }
 \arguments{
-\item{rgSet}{The input RGChannelSet for the procedure.}
+\item{rgSet}{The input RGChannelSet or raw MethylSet for the procedure.}
 
 \item{compositeCellType}{Which composite cell type is being deconvoluted. 
 Should be one of "Blood", "CordBlood", or "DLPFC".
@@ -24,7 +24,8 @@ See details.}
 Default input, "preprocessNoob" in minfi, you can use "auto" 
 for preprocessQuantile for Blood and DLPFC in 450K datasets 
 and preprocessNoob otherwise, according to existing 
-literature. Set it to any preprocessing function as a 
+literature. For MethylSet objects only "preprocessQuantile" is 
+available. Set it to any minfi preprocessing function as a 
 character if you want to override it, like "preprocessFunnorm"}
 
 \item{probeSelect}{How should probes be selected to distinguish cell types? 
@@ -48,7 +49,8 @@ of Granulocytes. See details.}
 belongs to another platform, it will be converted using 
 minfi function convertArray.}
 
-\item{referenceset}{A custom reference rgset if it is not a package installed}
+\item{referenceset}{A custom reference rgset (in quotes) if it is not a package 
+installed}
 
 \item{IDOLOptimizedCpGs}{a vector of probe names for cell deconvolution}
 
@@ -63,8 +65,8 @@ discriminating probes within the mixed and sorted samples.}
 \item{...}{Other arguments for preprocessquantile}
 }
 \value{
-This function will return a list containing matrix ofcell count (counts), if
-returnAll=FALSE, or a list containing the counts, mean methylation per 
+This function will return a list containing matrix of cell counts (counts), 
+if returnAll=FALSE, or a list containing the counts, mean methylation per 
 cellType, and the normalized betas (if returnAll is set to TRUE). These 
 objects are important if you decide to use a different deconvolution 
 algorithm such as CIBERSORT or RPM.
@@ -83,17 +85,17 @@ RGsetTargets <- FlowSorted.Blood.EPIC[, cell.Mix]
 sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
                             seq(along = cell.Mix), sep = "_")
 # Step 3: use your favorite package for deconvolution.
+# Deconvolute a target data set consisting of EPIC DNA methylation 
+# data profiled in blood, using your prefered method estimateCellCounts 
+# (minfi), or similar.
 # You can also read in the IDOL optimized DMR library based on the EPIC 
 # array.  This object is nothing more than a vector of length 450 consisting 
 # of the names of the IDOL optimized CpGs.  These CpGs are used as the 
 # backbone for deconvolution and were selected because their methylation 
 # signature differs across the six normal leukocyte subtypes.
 data(IDOLOptimizedCpGs)
-# Step 4: Deconvolute a target data set consisting of EPIC DNA methylation 
-# data profiled in blood, using your prefered method estimateCellCounts 
-# (minfi), or similar.
 # We recommend using Noob processMethod = "preprocessNoob" in minfi
-# for the target and reference datasets Cell types included are 
+# for the target and reference datasets. Cell types included are 
 # cellTypes = c("CD8T", "CD4T", "NK", "Bcell", "Mono", "Neu")
 # We also provide an IDOL optimized list of CpGs (IDOLOptimizedCpGs)
 # that can be used for optimized cell estimations
@@ -108,4 +110,46 @@ data(IDOLOptimizedCpGs)
                                 "IlluminaHumanMethylationEPIC",
                                 IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
                                 returnAll = FALSE)
+# If you prefer CIBERSORT or RPC deconvolution use EpiDISH or similar
+# Example not to run
+# countsEPIC<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
+#                                processMethod = "preprocessNoob",
+#                                probeSelect = "IDOL", 
+#                                cellTypes = c("CD8T", "CD4T", "NK", "Bcell", 
+#                                "Mono", "Neu"), 
+#                                referencePlatform = 
+#                                "IlluminaHumanMethylationEPIC",
+#                                IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
+#                                returnAll = TRUE)
+# library(EpiDISH)
+#  RPC <- epidish(getBeta(countsEPIC2$normalizedData), 
+# as.matrix(countsEPIC2$compTable[IDOLOptimizedCpGs, 3:8]), method = "RPC")
+# CBS <- epidish(getBeta(countsEPIC2$normalizedData), 
+#as.matrix(countsEPIC2$compTable[IDOLOptimizedCpGs, 3:8]), method = "CBS")
+# RPC$estF#RPC count estimates
+# CBS$estF#CBS count estimates
+}
+\references{
+D Koestler et al. (2016). \emph{Improving cell mixture 
+deconvolution by identifying optimal DNA methylation libraries (IDOL)}. 
+BMC bioinformatics. 17, 120.
+
+EA Houseman, et al.(2012)  \emph{DNA methylation arrays as 
+surrogate measures of cell mixture distribution}. BMC bioinformatics  13:86. 
+doi:10.1186/1471-2105-13-86.
+
+AE Jaffe and RA Irizarry.(2014) \emph{Accounting for cellular 
+heterogeneity is critical in epigenome-wide association studies}. 
+Genome Biology  15:R31. doi:10.1186/gb-2014-15-2-r31.
+
+KM Bakulski, et al. (2016) \emph{DNA methylation of cord blood 
+cell types: Applications for mixed cell birth studies}. Epigenetics 11:5. 
+doi:10.1080/15592294.2016.1161875.
+
+Titus AJ, et al. (2017). \emph{Cell-type deconvolution from DNA 
+methylation: a review of recent applications}. Hum Mol Genet 26: R216-R224.
+
+Teschendorff AE, et al. (2017). \emph{A comparison of 
+reference-based algorithms for correcting cell-type heterogeneity in 
+Epigenome-Wide Association Studies}. BMC Bioinformatics 18: 105.
 }

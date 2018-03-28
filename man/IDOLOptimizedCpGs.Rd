@@ -7,12 +7,7 @@
 \format{An object of class "character" of length 450.
 
         The format is:
-        chr [1:450] "cg08769189" "cg07661835" "cg00219921" "cg13468685" "cg04329870" "cg14085952" "cg09318840" "cg02133939" "cg07215281" "cg07879474" "cg00482026" "cg20538211" "cg00948513" ...
-
-References:
-    D Koestler et al. (2016). \emph{Improving cell mixture deconvolution by 
-        identifying optimal DNA methylation libraries (IDOL)}. BMC bioinformatics. 
-    17, 120.}
+        chr [1:450] "cg08769189" "cg07661835" "cg00219921" "cg13468685" "cg04329870" "cg14085952" "cg09318840" "cg02133939" "cg07215281" "cg07879474" "cg00482026" "cg20538211" "cg00948513" ...}
 \usage{
 IDOLOptimizedCpGs
 }
@@ -25,5 +20,10 @@ This object is nothing more than a vector of length 450 consisting of the names 
 \examples{
 # Do not run
 # data("IDOLOptimizedCpGs")
+}
+\references{
+D Koestler et al. (2016). \emph{Improving cell mixture 
+deconvolution by identifying optimal DNA methylation libraries (IDOL)}. 
+BMC bioinformatics. 17, 120.
 }
 \keyword{datasets}
