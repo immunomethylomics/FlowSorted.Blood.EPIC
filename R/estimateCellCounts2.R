@@ -228,6 +228,8 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                                         times = c(ncol(rgSet), 
                                                   ncol(referenceRGset))), 
                        stringsAsFactors = FALSE)
+    if(is.null(rgSet$CellType))
+    rgSet$CellType<-rep("NA", dim(rgSet)[2])
     commoncolumn<-intersect(names(colData(rgSet)), names(colData(referenceRGset)))
     colData(referenceRGset)[commoncolumn] <- mapply(FUN = as,colData(referenceRGset)[commoncolumn],
                                                     sapply(colData(rgSet)[commoncolumn],class),SIMPLIFY = FALSE)
@@ -373,7 +375,7 @@ pickCompProbes <- function(mSet, cellTypes = NULL, numProbes = 50,
     pd$CellType <- factor(pd$CellType, levels = cellTypes)
     ffComp <- rowFtests(p, pd$CellType)
     prof <- sapply(splitit(pd$CellType), function(i) rowMeans(p[,i]))
-    r <- matrixStats::rowRanges(p)
+    r <- rowRanges(p)
     compTable <- cbind(ffComp, prof, r, abs(r[,1] - r[,2]))
     names(compTable)[1] <- "Fstat"
     names(compTable)[c(-2,-1,0) + ncol(compTable)] <- c("low", "high", "range") 
