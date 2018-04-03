@@ -3,16 +3,17 @@ RGsetTargets <- FlowSorted.Blood.EPIC[, cell.Mix]
 sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
                                    seq(along = cell.Mix), sep = "_")
 
+countsEPIC0<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
+                                 processMethod = "preprocessNoob",
+                                 probeSelect = "IDOL", 
+                                 cellTypes = c("CD8T", "CD4T", "NK", "Bcell", 
+                                               "Mono", "Neu"), 
+                                 referencePlatform = 
+                                     "IlluminaHumanMethylationEPIC",
+                                 IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
+                                 returnAll = FALSE)
 
-expect_is(estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
-                                processMethod = "preprocessNoob",
-                                probeSelect = "IDOL", 
-                                cellTypes = c("CD8T", "CD4T", "NK", "Bcell", 
-                                              "Mono", "Neu"), 
-                                referencePlatform = 
-                                    "IlluminaHumanMethylationEPIC",
-                                IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
-                                returnAll = FALSE), "list")
+expect_is(countsEPIC0, "list")
 
 countsEPIC<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
                                 processMethod = "preprocessNoob",
@@ -36,7 +37,7 @@ expect_error(estimateCellCounts2(RGsetTargets, compositeCellType = "Blood",
                                   "IlluminaHumanMethylationEPIC",
                               IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
                               returnAll = FALSE))
-expect_error(estimateCellCounts2(RGsetTargets, compositeCellType = "CordBlood", 
+expect_warning(expect_error(estimateCellCounts2(RGsetTargets, compositeCellType = "CordBlood", 
                                    processMethod = "preprocessNoob",
                                    probeSelect = "IDOL", 
                                    cellTypes = c("CD8T", "CD4T", "NK", "Bcell", 
@@ -44,7 +45,7 @@ expect_error(estimateCellCounts2(RGsetTargets, compositeCellType = "CordBlood",
                                    referencePlatform = 
                                        "IlluminaHumanMethylationEPIC",
                                    IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
-                                   returnAll = FALSE))
+                                   returnAll = FALSE)))
 RGsetTargets2<-preprocessRaw(RGsetTargets)
 expect_error(estimateCellCounts2(RGsetTargets2, compositeCellType = "Blood", 
                               processMethod = "preprocessNoob",
@@ -55,12 +56,13 @@ expect_error(estimateCellCounts2(RGsetTargets2, compositeCellType = "Blood",
                                   "IlluminaHumanMethylationEPIC",
                               IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
                               returnAll = FALSE), "object is of class 'MethylSet', but needs to be of class 'RGChannelSet' or 'RGChannelSetExtended' to use other methods different to 'preprocessQuantile'")
-expect_is(estimateCellCounts2(RGsetTargets2, compositeCellType = "Blood", 
-                                 processMethod = "preprocessQuantile",
-                                 probeSelect = "IDOL", 
-                                 cellTypes = c("CD8T", "CD4T", "NK", "Bcell", 
-                                               "Mono", "Neu"), 
-                                 referencePlatform = 
-                                     "IlluminaHumanMethylationEPIC",
-                                 IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
-                                 returnAll = FALSE), "list")
+countsEPIC2<-estimateCellCounts2(RGsetTargets2, compositeCellType = "Blood", 
+                    processMethod = "preprocessQuantile",
+                    probeSelect = "IDOL", 
+                    cellTypes = c("CD8T", "CD4T", "NK", "Bcell", 
+                                  "Mono", "Neu"), 
+                    referencePlatform = 
+                        "IlluminaHumanMethylationEPIC",
+                    IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
+                    returnAll = FALSE)
+expect_is(countsEPIC2, "list")

@@ -3,6 +3,7 @@
 #' @import minfi
 #' @import SummarizedExperiment
 #' @import S4Vectors
+#' @import IlluminaHumanMethylationEPICanno.ilm10b4.hg19
 #' @importFrom  graphics legend
 #' @importFrom  graphics plot
 #' @importFrom  stats as.formula
@@ -101,7 +102,7 @@
 #'                available. Set it to any minfi preprocessing function as a 
 #'                character if you want to override it, like "preprocessFunnorm"
 #' @param 
-#' probeSelect	 How should probes be selected to distinguish cell types? 
+#' probeSelect    How should probes be selected to distinguish cell types? 
 #'                Options include "IDOL", for using a customized set of probes 
 #'                obtained from IDOL optimization, "both", which selects an 
 #'                equal number (50) of probes (with F-stat p-value < 1E-8) 
@@ -127,13 +128,13 @@
 #' @param
 #' IDOLOptimizedCpGs a vector of probe names for cell deconvolution
 #' @param 
-#' returnAll	Should the composition table and the normalized user supplied 
+#' returnAll    Should the composition table and the normalized user supplied 
 #'              data be return? Default is False.
 #' @param              
 #' verbose Should the function be verbose?
 #' @param
-#' meanPlot	Whether to plots the average DNA methylation across the cell-type 
-#'          discriminating probes within the mixed and sorted samples.
+#' meanPlot    Whether to plots the average DNA methylation across the cell-type 
+#'             discriminating probes within the mixed and sorted samples.
 #' @param 
 #' ...  Other arguments for preprocessquantile
 #'@return
@@ -149,10 +150,9 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                                 probeSelect = c("auto", "any", "IDOL"), 
                                 cellTypes = c("CD8T", "CD4T", "NK", "Bcell", 
                                               "Mono", "Neu"), 
-                                referencePlatform = 
-                                    c("IlluminaHumanMethylation450k", 
-                                      "IlluminaHumanMethylationEPIC", 
-                                      "IlluminaHumanMethylation27k"), 
+                                referencePlatform = c("IlluminaHumanMethylation450k", 
+                                                      "IlluminaHumanMethylationEPIC", 
+                                                      "IlluminaHumanMethylation27k"), 
                                 referenceset = NULL, IDOLOptimizedCpGs = NULL, 
                                 returnAll = FALSE, meanPlot = FALSE, 
                                 verbose = TRUE, 
@@ -170,7 +170,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     if (is(rgSet, "RGChannelSetExtended"))
         rgSet <- as(rgSet, "RGChannelSet")
     referencePlatform <- match.arg(referencePlatform)
-    rgPlatform <- sub("IlluminaHumanMethylation", "", 
+    rgPlatform <- sub("IlluminaHumanMethylation", "",
                       annotation(rgSet)[which(names(annotation(rgSet)) == "array")])
     platform <- sub("IlluminaHumanMethylation", "", referencePlatform)
     if ((compositeCellType == "CordBlood") && (!"nRBC" %in% cellTypes)) 
@@ -187,8 +187,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
             referenceRGset<-preprocessRaw(referenceRGset)
     } else{ 
         if (!require(referencePkg, character.only = TRUE)) 
-            stop(sprintf("Could not find reference data package for compositeCellType '%s' and referencePlatform '%s' (inferred package name is '%s')", compositeCellType, 
-                         platform, referencePkg))
+            stop(sprintf("Could not find reference data package for compositeCellType '%s' and referencePlatform '%s' (inferred package name is '%s')", compositeCellType, platform, referencePkg))
         referenceRGset <- get(referencePkg)
         if (!is(rgSet, "RGChannelSet"))
             referenceRGset<-preprocessRaw(referenceRGset)
@@ -232,7 +231,9 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     rgSet$CellType<-rep("NA", dim(rgSet)[2])
     commoncolumn<-intersect(names(colData(rgSet)), names(colData(referenceRGset)))
     colData(referenceRGset)[commoncolumn] <- mapply(FUN = as,colData(referenceRGset)[commoncolumn],
-                                                    sapply(colData(rgSet)[commoncolumn],class),SIMPLIFY = FALSE)
+                                                    vapply(colData(RGsetTargets)[commoncolumn],
+                                                           class, FUN.VALUE=character(1)),
+                                                    SIMPLIFY = FALSE)
     colData(referenceRGset)<-colData(referenceRGset)[commoncolumn]
     referencePd <- colData(referenceRGset)
     combinedRGset <- combineArrays(rgSet, referenceRGset, 
@@ -280,7 +281,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                                   as.numeric(factor(names(smeans))))
             plot(sampleMeans, pch = 21, bg = sampleColors)
             legend("bottomleft", c("blood", levels(factor(names(smeans)))), 
-                   col = 1:7, pch = 15)
+                   col = seq_len(7), pch = 15)
         }
         if (returnAll) {
             list(counts = counts, compTable = compData$compTable, 
@@ -300,8 +301,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         }
         pd$CellType <- factor(pd$CellType, levels = cellTypes)
         ffComp <- rowFtests(p, pd$CellType)
-        prof <- sapply(splitit(pd$CellType), function(i) rowMeans(p[, 
-                                                                    i]))
+        prof <- vapply(splitit(pd$CellType), function(i) rowMeans(p[,i]), FUN.VALUE=numeric(dim(p)[1]))
         r <- rowRanges(p)
         compTable <- cbind(ffComp, prof, r, abs(r[, 1] - r[, 2]))
         names(compTable)[1] <- "Fstat"
@@ -332,6 +332,8 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
             coefEsts <- tmp$coefEsts
             coefs <- coefEsts
         }
+        compData<-list(coefEsts = coefEsts, compTable = compTable,
+                       sampleMeans = pMeans)
         rm(referenceMset)
         if (verbose) 
             message("[estimateCellCounts2] Estimating composition.\n")
@@ -345,7 +347,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                                   as.numeric(factor(names(smeans))))
             plot(sampleMeans, pch = 21, bg = sampleColors)
             legend("bottomleft", c("blood", levels(factor(names(smeans)))), 
-                   col = 1:7, pch = 15)
+                   col = seq_len(7), pch = 15)
         }
         if (returnAll) {
             list(counts = counts, compTable = compTable, normalizedData = mSet)
@@ -374,7 +376,7 @@ pickCompProbes <- function(mSet, cellTypes = NULL, numProbes = 50,
     ## make cell type a factor 
     pd$CellType <- factor(pd$CellType, levels = cellTypes)
     ffComp <- rowFtests(p, pd$CellType)
-    prof <- sapply(splitit(pd$CellType), function(i) rowMeans(p[,i]))
+    prof <- vapply(splitit(pd$CellType), function(i) rowMeans(p[,i]), FUN.VALUE=numeric(dim(p)[1]))
     r <- rowRanges(p)
     compTable <- cbind(ffComp, prof, r, abs(r[,1] - r[,2]))
     names(compTable)[1] <- "Fstat"
@@ -390,14 +392,14 @@ pickCompProbes <- function(mSet, cellTypes = NULL, numProbes = 50,
         probeList <- lapply(tstatList, function(x) {
             y <- x[x[,"p.value"] < 1e-8,]
             yAny <- y[order(abs(y[,"dm"]), decreasing=TRUE),]      
-            c(rownames(yAny)[1:(numProbes*2)])
+            c(rownames(yAny)[seq_len(numProbes*2)])
         })
     } else {
         probeList <- lapply(tstatList, function(x) {
             y <- x[x[,"p.value"] < 1e-8,]
             yUp <- y[order(y[,"dm"], decreasing=TRUE),]
             yDown <- y[order(y[,"dm"], decreasing=FALSE),]
-            c(rownames(yUp)[1:numProbes], rownames(yDown)[1:numProbes])
+            c(rownames(yUp)[seq_len(numProbes)], rownames(yDown)[seq_len(numProbes)])
         })
     }
     
@@ -452,14 +454,14 @@ projectCellType <- function(Y, coefCellType, contrastCellType=NULL,
                 Amat <- diag(nCol)
                 b0vec <- rep(0, nCol)
             }
-            for(i in 1:nSubj) {
+            for(i in seq_len(nSubj)) {
                 obs <- which(!is.na(Y[,i])) 
                 Dmat <- crossprod(Xmat[obs,])
                 mixCoef[i,] <- solve.QP(Dmat, crossprod(Xmat[obs,], Y[obs,i]), 
                                         Amat, b0vec)$sol
             }
         } else {
-            for(i in 1:nSubj) {
+            for(i in seq_len(nSubj)) {
                 obs <- which(!is.na(Y[,i])) 
                 Dmat <- crossprod(Xmat[obs,])
                 mixCoef[i,] <- solve(Dmat, t(Xmat[obs,]) %*% Y[obs,i])
@@ -490,7 +492,7 @@ validationCellType <- function(Y, pheno, modelFix, modelBatch=NULL,
     
     if(verbose)
         cat("[validationCellType] ")
-    for(j in 1:M) { # For each CpG
+    for(j in seq_len(M)) { # For each CpG
         ## Remove missing methylation values
         ii <- !is.na(Y[j,])
         nObserved[j] <- sum(ii)
