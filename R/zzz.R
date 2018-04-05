@@ -1,0 +1,10 @@
+.onLoad <- function(libname = find.package("FlowSorted.Blood.EPIC"), pkgname = "FlowSorted.Blood.EPIC"){
+    
+    # CRAN Note avoidance
+    if(getRversion() >= "3.4.0") 
+        utils::globalVariables(c("RGsetTargets"))
+invisible()
+}
+#.onUnload <- function (libpath) {
+#    library.dynam.unload("FlowSorted.Blood.EPIC", libpath)
+#}

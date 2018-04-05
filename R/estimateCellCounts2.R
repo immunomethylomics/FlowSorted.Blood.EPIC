@@ -19,13 +19,13 @@
 #' @importFrom nlme getVarCov
 #' @examples
 #' # Step 1: Load the library(FlowSorted.Blood.EPIC)
-#' data(FlowSorted.Blood.EPIC)
+#' # data(FlowSorted.Blood.EPIC)
 #' # Step 2 separate the reference from the testing dataset if you want to run 
 #' # examples for estimations for this function example
-#' cell.Mix <- which(FlowSorted.Blood.EPIC$CellType == "MIX")
-#' RGsetTargets <- FlowSorted.Blood.EPIC[, cell.Mix]
+#' RGsetTargets <- FlowSorted.Blood.EPIC[,
+#'              FlowSorted.Blood.EPIC$CellType == "MIX"]
 #' sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
-#'                             seq(along = cell.Mix), sep = "_")
+#'                             seq_len(dim(RGsetTargets)[2]), sep = "_")
 #' # Step 3: use your favorite package for deconvolution.
 #' # Deconvolute a target data set consisting of EPIC DNA methylation 
 #' # data profiled in blood, using your prefered method estimateCellCounts 
@@ -57,8 +57,8 @@
 #' # countsEPIC<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
 #' #                                processMethod = "preprocessNoob",
 #' #                                probeSelect = "IDOL", 
-#' #                                cellTypes = c("CD8T", "CD4T", "NK", "Bcell", 
-#' #                                "Mono", "Neu"), 
+#' #                                cellTypes = c("CD8T", "CD4T", "NK", 
+#' #                                "Bcell", "Mono", "Neu"), 
 #' #                                referencePlatform = 
 #' #                                "IlluminaHumanMethylationEPIC",
 #' #                                IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
@@ -98,21 +98,22 @@
 #'                Default input, "preprocessNoob" in minfi, you can use "auto" 
 #'                for preprocessQuantile for Blood and DLPFC in 450K datasets 
 #'                and preprocessNoob otherwise, according to existing 
-#'                literature. For MethylSet objects only "preprocessQuantile" is 
-#'                available. Set it to any minfi preprocessing function as a 
-#'                character if you want to override it, like "preprocessFunnorm"
+#'                literature. For MethylSet objects only "preprocessQuantile"  
+#'                is available. Set it to any minfi preprocessing function as a 
+#'                character if you want to override it, like 
+#'                "preprocessFunnorm"
 #' @param 
 #' probeSelect    How should probes be selected to distinguish cell types? 
 #'                Options include "IDOL", for using a customized set of probes 
 #'                obtained from IDOL optimization, "both", which selects an 
 #'                equal number (50) of probes (with F-stat p-value < 1E-8) 
 #'                with the greatest magnitude of effect from the hyper- and 
-#'                hypo-methylated sides, and "any", which selects the 100 probes 
-#'                (with F-stat p-value < 1E-8) with the greatest magnitude of 
-#'                difference regardless of direction of effect. This according 
-#'                to minfi algorithm. Default input "auto" in minfi will use 
-#'                "any" for cord blood and "both" otherwise. Please see minfi 
-#'                estimateCellCounts references for more details.
+#'                hypo-methylated sides, and "any", which selects the 100  
+#'                probes (with F-stat p-value < 1E-8) with the greatest  
+#'                magnitude of difference regardless of direction of effect.  
+#'                This according to minfi algorithm. Default input "auto" in  
+#'                minfi will use "any" for cord blood and "both" otherwise.  
+#'                Please see references for more details.
 #' @param 
 #' cellTypes     A vector of length K that contains the cell type names.  
 #'                Default: c("CD8T", "CD4T", "NK", "Bcell", "Mono", "Neu").
@@ -133,8 +134,9 @@
 #' @param              
 #' verbose Should the function be verbose?
 #' @param
-#' meanPlot    Whether to plots the average DNA methylation across the cell-type 
-#'             discriminating probes within the mixed and sorted samples.
+#' meanPlot    Whether to plots the average DNA methylation across the  
+#'             cell-type discriminating probes within the mixed and sorted 
+#'             samples.
 #' @param 
 #' ...  Other arguments for preprocessquantile
 #'@return
@@ -143,7 +145,6 @@
 #' cellType, and the normalized betas (if returnAll is set to TRUE). These 
 #' objects are important if you decide to use a different deconvolution 
 #' algorithm such as CIBERSORT or RPM.
-#' 
 #' @export
 estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood", 
                                 processMethod = "preprocessNoob", 
@@ -170,8 +171,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     if (is(rgSet, "RGChannelSetExtended"))
         rgSet <- as(rgSet, "RGChannelSet")
     referencePlatform <- match.arg(referencePlatform)
-    rgPlatform <- sub("IlluminaHumanMethylation", "",
-                      annotation(rgSet)[which(names(annotation(rgSet)) == "array")])
+    rgPlatform <- sub("IlluminaHumanMethylation", "",annotation(rgSet)[which(names(annotation(rgSet)) == "array")])
     platform <- sub("IlluminaHumanMethylation", "", referencePlatform)
     if ((compositeCellType == "CordBlood") && (!"nRBC" %in% cellTypes)) 
         message("[estimateCellCounts2] Consider including 'nRBC' in argument 'cellTypes' for cord blood estimation.\n")
@@ -193,8 +193,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
             referenceRGset<-preprocessRaw(referenceRGset)
     }   
     if (rgPlatform != platform) {
-        rgSet <- convertArray(rgSet, outType = referencePlatform, 
-                              verbose = TRUE)
+        rgSet <- convertArray(rgSet, outType = referencePlatform, verbose = TRUE)
     }
     
     if (!"CellType" %in% names(colData(referenceRGset))) 
@@ -206,8 +205,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         stop(sprintf("all elements of argument 'cellTypes' needs to be part of the reference phenoData columns 'CellType' (containg the following elements: '%s')", paste(unique(referenceRGset$cellType), collapse = "', '")))
     if (length(unique(cellTypes)) < 2) 
         stop("At least 2 cell types must be provided.")
-    if ((processMethod == "auto") && (compositeCellType %in% c("Blood", 
-                                                               "DLPFC"))) 
+    if ((processMethod == "auto") && (compositeCellType %in% c("Blood", "DLPFC"))) 
         processMethod <- "preprocessQuantile"
     if ((processMethod == "auto") && (!compositeCellType %in% c("Blood","DLPFC")) && (is(rgSet, "RGChannelSet"))) 
         processMethod <- "preprocessNoob"
@@ -221,20 +219,16 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     if (verbose) 
         message("[estimateCellCounts2] Combining user data with reference (flow sorted) data.\n")
     
-    newpd <- DataFrame(sampleNames = c(colnames(rgSet), 
-                                       colnames(referenceRGset)), 
-                       studyIndex = rep(c("user", "reference"), 
-                                        times = c(ncol(rgSet), 
-                                                  ncol(referenceRGset))), 
+    newpd <- DataFrame(sampleNames = c(colnames(rgSet), colnames(referenceRGset)), 
+                       studyIndex = rep(c("user", "reference"), times = c(ncol(rgSet), ncol(referenceRGset))), 
                        stringsAsFactors = FALSE)
     if(is.null(rgSet$CellType))
-    rgSet$CellType<-rep("NA", dim(rgSet)[2])
+        rgSet$CellType<-rep("NA", dim(rgSet)[2])
     commoncolumn<-intersect(names(colData(rgSet)), names(colData(referenceRGset)))
-    colData(referenceRGset)[commoncolumn] <- mapply(FUN = as,colData(referenceRGset)[commoncolumn],
-                                                    vapply(colData(RGsetTargets)[commoncolumn],
-                                                           class, FUN.VALUE=character(1)),
+    colData(referenceRGset)[commoncolumn] <- mapply(FUN = as,colData(referenceRGset)[commoncolumn],vapply(colData(RGsetTargets)[commoncolumn],class, FUN.VALUE=character(1)),
                                                     SIMPLIFY = FALSE)
     colData(referenceRGset)<-colData(referenceRGset)[commoncolumn]
+    colData(rgSet)<-colData(rgSet)[commoncolumn]
     referencePd <- colData(referenceRGset)
     combinedRGset <- combineArrays(rgSet, referenceRGset, 
                                    outType = referencePlatform)
@@ -549,7 +543,6 @@ validationCellType <- function(Y, pheno, modelFix, modelBatch=NULL,
     
     out
 }
-
 
 
 splitit <- function(x) {

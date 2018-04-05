@@ -24,21 +24,22 @@ See details.}
 Default input, "preprocessNoob" in minfi, you can use "auto" 
 for preprocessQuantile for Blood and DLPFC in 450K datasets 
 and preprocessNoob otherwise, according to existing 
-literature. For MethylSet objects only "preprocessQuantile" is 
-available. Set it to any minfi preprocessing function as a 
-character if you want to override it, like "preprocessFunnorm"}
+literature. For MethylSet objects only "preprocessQuantile"  
+is available. Set it to any minfi preprocessing function as a 
+character if you want to override it, like 
+"preprocessFunnorm"}
 
 \item{probeSelect}{How should probes be selected to distinguish cell types? 
 Options include "IDOL", for using a customized set of probes 
 obtained from IDOL optimization, "both", which selects an 
 equal number (50) of probes (with F-stat p-value < 1E-8) 
 with the greatest magnitude of effect from the hyper- and 
-hypo-methylated sides, and "any", which selects the 100 probes 
-(with F-stat p-value < 1E-8) with the greatest magnitude of 
-difference regardless of direction of effect. This according 
-to minfi algorithm. Default input "auto" in minfi will use 
-"any" for cord blood and "both" otherwise. Please see minfi 
-estimateCellCounts references for more details.}
+hypo-methylated sides, and "any", which selects the 100  
+probes (with F-stat p-value < 1E-8) with the greatest  
+magnitude of difference regardless of direction of effect.  
+This according to minfi algorithm. Default input "auto" in  
+minfi will use "any" for cord blood and "both" otherwise.  
+Please see references for more details.}
 
 \item{cellTypes}{A vector of length K that contains the cell type names.
 Default: c("CD8T", "CD4T", "NK", "Bcell", "Mono", "Neu").
@@ -57,8 +58,9 @@ installed}
 \item{returnAll}{Should the composition table and the normalized user supplied 
 data be return? Default is False.}
 
-\item{meanPlot}{Whether to plots the average DNA methylation across the cell-type 
-discriminating probes within the mixed and sorted samples.}
+\item{meanPlot}{Whether to plots the average DNA methylation across the
+cell-type discriminating probes within the mixed and sorted 
+samples.}
 
 \item{verbose}{Should the function be verbose?}
 
@@ -77,13 +79,13 @@ and IDOL probes L-DMR lists
 }
 \examples{
 # Step 1: Load the library(FlowSorted.Blood.EPIC)
-data(FlowSorted.Blood.EPIC)
+# data(FlowSorted.Blood.EPIC)
 # Step 2 separate the reference from the testing dataset if you want to run 
 # examples for estimations for this function example
-cell.Mix <- which(FlowSorted.Blood.EPIC$CellType == "MIX")
-RGsetTargets <- FlowSorted.Blood.EPIC[, cell.Mix]
+RGsetTargets <- FlowSorted.Blood.EPIC[,
+             FlowSorted.Blood.EPIC$CellType == "MIX"]
 sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
-                            seq(along = cell.Mix), sep = "_")
+                            seq_len(dim(RGsetTargets)[2]), sep = "_")
 # Step 3: use your favorite package for deconvolution.
 # Deconvolute a target data set consisting of EPIC DNA methylation 
 # data profiled in blood, using your prefered method estimateCellCounts 
@@ -115,8 +117,8 @@ data(IDOLOptimizedCpGs)
 # countsEPIC<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
 #                                processMethod = "preprocessNoob",
 #                                probeSelect = "IDOL", 
-#                                cellTypes = c("CD8T", "CD4T", "NK", "Bcell", 
-#                                "Mono", "Neu"), 
+#                                cellTypes = c("CD8T", "CD4T", "NK", 
+#                                "Bcell", "Mono", "Neu"), 
 #                                referencePlatform = 
 #                                "IlluminaHumanMethylationEPIC",
 #                                IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
