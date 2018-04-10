@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 ^estimateCellCounts2\.R$
 ^estimateCellCounts2\.Rd$
+^\.travis\.yml$

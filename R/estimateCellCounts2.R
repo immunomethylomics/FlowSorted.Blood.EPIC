@@ -150,10 +150,10 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                                 processMethod = "preprocessNoob", 
                                 probeSelect = c("auto", "any", "IDOL"), 
                                 cellTypes = c("CD8T", "CD4T", "NK", "Bcell", 
-                                              "Mono", "Neu"), 
+                                                "Mono", "Neu"), 
                                 referencePlatform = c("IlluminaHumanMethylation450k", 
-                                                      "IlluminaHumanMethylationEPIC", 
-                                                      "IlluminaHumanMethylation27k"), 
+                                                        "IlluminaHumanMethylationEPIC", 
+                                                        "IlluminaHumanMethylation27k"), 
                                 referenceset = NULL, IDOLOptimizedCpGs = NULL, 
                                 returnAll = FALSE, meanPlot = FALSE, 
                                 verbose = TRUE, 
@@ -198,7 +198,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     
     if (!"CellType" %in% names(colData(referenceRGset))) 
         stop(sprintf("the reference sorted dataset (in this case '%s') needs to have a phenoData column called 'CellType'"), 
-             names(referencePkg))
+            names(referencePkg))
     if (sum(colnames(rgSet) %in% colnames(referenceRGset)) > 0) 
         stop("the sample/column names in the user set must not be in the reference data ")
     if (!all(cellTypes %in% referenceRGset$CellType)) 
@@ -220,8 +220,8 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         message("[estimateCellCounts2] Combining user data with reference (flow sorted) data.\n")
     
     newpd <- DataFrame(sampleNames = c(colnames(rgSet), colnames(referenceRGset)), 
-                       studyIndex = rep(c("user", "reference"), times = c(ncol(rgSet), ncol(referenceRGset))), 
-                       stringsAsFactors = FALSE)
+                        studyIndex = rep(c("user", "reference"), times = c(ncol(rgSet), ncol(referenceRGset))), 
+                        stringsAsFactors = FALSE)
     if(is.null(rgSet$CellType))
         rgSet$CellType<-rep("NA", dim(rgSet)[2])
     commoncolumn<-intersect(names(colData(rgSet)), names(colData(referenceRGset)))
@@ -231,7 +231,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     colData(rgSet)<-colData(rgSet)[commoncolumn]
     referencePd <- colData(referenceRGset)
     combinedRGset <- combineArrays(rgSet, referenceRGset, 
-                                   outType = referencePlatform)
+                                    outType = referencePlatform)
     colData(combinedRGset) <- newpd
     colnames(combinedRGset) <- newpd$sampleNames
     rm(referenceRGset)
@@ -243,7 +243,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         combinedMset <- processMethod(combinedRGset, verbose = subverbose)
         compTable <- get(paste0(referencePkg, ".compTable"))
         combinedMset <- combinedMset[which(rownames(combinedMset) %in% 
-                                               rownames(compTable)), ]
+                                                rownames(compTable)), ]
     } else {
         if (!is(combinedRGset, "RGChannelSet"))
             combinedRGset@preprocessMethod["rg.norm"]<-"Raw (no normalization or bg correction)"
@@ -259,8 +259,8 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         message("[estimateCellCounts2] Picking probes for composition estimation.\n")
     if (probeSelect != "IDOL") {
         compData <- pickCompProbes(referenceMset, cellTypes = cellTypes, 
-                                   compositeCellType = compositeCellType, 
-                                   probeSelect = probeSelect)
+                                    compositeCellType = compositeCellType, 
+                                    probeSelect = probeSelect)
         coefs <- compData$coefEsts
         if (verbose) 
             message("[estimateCellCounts2] Estimating composition.\n")
@@ -270,16 +270,16 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
             smeans <- compData$sampleMeans
             smeans <- smeans[order(names(smeans))]
             sampleMeans <- c(colMeans(minfi::getBeta(mSet)[rownames(coefs), ]), 
-                             smeans)
+                            smeans)
             sampleColors <- c(rep(1, ncol(mSet)), 1 + 
-                                  as.numeric(factor(names(smeans))))
+                                as.numeric(factor(names(smeans))))
             plot(sampleMeans, pch = 21, bg = sampleColors)
             legend("bottomleft", c("blood", levels(factor(names(smeans)))), 
-                   col = seq_len(7), pch = 15)
+                    col = seq_len(7), pch = 15)
         }
         if (returnAll) {
             list(counts = counts, compTable = compData$compTable, 
-                 normalizedData = mSet)
+                normalizedData = mSet)
         } else {
             list(counts = counts)  
         }
@@ -300,7 +300,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         compTable <- cbind(ffComp, prof, r, abs(r[, 1] - r[, 2]))
         names(compTable)[1] <- "Fstat"
         names(compTable)[c(-2, -1, 0) + ncol(compTable)] <- c("low", 
-                                                              "high", "range")
+                                                            "high", "range")
         tIndexes <- splitit(pd$CellType)
         tstatList <- lapply(tIndexes, function(i) {
             x <- rep(0, ncol(p))
@@ -313,13 +313,12 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         pMeans <- colMeans(p)
         names(pMeans) <- pd$CellType
         form <- as.formula(sprintf("y ~ %s - 1", paste(levels(pd$CellType), 
-                                                       collapse = "+")))
+                                                        collapse = "+")))
         phenoDF <- as.data.frame(model.matrix(~pd$CellType - 1))
         colnames(phenoDF) <- sub("^pd\\$CellType", "", colnames(phenoDF))
         if (ncol(phenoDF) == 2) {
             X <- as.matrix(phenoDF)
             coefEsts <- t(solve(t(X) %*% X) %*% t(X) %*% t(p))
-            
             coefs <- coefEsts
         } else {
             tmp <- validationCellType(Y = p, pheno = phenoDF, modelFix = form)
@@ -327,7 +326,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
             coefs <- coefEsts
         }
         compData<-list(coefEsts = coefEsts, compTable = compTable,
-                       sampleMeans = pMeans)
+                        sampleMeans = pMeans)
         rm(referenceMset)
         if (verbose) 
             message("[estimateCellCounts2] Estimating composition.\n")
@@ -338,10 +337,10 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
             smeans <- smeans[order(names(smeans))]
             sampleMeans <- c(colMeans(getBeta(mSet)[rownames(coefs), ]), smeans)
             sampleColors <- c(rep(1, ncol(mSet)), 1 + 
-                                  as.numeric(factor(names(smeans))))
+                                as.numeric(factor(names(smeans))))
             plot(sampleMeans, pch = 21, bg = sampleColors)
             legend("bottomleft", c("blood", levels(factor(names(smeans)))), 
-                   col = seq_len(7), pch = 15)
+                    col = seq_len(7), pch = 15)
         }
         if (returnAll) {
             list(counts = counts, compTable = compTable, normalizedData = mSet)
@@ -353,7 +352,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
 
 #These are a minfi internal functions here they are called to keep the function above running
 pickCompProbes <- function(mSet, cellTypes = NULL, numProbes = 50, 
-                           compositeCellType = compositeCellType, probeSelect = probeSelect) {
+                            compositeCellType = compositeCellType, probeSelect = probeSelect) {
     splitit <- function(x) {
         split(seq(along=x), x)
     }
@@ -396,15 +395,13 @@ pickCompProbes <- function(mSet, cellTypes = NULL, numProbes = 50,
             c(rownames(yUp)[seq_len(numProbes)], rownames(yDown)[seq_len(numProbes)])
         })
     }
-    
     trainingProbes <- unique(unlist(probeList))
     p <- p[trainingProbes,]
     
     pMeans <- colMeans(p)
     names(pMeans) <- pd$CellType
-    
     form <- as.formula(sprintf("y ~ %s - 1", paste(levels(pd$CellType), 
-                                                   collapse="+")))
+                                                    collapse="+")))
     phenoDF <- as.data.frame(model.matrix(~pd$CellType-1))
     colnames(phenoDF) <- sub("^pd\\$CellType", "", colnames(phenoDF))
     if(ncol(phenoDF) == 2) { # two group solution
@@ -419,14 +416,12 @@ pickCompProbes <- function(mSet, cellTypes = NULL, numProbes = 50,
                 sampleMeans = pMeans)
     return(out)
 }
-
 projectCellType <- function(Y, coefCellType, contrastCellType=NULL, 
                             nonnegative=TRUE, lessThanOne=FALSE){ 
     if(is.null(contrastCellType))
         Xmat <- coefCellType
     else
         Xmat <- tcrossprod(coefCellType, contrastCellType) 
-    
     nCol <- dim(Xmat)[2]
     if(nCol == 2) {
         Dmat <- crossprod(Xmat)
@@ -435,11 +430,9 @@ projectCellType <- function(Y, coefCellType, contrastCellType=NULL,
         return(mixCoef)
     } else {
         nSubj <- dim(Y)[2]
-        
         mixCoef <- matrix(0, nSubj, nCol)
         rownames(mixCoef) <- colnames(Y)
         colnames(mixCoef) <- colnames(Xmat)
-        
         if(nonnegative){
             if(lessThanOne) {
                 Amat <- cbind(rep(-1, nCol), diag(nCol))
@@ -464,26 +457,22 @@ projectCellType <- function(Y, coefCellType, contrastCellType=NULL,
         return(mixCoef)
     }
 }
-
 validationCellType <- function(Y, pheno, modelFix, modelBatch=NULL,
-                               L.forFstat = NULL, verbose = FALSE){
+                                L.forFstat = NULL, verbose = FALSE){
     N <- dim(pheno)[1]
     pheno$y <- rep(0, N)
     xTest <- model.matrix(modelFix, pheno)
     sizeModel <- dim(xTest)[2]
     M <- dim(Y)[1]
-    
     if(is.null(L.forFstat)) {
         L.forFstat <- diag(sizeModel)[-1,] # All non-intercept coefficients
         colnames(L.forFstat) <- colnames(xTest) 
         rownames(L.forFstat) <- colnames(xTest)[-1] 
     }
-    
-    ## Initialize various containers
+# Initialize various containers
     sigmaResid <- sigmaIcept <- nObserved <- nClusters <- Fstat <- rep(NA, M)
     coefEsts <- matrix(NA, M, sizeModel)
     coefVcovs <- list()
-    
     if(verbose)
         cat("[validationCellType] ")
     for(j in seq_len(M)) { # For each CpG

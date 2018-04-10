@@ -10,3 +10,5 @@ Researchers may find this package useful as these samples represent different ce
 References: D Koestler et al. (2016). Improving cell mixture deconvolution by identifying optimal DNA methylation libraries (IDOL). BMC bioinformatics. 17, 120.
 
 EA Houseman et al. (2012) DNA methylation arrays as surrogate measures of cell mixture distribution. BMC Bioinformatics 13, 86.
+
+[![Travis-CI Build Status](https://travis-ci.org/immunomethylomics/FlowSorted.Blood.EPIC.svg?branch=master)](https://travis-ci.org/immunomethylomics/FlowSorted.Blood.EPIC)
