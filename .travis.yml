@@ -3,3 +3,10 @@
 language: R
 sudo: false
 cache: packages
+r: bioc-devel
+#bioc_packages: BiocCheck
+# customize build to add biocCheck
+#script:
+#    - R CMD build . --no-resave-data --no-manual
+#    - R CMD check *tar.gz --as-cran --timings --no-manual
+#    - R CMD BiocCheck FlowSorted.Blood.EPIC_0.99.5.tar.gz
