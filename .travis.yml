@@ -4,6 +4,8 @@ language: R
 #sudo: false
 #cache: packages
 r: bioc-devel
+git:
+  lfs_skip_smudge: true
 #bioc_packages: BiocCheck
 # customize build to add biocCheck
 #script:
