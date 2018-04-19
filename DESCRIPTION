@@ -23,7 +23,7 @@ Description: Raw data objects to be used for blood cell proportion
 License: GPL-3
 Depends: R (>= 3.5), minfi (>= 1.21.2), SummarizedExperiment, genefilter, 
          quadprog, nlme, S4Vectors,  graphics, stats, utils,
-         IlluminaHumanMethylationEPICanno.ilm10b4.hg19
+         IlluminaHumanMethylationEPICanno.ilm10b4.hg19, ExperimentHub
 LazyData: yes
 LazyDataCompression: xz, bzip2
 biocViews:ExperimentData, Homo_sapiens_Data, Tissue, MicroarrayData, Genome,

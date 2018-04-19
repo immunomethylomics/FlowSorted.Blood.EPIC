@@ -4,6 +4,7 @@
 #' @import SummarizedExperiment
 #' @import S4Vectors
 #' @import IlluminaHumanMethylationEPICanno.ilm10b4.hg19
+#' @import ExperimentHub
 #' @importFrom  graphics legend
 #' @importFrom  graphics plot
 #' @importFrom  stats as.formula
