@@ -5,7 +5,8 @@
 #' @import S4Vectors
 #' @import IlluminaHumanMethylationEPICanno.ilm10b4.hg19
 #' @import ExperimentHub
-#' @import utils
+#' @importFrom utils data
+#' @importFrom utils read.csv
 #' @importFrom  graphics legend
 #' @importFrom  graphics plot
 #' @importFrom  stats as.formula
@@ -19,13 +20,11 @@
 #' @importFrom nlme lme
 #' @importFrom nlme getVarCov
 #' @examples
-#' # Step 1: Load the library(FlowSorted.Blood.EPIC)
-#' # data(FlowSorted.Blood.EPIC)
-#' # Alternative: From ExperimentHub you can also retrieve the database using
-#' # library(ExperimentHub)
-#' # hub <- ExperimentHub()
-#' # query(hub, "FlowSorted.Blood.EPIC")
-#' # FlowSorted.Blood.EPIC <- hub[["EH1136"]]
+#' # Step 1: Load the reference library
+#' library(ExperimentHub)
+#' hub <- ExperimentHub()
+#' query(hub, "FlowSorted.Blood.EPIC")
+#' FlowSorted.Blood.EPIC <- hub[["EH1136"]]
 #' # Step 2 separate the reference from the testing dataset if you want to run 
 #' # examples for estimations for this function example
 #' RGsetTargets <- FlowSorted.Blood.EPIC[,

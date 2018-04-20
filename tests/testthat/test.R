@@ -1,6 +1,10 @@
 
 test_that("errors if bad parameters", {
     library(FlowSorted.Blood.EPIC)
+    library(ExperimentHub)
+    hub <- ExperimentHub()
+    query(hub, "FlowSorted.Blood.EPIC")
+    FlowSorted.Blood.EPIC <- hub[["EH1136"]]
     RGsetTargets=NULL
     RGsetTargets <- FlowSorted.Blood.EPIC[, FlowSorted.Blood.EPIC$CellType == "MIX"]
     sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
@@ -27,6 +31,10 @@ test_that("errors if bad parameters", {
 
 test_that("errors if bad parameters", {
     library(FlowSorted.Blood.EPIC)
+    library(ExperimentHub)
+    hub <- ExperimentHub()
+    query(hub, "FlowSorted.Blood.EPIC")
+    FlowSorted.Blood.EPIC <- hub[["EH1136"]]
     RGsetTargets=NULL
     RGsetTargets <- FlowSorted.Blood.EPIC[,FlowSorted.Blood.EPIC$CellType == "MIX"]
     sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,

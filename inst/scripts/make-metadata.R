@@ -4,9 +4,7 @@
 ###
 
 meta <- data.frame(
-    Title = c(paste0("FlowSorted.Blood.EPIC: ",
-                    "Illumina Human Methylation data from EPIC on ",
-                    "immunomagnetic sorted adult blood cell populations")),
+    Title = c("FlowSorted.Blood.EPIC"),
     Description = c(paste0("The FlowSorted.Blood.EPIC package contains ",
 "Illumina HumanMethylationEPIC (“EPIC”)) DNA methylation microarray data from ",
 "the immunomethylomics group (manuscript submitted), consisting of 37 magnetic ",
