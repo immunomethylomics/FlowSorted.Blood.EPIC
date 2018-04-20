@@ -4,9 +4,9 @@ test_that("errors if bad parameters", {
     library(ExperimentHub)
     hub <- ExperimentHub()
     query(hub, "FlowSorted.Blood.EPIC")
-    FlowSorted.Blood.EPIC <- hub[["EH1136"]]
+    FlowSorted.Blood.EPIC1 <- hub[["EH1136"]]
     RGsetTargets=NULL
-    RGsetTargets <- FlowSorted.Blood.EPIC[, FlowSorted.Blood.EPIC$CellType == "MIX"]
+    RGsetTargets <- FlowSorted.Blood.EPIC1[, FlowSorted.Blood.EPIC1$CellType == "MIX"]
     sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
                                        seq_len(dim(RGsetTargets)[2]), sep = "_")
     expect_error(expect_message(estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
@@ -16,7 +16,7 @@ test_that("errors if bad parameters", {
                                                                   "Mono", "Gran"), 
                                                     referencePlatform = 
                                                         "IlluminaHumanMethylationEPIC",
-                                                    referenceset = "FlowSorted.Blood.EPIC",
+                                                    referenceset = "FlowSorted.Blood.EPIC1",
                                                     IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
                                                     returnAll = FALSE)))
     expect_warning(expect_error(expect_message(estimateCellCounts2(RGsetTargets, compositeCellType = "CordBlood", 
@@ -35,9 +35,9 @@ test_that("errors if bad parameters", {
     library(ExperimentHub)
     hub <- ExperimentHub()
     query(hub, "FlowSorted.Blood.EPIC")
-    FlowSorted.Blood.EPIC <- hub[["EH1136"]]
+    FlowSorted.Blood.EPIC1 <- hub[["EH1136"]]
     RGsetTargets=NULL
-    RGsetTargets <- FlowSorted.Blood.EPIC[,FlowSorted.Blood.EPIC$CellType == "MIX"]
+    RGsetTargets <- FlowSorted.Blood.EPIC1[,FlowSorted.Blood.EPIC1$CellType == "MIX"]
     sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
                                        seq_len(dim(RGsetTargets)[2]), sep = "_")    
     RGsetTargets2<-preprocessRaw(RGsetTargets)
@@ -48,7 +48,7 @@ test_that("errors if bad parameters", {
                                                    "Mono", "Neu"), 
                                      referencePlatform = 
                                          "IlluminaHumanMethylationEPIC",
-                                     referenceset = "FlowSorted.Blood.EPIC",
+                                     referenceset = "FlowSorted.Blood.EPIC1",
                                      IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
                                      returnAll = FALSE), "object is of class 'MethylSet', but needs to be of class 'RGChannelSet' or 'RGChannelSetExtended' to use other methods different to 'preprocessQuantile'")
 })
