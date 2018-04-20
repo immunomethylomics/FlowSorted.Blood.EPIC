@@ -50,8 +50,10 @@ of Granulocytes. See details.}
 belongs to another platform, it will be converted using 
 minfi function convertArray.}
 
-\item{referenceset}{A custom reference rgset (in quotes) if it is not a package 
-installed}
+\item{referenceset}{It is NULL by default. For this package this value should be 
+set as referenceset = "FlowSorted.Blood.EPIC". 
+A custom reference rgset (in quotes) if it is not a package 
+installed. If using an installed 450k reference set to NULL.}
 
 \item{IDOLOptimizedCpGs}{a vector of probe names for cell deconvolution}
 
@@ -113,6 +115,7 @@ data(IDOLOptimizedCpGs)
                                 "Mono", "Neu"), 
                                 referencePlatform = 
                                 "IlluminaHumanMethylationEPIC",
+                                referenceset = "FlowSorted.Blood.EPIC",
                                 IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
                                 returnAll = FALSE)
 # If you prefer CIBERSORT or RPC deconvolution use EpiDISH or similar
@@ -124,6 +127,7 @@ data(IDOLOptimizedCpGs)
 #                                "Bcell", "Mono", "Neu"), 
 #                                referencePlatform = 
 #                                "IlluminaHumanMethylationEPIC",
+#                                referenceset = "FlowSorted.Blood.EPIC",
 #                                IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
 #                                returnAll = TRUE)
 # library(EpiDISH)

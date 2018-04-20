@@ -44,6 +44,15 @@ in Houseman et al. 2012. For a slightly more accurate estimations we also
 offered an IDOL optimized CpG selection for cell deconvolution as the object 
 IDOLOptimizedCpGs.
 }
+\examples{
+# Step 1: Load the reference library
+library(ExperimentHub)
+hub <- ExperimentHub()
+query(hub, "FlowSorted.Blood.EPIC")
+FlowSorted.Blood.EPIC <- hub[["EH1136"]]
+FlowSorted.Blood.EPIC
+
+}
 \seealso{
 References \enumerate{
 \item DC Koestler et al. (2016). \emph{Improving cell mixture deconvolution by
@@ -54,8 +63,5 @@ measures of cell mixture distribution}. BMC Bioinformatics 13, 86.
 \item \pkg{minfi} package for tools for estimating cell type
 composition in blood using these data
 }
-
-# Do not run
-# data("FlowSorted.Blood.EPIC")
 }
 \keyword{datasets}

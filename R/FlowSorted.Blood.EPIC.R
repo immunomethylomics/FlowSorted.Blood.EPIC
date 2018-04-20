@@ -47,8 +47,12 @@
 
 #' }
 #' 
-#' # Do not run
-#' # data("FlowSorted.Blood.EPIC")
+#' @examples
+#' # Step 1: Load the reference library
+#' library(ExperimentHub)
+#' hub <- ExperimentHub()
+#' query(hub, "FlowSorted.Blood.EPIC")
+#' FlowSorted.Blood.EPIC <- hub[["EH1136"]]
+#' FlowSorted.Blood.EPIC
 #' 
 "FlowSorted.Blood.EPIC"
-

@@ -55,6 +55,7 @@
 #'                                 "Mono", "Neu"), 
 #'                                 referencePlatform = 
 #'                                 "IlluminaHumanMethylationEPIC",
+#'                                 referenceset = "FlowSorted.Blood.EPIC",
 #'                                 IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
 #'                                 returnAll = FALSE)
 #' # If you prefer CIBERSORT or RPC deconvolution use EpiDISH or similar
@@ -66,6 +67,7 @@
 #' #                                "Bcell", "Mono", "Neu"), 
 #' #                                referencePlatform = 
 #' #                                "IlluminaHumanMethylationEPIC",
+#' #                                referenceset = "FlowSorted.Blood.EPIC",
 #' #                                IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
 #' #                                returnAll = TRUE)
 #' # library(EpiDISH)
@@ -129,8 +131,10 @@
 #'                    belongs to another platform, it will be converted using 
 #'                    minfi function convertArray.
 #' @param
-#' referenceset A custom reference rgset (in quotes) if it is not a package 
-#'             installed
+#' referenceset It is NULL by default. For this package this value should be 
+#'             set as referenceset = "FlowSorted.Blood.EPIC". 
+#'             A custom reference rgset (in quotes) if it is not a package 
+#'             installed. If using an installed 450k reference set to NULL.
 #' @param
 #' IDOLOptimizedCpGs a vector of probe names for cell deconvolution
 #' @param 
