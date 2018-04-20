@@ -51,7 +51,10 @@ belongs to another platform, it will be converted using
 minfi function convertArray.}
 
 \item{referenceset}{It is NULL by default. For this package this value should be 
-set as referenceset = "FlowSorted.Blood.EPIC". 
+set as the name assigned to the object from the ExperimentHub.
+i.e. if FlowSorted.Blood.EPIC1 <- hub[["EH1136"]]
+then referenceset = "FlowSorted.Blood.EPIC1".
+In future versions you will be able to call it directly. 
 A custom reference rgset (in quotes) if it is not a package 
 installed. If using an installed 450k reference set to NULL.}
 
@@ -84,13 +87,15 @@ and IDOL probes L-DMR lists
 library(ExperimentHub)
 hub <- ExperimentHub()
 query(hub, "FlowSorted.Blood.EPIC")
-FlowSorted.Blood.EPIC <- hub[["EH1136"]]
+FlowSorted.Blood.EPIC1 <- hub[["EH1136"]]
+FlowSorted.Blood.EPIC1
 # Step 2 separate the reference from the testing dataset if you want to run 
 # examples for estimations for this function example
-RGsetTargets <- FlowSorted.Blood.EPIC[,
-             FlowSorted.Blood.EPIC$CellType == "MIX"]
+RGsetTargets <- FlowSorted.Blood.EPIC1[,
+             FlowSorted.Blood.EPIC1$CellType == "MIX"]
 sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
                             seq_len(dim(RGsetTargets)[2]), sep = "_")
+RGsetTargets
 # Step 3: use your favorite package for deconvolution.
 # Deconvolute a target data set consisting of EPIC DNA methylation 
 # data profiled in blood, using your prefered method estimateCellCounts 
@@ -115,7 +120,7 @@ data(IDOLOptimizedCpGs)
                                 "Mono", "Neu"), 
                                 referencePlatform = 
                                 "IlluminaHumanMethylationEPIC",
-                                referenceset = "FlowSorted.Blood.EPIC",
+                                referenceset = "FlowSorted.Blood.EPIC1",
                                 IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
                                 returnAll = FALSE)
 # If you prefer CIBERSORT or RPC deconvolution use EpiDISH or similar
@@ -127,7 +132,7 @@ data(IDOLOptimizedCpGs)
 #                                "Bcell", "Mono", "Neu"), 
 #                                referencePlatform = 
 #                                "IlluminaHumanMethylationEPIC",
-#                                referenceset = "FlowSorted.Blood.EPIC",
+#                                referenceset = "FlowSorted.Blood.EPIC1",
 #                                IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
 #                                returnAll = TRUE)
 # library(EpiDISH)
