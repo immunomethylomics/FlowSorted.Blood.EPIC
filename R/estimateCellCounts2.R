@@ -5,6 +5,7 @@
 #' @import S4Vectors
 #' @import IlluminaHumanMethylationEPICanno.ilm10b4.hg19
 #' @import ExperimentHub
+#' @import utils
 #' @importFrom  graphics legend
 #' @importFrom  graphics plot
 #' @importFrom  stats as.formula
@@ -12,7 +13,6 @@
 #' @importFrom  stats  lm
 #' @importFrom  stats  pf
 #' @importFrom  stats  vcov
-#' @importFrom  utils data
 #' @importFrom genefilter rowFtests
 #' @importFrom genefilter rowttests
 #' @importFrom quadprog solve.QP
