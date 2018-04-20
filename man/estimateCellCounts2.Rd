@@ -80,6 +80,11 @@ and IDOL probes L-DMR lists
 \examples{
 # Step 1: Load the library(FlowSorted.Blood.EPIC)
 # data(FlowSorted.Blood.EPIC)
+# Alternative: From ExperimentHub you can also retrieve the database using
+# library(ExperimentHub)
+# hub <- ExperimentHub()
+# query(hub, "FlowSorted.Blood.EPIC")
+# FlowSorted.Blood.EPIC <- hub[["EH1136"]]
 # Step 2 separate the reference from the testing dataset if you want to run 
 # examples for estimations for this function example
 RGsetTargets <- FlowSorted.Blood.EPIC[,
