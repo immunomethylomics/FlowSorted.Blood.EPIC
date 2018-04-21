@@ -36,19 +36,22 @@
 #' by Brock Christensen and colleagues; manuscript submmited.
 #' @seealso
 #' References \enumerate{
+#' \item LA Salas et al. (Under review). \emph{An optimized library for 
+#' reference-based deconvolution of whole-blood biospecimens assayed using the 
+#' Illumina HumanMethylationEPIC BeadArray}. 
 #' \item DC Koestler et al. (2016). \emph{Improving cell mixture deconvolution by
 #' identifying optimal DNA methylation libraries (IDOL)}. BMC bioinformatics.
-#' 17, 120.
-
+#' 17, 120. doi: 10.1186/s12859-016-0943-7.
 #' \item EA Houseman et al. (2012) \emph{DNA methylation arrays as surrogate
 #' measures of cell mixture distribution}. BMC Bioinformatics 13, 86.
+#' doi:10.1186/1471-2105-13-86.
 #' \item \pkg{minfi} package for tools for estimating cell type
 #' composition in blood using these data
 
 #' }
 #' 
 #' @examples
-#' # Step 1: Load the reference library
+#' # Explore the reference library
 #' library(ExperimentHub)
 #' hub <- ExperimentHub()
 #' query(hub, "FlowSorted.Blood.EPIC")

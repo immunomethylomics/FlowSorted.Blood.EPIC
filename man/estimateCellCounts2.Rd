@@ -50,15 +50,15 @@ of Granulocytes. See details.}
 belongs to another platform, it will be converted using 
 minfi function convertArray.}
 
-\item{referenceset}{It is NULL by default. For this package this value should be 
-set as the name assigned to the object from the ExperimentHub.
-i.e. if FlowSorted.Blood.EPIC1 <- hub[["EH1136"]]
-then referenceset = "FlowSorted.Blood.EPIC1".
-In future versions you will be able to call it directly. 
+\item{referenceset}{It is NULL by default.
 A custom reference rgset (in quotes) if it is not a package 
 installed. If using an installed 450k reference set to NULL.}
 
-\item{IDOLOptimizedCpGs}{a vector of probe names for cell deconvolution}
+\item{IDOLOptimizedCpGs}{a vector of probe names for cell deconvolution. For EPIC
+datasets it should be equal to IDOLOptimizedCpGs (no quotes).
+For legacy 450K datasets you can use 
+IDOLOptimizedCpGs450klegacy (no quotes) if you want to use 
+FlowSorted.EPIC.Blood for the deconvolution}
 
 \item{returnAll}{Should the composition table and the normalized user supplied 
 data be return? Default is False.}
@@ -87,12 +87,12 @@ and IDOL probes L-DMR lists
 library(ExperimentHub)
 hub <- ExperimentHub()
 query(hub, "FlowSorted.Blood.EPIC")
-FlowSorted.Blood.EPIC1 <- hub[["EH1136"]]
-FlowSorted.Blood.EPIC1
+FlowSorted.Blood.EPIC <- hub[["EH1136"]]
+FlowSorted.Blood.EPIC
 # Step 2 separate the reference from the testing dataset if you want to run 
 # examples for estimations for this function example
-RGsetTargets <- FlowSorted.Blood.EPIC1[,
-             FlowSorted.Blood.EPIC1$CellType == "MIX"]
+RGsetTargets <- FlowSorted.Blood.EPIC[,
+             FlowSorted.Blood.EPIC$CellType == "MIX"]
 sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
                             seq_len(dim(RGsetTargets)[2]), sep = "_")
 RGsetTargets
@@ -120,9 +120,10 @@ data(IDOLOptimizedCpGs)
                                 "Mono", "Neu"), 
                                 referencePlatform = 
                                 "IlluminaHumanMethylationEPIC",
-                                referenceset = "FlowSorted.Blood.EPIC1",
+                                referenceset = NULL,
                                 IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
                                 returnAll = FALSE)
+head(countsEPIC$counts)
 # If you prefer CIBERSORT or RPC deconvolution use EpiDISH or similar
 # Example not to run
 # countsEPIC<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
@@ -132,7 +133,7 @@ data(IDOLOptimizedCpGs)
 #                                "Bcell", "Mono", "Neu"), 
 #                                referencePlatform = 
 #                                "IlluminaHumanMethylationEPIC",
-#                                referenceset = "FlowSorted.Blood.EPIC1",
+#                                referenceset = NULL,
 #                                IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
 #                                returnAll = TRUE)
 # library(EpiDISH)
@@ -144,9 +145,13 @@ data(IDOLOptimizedCpGs)
 # CBS$estF#CBS count estimates
 }
 \references{
+LA Salas et al. (Under review). \emph{An optimized library for 
+reference-based deconvolution of whole-blood biospecimens assayed using the 
+Illumina HumanMethylationEPIC BeadArray}.
+
 D Koestler et al. (2016). \emph{Improving cell mixture 
 deconvolution by identifying optimal DNA methylation libraries (IDOL)}. 
-BMC bioinformatics. 17, 120.
+BMC bioinformatics. 17, 120. doi: 10.1186/s12859-016-0943-7.
 
 EA Houseman, et al.(2012)  \emph{DNA methylation arrays as 
 surrogate measures of cell mixture distribution}. BMC bioinformatics  13:86. 
