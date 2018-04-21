@@ -8,7 +8,10 @@ This package contains data similar to the FlowSorted.Blood.450k package consisti
 
 Researchers may find this package useful as these samples represent different cellular populations ( T lymphocytes (CD4+ and CD8+), B cells (CD19+), monocytes (CD14+), NK cells (CD56+) and Neutrophils of cell sorted blood generated with high purity estimates. As a test of accuracy 12 experimental mixtures were reconstructed using fixed amounts of DNA from purified cells. These data can be integrated with the minfi Bioconductor package to estimate cellular composition in users' whole blood Illumina EPIC samples using a modified version of the algorithm constrained projection/quadratic programming described in Houseman et al. 2012. For a slightly more accurate estimations we also offered an IDOL optimized CpG selection for cell deconvolution (see the references) and a modified version of estimateCellCounts named estimateCellCounts2 which allows using customized sets of probes from IDOL.
 
-References: D Koestler et al. (2016). Improving cell mixture deconvolution by identifying optimal DNA methylation libraries (IDOL). BMC bioinformatics. 17, 120.
+References: 
+LA Salas et al. (Under review). An optimized library for reference-based deconvolution of whole-blood biospecimens assayed using the  Illumina HumanMethylationEPIC BeadArray.
+
+D Koestler et al. (2016). Improving cell mixture deconvolution by identifying optimal DNA methylation libraries (IDOL). BMC bioinformatics. 17, 120.
 
 EA Houseman et al. (2012) DNA methylation arrays as surrogate measures of cell mixture distribution. BMC Bioinformatics 13, 86.
 

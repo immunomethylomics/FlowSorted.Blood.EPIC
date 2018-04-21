@@ -83,21 +83,20 @@ estimateCellCounts2 function allows the use of customized reference datasets
 and IDOL probes L-DMR lists
 }
 \examples{
-# Step 1: Load the reference library
+# Step 1: Load the reference library to extract the artificial mixtures
 library(ExperimentHub)
 hub <- ExperimentHub()
 query(hub, "FlowSorted.Blood.EPIC")
-FlowSorted.Blood.EPIC <- hub[["EH1136"]]
-FlowSorted.Blood.EPIC
+RGsetTargets <- hub[["EH1136"]]
+RGsetTargets
 # Step 2 separate the reference from the testing dataset if you want to run 
 # examples for estimations for this function example
-RGsetTargets <- FlowSorted.Blood.EPIC[,
-             FlowSorted.Blood.EPIC$CellType == "MIX"]
+RGsetTargets <- RGsetTargets[,
+             RGsetTargets$CellType == "MIX"]
 sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
                             seq_len(dim(RGsetTargets)[2]), sep = "_")
 RGsetTargets
-#Clean your environment for improved RAM management
-rm(FlowSorted.Blood.EPIC) 
+#Garbage collect for improved RAM management
 gc()
 # Step 3: use your favorite package for deconvolution.
 # Deconvolute a target data set consisting of EPIC DNA methylation 
