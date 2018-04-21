@@ -16,7 +16,7 @@ test_that("errors if bad parameters", {
                                                                   "Mono", "Gran"), 
                                                     referencePlatform = 
                                                         "IlluminaHumanMethylationEPIC",
-                                                    referenceset = "FlowSorted.Blood.EPIC1",
+                                                    referenceset = NULL,
                                                     IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
                                                     returnAll = FALSE)))
     expect_warning(expect_error(expect_message(estimateCellCounts2(RGsetTargets, compositeCellType = "CordBlood", 
@@ -48,7 +48,7 @@ test_that("errors if bad parameters", {
                                                    "Mono", "Neu"), 
                                      referencePlatform = 
                                          "IlluminaHumanMethylationEPIC",
-                                     referenceset = "FlowSorted.Blood.EPIC1",
+                                     referenceset = NULL,
                                      IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
                                      returnAll = FALSE), "object is of class 'MethylSet', but needs to be of class 'RGChannelSet' or 'RGChannelSetExtended' to use other methods different to 'preprocessQuantile'")
 })

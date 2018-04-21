@@ -87,17 +87,15 @@ and IDOL probes L-DMR lists
 library(ExperimentHub)
 hub <- ExperimentHub()
 query(hub, "FlowSorted.Blood.EPIC")
-RGsetTargets <- hub[["EH1136"]]
-RGsetTargets
+FlowSorted.Blood.EPIC <- hub[["EH1136"]]
+FlowSorted.Blood.EPIC
 # Step 2 separate the reference from the testing dataset if you want to run 
 # examples for estimations for this function example
-RGsetTargets <- RGsetTargets[,
-             RGsetTargets$CellType == "MIX"]
+RGsetTargets <- FlowSorted.Blood.EPIC[,
+             FlowSorted.Blood.EPIC$CellType == "MIX"]
 sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
                             seq_len(dim(RGsetTargets)[2]), sep = "_")
 RGsetTargets
-#Garbage collect for improved RAM management
-gc()
 # Step 3: use your favorite package for deconvolution.
 # Deconvolute a target data set consisting of EPIC DNA methylation 
 # data profiled in blood, using your prefered method estimateCellCounts 

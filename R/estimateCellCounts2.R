@@ -24,17 +24,15 @@
 #' library(ExperimentHub)
 #' hub <- ExperimentHub()
 #' query(hub, "FlowSorted.Blood.EPIC")
-#' RGsetTargets <- hub[["EH1136"]]
-#' RGsetTargets
+#' FlowSorted.Blood.EPIC <- hub[["EH1136"]]
+#' FlowSorted.Blood.EPIC
 #' # Step 2 separate the reference from the testing dataset if you want to run 
 #' # examples for estimations for this function example
-#' RGsetTargets <- RGsetTargets[,
-#'              RGsetTargets$CellType == "MIX"]
+#' RGsetTargets <- FlowSorted.Blood.EPIC[,
+#'              FlowSorted.Blood.EPIC$CellType == "MIX"]
 #' sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
 #'                             seq_len(dim(RGsetTargets)[2]), sep = "_")
 #' RGsetTargets
-#' #Garbage collect for improved RAM management
-#' gc()
 #' # Step 3: use your favorite package for deconvolution.
 #' # Deconvolute a target data set consisting of EPIC DNA methylation 
 #' # data profiled in blood, using your prefered method estimateCellCounts 
@@ -178,6 +176,9 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                                 returnAll = FALSE, meanPlot = FALSE, 
                                 verbose = TRUE, 
                                 ...) {
+    systeminfo<-Sys.info()
+    if(systeminfo["sysname"]=="Windows")
+        memory.limit(size = NA)
     isRGOrStop2<-function (object) {
         processMethod <- as.character(processMethod)
         if ((!is(object, "RGChannelSet")) && (!is(object, "MethylSet")))  
@@ -259,6 +260,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     colData(combinedRGset) <- newpd
     colnames(combinedRGset) <- newpd$sampleNames
     rm(referenceRGset)
+    gc()
     if (verbose) 
         message("[estimateCellCounts2] Processing user and reference data together.\n")
     if (compositeCellType == "CordBlood") {
@@ -274,6 +276,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         combinedMset <- processMethod(combinedRGset)
     }
     rm(combinedRGset)
+    gc()
     referenceMset <- combinedMset[, combinedMset$studyIndex == "reference"]
     colData(referenceMset) <- as(referencePd, "DataFrame")
     mSet <- combinedMset[, combinedMset$studyIndex == "user"]
