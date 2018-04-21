@@ -96,6 +96,9 @@ RGsetTargets <- FlowSorted.Blood.EPIC[,
 sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
                             seq_len(dim(RGsetTargets)[2]), sep = "_")
 RGsetTargets
+#Clean your environment for improved RAM management
+rm(FlowSorted.Blood.EPIC) 
+gc()
 # Step 3: use your favorite package for deconvolution.
 # Deconvolute a target data set consisting of EPIC DNA methylation 
 # data profiled in blood, using your prefered method estimateCellCounts 
