@@ -1,7 +1,7 @@
 Package: FlowSorted.Blood.EPIC
 Type: Package
 Title: Illumina EPIC data on immunomagnetic sorted peripheral adult blood cells
-Version: 0.99.15
+Version: 0.99.16
 Date: 2018-04-05
 Authors@R: c( person(c("Lucas", "A."), "Salas", role = c("cre", "aut"),
             email = "lucas.a.salas.diaz@dartmouth.edu"),
@@ -19,7 +19,7 @@ Authors@R: c( person(c("Lucas", "A."), "Salas", role = c("cre", "aut"),
             person(c("Shan", "V."), "Andrews", role = "ctb",
             comment = "contributor in the original minfi estimateCellCounts and internal functions"),
             person(c("E.", "Andres"), "Houseman", role = c("ctb"),
-            comment = "author of the original quadratic programming function using for cell projection"),
+            comment = "author of the original quadratic programming function used for cell projection"),
             person(c("Andrew", "E"), "Jaffe", role = c("ctb"),
             comment = "author of the original estimateCellCounts and internal functions within minfi"))
 Description: Raw data objects to be used for blood cell proportion

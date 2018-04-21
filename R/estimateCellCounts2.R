@@ -210,7 +210,6 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
             referenceRGset <- get(referencePkg)
         } else{
             hub <- ExperimentHub()
-            query(hub, referencePkg)
             referenceRGset <-hub[["EH1136"]]
         }
         if (!is(rgSet, "RGChannelSet"))
