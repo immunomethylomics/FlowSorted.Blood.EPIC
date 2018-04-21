@@ -1,4 +1,6 @@
-#' estimateCellCounts2 function allows the use of customized reference datasets 
+#' estimateCellCounts2 
+#' @description 
+#' estimateCellCounts2 function allows the use of customized reference datasets  
 #' and IDOL probes L-DMR lists
 #' @import minfi
 #' @import SummarizedExperiment
@@ -7,6 +9,7 @@
 #' @import ExperimentHub
 #' @importFrom utils data
 #' @importFrom utils read.csv
+#' @importFrom utils memory.limit
 #' @importFrom  graphics legend
 #' @importFrom  graphics plot
 #' @importFrom  stats as.formula

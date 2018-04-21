@@ -2,8 +2,7 @@
 % Please edit documentation in R/estimateCellCounts2.R
 \name{estimateCellCounts2}
 \alias{estimateCellCounts2}
-\title{estimateCellCounts2 function allows the use of customized reference datasets 
-and IDOL probes L-DMR lists}
+\title{estimateCellCounts2}
 \usage{
 estimateCellCounts2(rgSet, compositeCellType = "Blood",
   processMethod = "preprocessNoob", probeSelect = c("auto", "any", "IDOL"),
@@ -79,7 +78,7 @@ objects are important if you decide to use a different deconvolution
 algorithm such as CIBERSORT or RPM.
 }
 \description{
-estimateCellCounts2 function allows the use of customized reference datasets 
+estimateCellCounts2 function allows the use of customized reference datasets  
 and IDOL probes L-DMR lists
 }
 \examples{
