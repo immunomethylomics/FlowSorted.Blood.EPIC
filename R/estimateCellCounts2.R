@@ -179,9 +179,9 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                                 returnAll = FALSE, meanPlot = FALSE, 
                                 verbose = TRUE, 
                                 ...) {
-    systeminfo<-Sys.info()
-    if(systeminfo["sysname"]=="Windows")
-        memory.limit(size = NA)
+#    systeminfo<-Sys.info()
+#    if(systeminfo["sysname"]=="Windows")
+#        memory.limit(size = NA)
     isRGOrStop2<-function (object) {
         processMethod <- as.character(processMethod)
         if ((!is(object, "RGChannelSet")) && (!is(object, "MethylSet")))  
