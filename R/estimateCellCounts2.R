@@ -179,9 +179,9 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                                 returnAll = FALSE, meanPlot = FALSE, 
                                 verbose = TRUE, 
                                 ...) {
-#    systeminfo<-Sys.info()
-#    if(systeminfo["sysname"]=="Windows")
-#        memory.limit(size = NA)
+    systeminfo<-Sys.info()
+    if(systeminfo["sysname"]=="Windows" & memory.limit()<4000)
+        stop(sprintf("memory.limit is '%s', but needs at least 4GB to use this function in small datasets", memory.limit()))
     isRGOrStop2<-function (object) {
         processMethod <- as.character(processMethod)
         if ((!is(object, "RGChannelSet")) && (!is(object, "MethylSet")))  
@@ -269,25 +269,29 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     if (compositeCellType == "CordBlood") {
         if (!is(combinedRGset, "RGChannelSet"))
             combinedRGset@preprocessMethod["rg.norm"]<-"Raw (no normalization or bg correction)"
-        combinedMset <- processMethod(combinedRGset, verbose = subverbose)
+        combinedMset <- combinedRGset
+        rm(combinedRGset)
+        combinedMset <- processMethod(combinedMset, verbose = subverbose)
         compTable <- get(paste0(referencePkg, ".compTable"))
         combinedMset <- combinedMset[which(rownames(combinedMset) %in% 
                                                 rownames(compTable)), ]
     } else {
         if (!is(combinedRGset, "RGChannelSet"))
             combinedRGset@preprocessMethod["rg.norm"]<-"Raw (no normalization or bg correction)"
-        combinedMset <- processMethod(combinedRGset)
+        combinedMset <- combinedRGset
+        rm(combinedRGset)
+        combinedMset <- processMethod(combinedMset)
     }
-    rm(combinedRGset)
+    
     gc()
     referenceMset <- combinedMset[, combinedMset$studyIndex == "reference"]
     colData(referenceMset) <- as(referencePd, "DataFrame")
     mSet <- combinedMset[, combinedMset$studyIndex == "user"]
     colData(mSet) <- as(colData(rgSet), "DataFrame")
     rm(combinedMset)
-    if (verbose) 
-        message("[estimateCellCounts2] Picking probes for composition estimation.\n")
     if (probeSelect != "IDOL") {
+        if (verbose) 
+            message("[estimateCellCounts2] Picking probes for composition estimation.\n")
         compData <- pickCompProbes(referenceMset, cellTypes = cellTypes, 
                                     compositeCellType = compositeCellType, 
                                     probeSelect = probeSelect)
@@ -314,6 +318,8 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
             list(counts = counts)  
         }
     } else {
+        if (verbose) 
+            message("[estimateCellCounts2] Using IDOL L-DMR probes for composition estimation.\n")
         p <- getBeta(referenceMset)
         pd <- as.data.frame(colData(referenceMset))
         if (!is.null(cellTypes)) {
