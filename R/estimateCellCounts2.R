@@ -33,7 +33,6 @@
 #' # examples for estimations for this function example
 #' RGsetTargets <- FlowSorted.Blood.EPIC[,
 #'              FlowSorted.Blood.EPIC$CellType == "MIX"]
-#' RGsetTargets <- RGsetTargets[,1:3]# For the example only the first three samples
 #' sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
 #'                             seq_len(dim(RGsetTargets)[2]), sep = "_")
 #' RGsetTargets
@@ -54,6 +53,8 @@
 #' # that can be used for optimized cell estimations
 #' # We offer an adaptation of the popular estimateCellCounts in minfi to allow 
 #' # the inclusion of customized reference arrays. 
+#' # Do not run with limited RAM 
+#' if (memory.limit()>8000){
 #'  countsEPIC<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
 #'                                 processMethod = "preprocessNoob",
 #'                                 probeSelect = "IDOL", 
@@ -65,6 +66,7 @@
 #'                                 IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
 #'                                 returnAll = FALSE)
 #' head(countsEPIC$counts)
+#' }
 #' # If you prefer CIBERSORT or RPC deconvolution use EpiDISH or similar
 #' # Example not to run
 #' # countsEPIC<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
@@ -180,11 +182,6 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                                 returnAll = FALSE, meanPlot = FALSE, 
                                 verbose = TRUE, 
                                 ...) {
-    gcinfo(verbose = FALSE) 
-    gc()
-    systeminfo<-Sys.info()
-    if(systeminfo["sysname"]=="Windows" & memory.limit()<3500)
-        stop(sprintf("memory.limit is '%s', but needs at least 3.5GB to use this function in small datasets", memory.limit()))
     isRGOrStop2<-function (object) {
         processMethod <- as.character(processMethod)
         if ((!is(object, "RGChannelSet")) && (!is(object, "MethylSet")))  
@@ -277,10 +274,8 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     if (compositeCellType == "CordBlood") {
         if (!is(combinedRGset, "RGChannelSet"))
             combinedRGset@preprocessMethod["rg.norm"]<-"Raw (no normalization or bg correction)"
-        combinedMset <- combinedRGset
+        combinedMset <- processMethod(combinedRGset, verbose = subverbose)
         rm(combinedRGset)
-        gc()
-        combinedMset <- processMethod(combinedMset, verbose = subverbose)
         gc()
         compTable <- get(paste0(referencePkg, ".compTable"))
         combinedMset <- combinedMset[which(rownames(combinedMset) %in% 
@@ -289,10 +284,8 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     } else {
         if (!is(combinedRGset, "RGChannelSet"))
             combinedRGset@preprocessMethod["rg.norm"]<-"Raw (no normalization or bg correction)"
-        combinedMset <- combinedRGset
+        combinedMset <- processMethod(combinedRGset)
         rm(combinedRGset)
-        gc()
-        combinedMset <- processMethod(combinedMset)
         gc()
     }
     referenceMset <- combinedMset[, combinedMset$studyIndex == "reference"]
@@ -333,7 +326,6 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         if (verbose) 
             message("[estimateCellCounts2] Using IDOL L-DMR probes for composition estimation.\n")
         p <- getBeta(referenceMset)
-        gc()
         pd <- as.data.frame(colData(referenceMset))
         rm(referenceMset)
         gc()
@@ -347,12 +339,9 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         }
         pd$CellType <- factor(pd$CellType, levels = cellTypes)
         ffComp <- rowFtests(p, pd$CellType)
-        gc()
         prof <- vapply(splitit(pd$CellType), function(i) rowMeans(p[,i]), FUN.VALUE=numeric(dim(p)[1]))
         r <- rowRanges(p)
-        gc()
         compTable <- cbind(ffComp, prof, r, abs(r[, 1] - r[, 2]))
-        gc()
         names(compTable)[1] <- "Fstat"
         names(compTable)[c(-2, -1, 0) + ncol(compTable)] <- c("low", 
                                                             "high", "range")
@@ -362,7 +351,6 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
             x[i] <- 1
             return(rowttests(p, factor(x)))
         })
-        gc()
         trainingProbes <- IDOLOptimizedCpGs
         trainingProbes<-trainingProbes[trainingProbes%in%rownames(p)]
         p <- p[trainingProbes, ]

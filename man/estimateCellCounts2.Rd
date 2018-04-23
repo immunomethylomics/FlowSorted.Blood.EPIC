@@ -92,7 +92,6 @@ FlowSorted.Blood.EPIC
 # examples for estimations for this function example
 RGsetTargets <- FlowSorted.Blood.EPIC[,
              FlowSorted.Blood.EPIC$CellType == "MIX"]
-RGsetTargets <- RGsetTargets[,1:3]# For the example only the first three samples
 sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
                             seq_len(dim(RGsetTargets)[2]), sep = "_")
 RGsetTargets
@@ -113,6 +112,8 @@ data(IDOLOptimizedCpGs)
 # that can be used for optimized cell estimations
 # We offer an adaptation of the popular estimateCellCounts in minfi to allow 
 # the inclusion of customized reference arrays. 
+# Do not run with limited RAM 
+if (memory.limit()>8000){
  countsEPIC<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
                                 processMethod = "preprocessNoob",
                                 probeSelect = "IDOL", 
@@ -124,6 +125,7 @@ data(IDOLOptimizedCpGs)
                                 IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
                                 returnAll = FALSE)
 head(countsEPIC$counts)
+}
 # If you prefer CIBERSORT or RPC deconvolution use EpiDISH or similar
 # Example not to run
 # countsEPIC<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
