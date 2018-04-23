@@ -92,6 +92,7 @@ FlowSorted.Blood.EPIC
 # examples for estimations for this function example
 RGsetTargets <- FlowSorted.Blood.EPIC[,
              FlowSorted.Blood.EPIC$CellType == "MIX"]
+RGsetTargets <- RGsetTargets[,1:3]# For the example only the first three samples
 sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
                             seq_len(dim(RGsetTargets)[2]), sep = "_")
 RGsetTargets

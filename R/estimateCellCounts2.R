@@ -33,6 +33,7 @@
 #' # examples for estimations for this function example
 #' RGsetTargets <- FlowSorted.Blood.EPIC[,
 #'              FlowSorted.Blood.EPIC$CellType == "MIX"]
+#' RGsetTargets <- RGsetTargets[,1:3]# For the example only the first three samples
 #' sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
 #'                             seq_len(dim(RGsetTargets)[2]), sep = "_")
 #' RGsetTargets
@@ -179,9 +180,11 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                                 returnAll = FALSE, meanPlot = FALSE, 
                                 verbose = TRUE, 
                                 ...) {
+    gcinfo(verbose = FALSE) 
+    gc()
     systeminfo<-Sys.info()
-    if(systeminfo["sysname"]=="Windows" & memory.limit()<4000)
-        stop(sprintf("memory.limit is '%s', but needs at least 4GB to use this function in small datasets", memory.limit()))
+    if(systeminfo["sysname"]=="Windows" & memory.limit()<3500)
+        stop(sprintf("memory.limit is '%s', but needs at least 3.5GB to use this function in small datasets", memory.limit()))
     isRGOrStop2<-function (object) {
         processMethod <- as.character(processMethod)
         if ((!is(object, "RGChannelSet")) && (!is(object, "MethylSet")))  
@@ -207,19 +210,24 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     subverbose <- max(as.integer(verbose) - 1L, 0L)
     if (!is.null(referenceset)){
         referenceRGset<- get(referenceset)
+        gc()
         if (!is(rgSet, "RGChannelSet"))
             referenceRGset<-preprocessRaw(referenceRGset)
+        gc()
     } else{ 
         if (!require(referencePkg, character.only = TRUE)) 
             stop(sprintf("Could not find reference data package for compositeCellType '%s' and referencePlatform '%s' (inferred package name is '%s')", compositeCellType, platform, referencePkg))
         if(referencePkg!="FlowSorted.Blood.EPIC"){
             referenceRGset <- get(referencePkg)
+            gc()
         } else{
             hub <- ExperimentHub()
             referenceRGset <-hub[["EH1136"]]
+            gc()
         }
         if (!is(rgSet, "RGChannelSet"))
-            referenceRGset<-preprocessRaw(referenceRGset)
+            referenceRGset<-preprocessRaw(referenceRGset) 
+            gc()
     }   
     if (rgPlatform != platform) {
         rgSet <- convertArray(rgSet, outType = referencePlatform, verbose = TRUE)
@@ -271,24 +279,28 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
             combinedRGset@preprocessMethod["rg.norm"]<-"Raw (no normalization or bg correction)"
         combinedMset <- combinedRGset
         rm(combinedRGset)
+        gc()
         combinedMset <- processMethod(combinedMset, verbose = subverbose)
+        gc()
         compTable <- get(paste0(referencePkg, ".compTable"))
         combinedMset <- combinedMset[which(rownames(combinedMset) %in% 
                                                 rownames(compTable)), ]
+        gc()
     } else {
         if (!is(combinedRGset, "RGChannelSet"))
             combinedRGset@preprocessMethod["rg.norm"]<-"Raw (no normalization or bg correction)"
         combinedMset <- combinedRGset
         rm(combinedRGset)
+        gc()
         combinedMset <- processMethod(combinedMset)
+        gc()
     }
-    
-    gc()
     referenceMset <- combinedMset[, combinedMset$studyIndex == "reference"]
     colData(referenceMset) <- as(referencePd, "DataFrame")
     mSet <- combinedMset[, combinedMset$studyIndex == "user"]
     colData(mSet) <- as(colData(rgSet), "DataFrame")
     rm(combinedMset)
+    gc()
     if (probeSelect != "IDOL") {
         if (verbose) 
             message("[estimateCellCounts2] Picking probes for composition estimation.\n")
@@ -321,19 +333,26 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         if (verbose) 
             message("[estimateCellCounts2] Using IDOL L-DMR probes for composition estimation.\n")
         p <- getBeta(referenceMset)
+        gc()
         pd <- as.data.frame(colData(referenceMset))
+        rm(referenceMset)
+        gc()
         if (!is.null(cellTypes)) {
             if (!all(cellTypes %in% pd$CellType)) 
                 stop("elements of argument 'cellTypes' is not part of 'referenceMset$CellType'")
             keep <- which(pd$CellType %in% cellTypes)
             pd <- pd[keep, ]
             p <- p[, keep]
+            gc()
         }
         pd$CellType <- factor(pd$CellType, levels = cellTypes)
         ffComp <- rowFtests(p, pd$CellType)
+        gc()
         prof <- vapply(splitit(pd$CellType), function(i) rowMeans(p[,i]), FUN.VALUE=numeric(dim(p)[1]))
         r <- rowRanges(p)
+        gc()
         compTable <- cbind(ffComp, prof, r, abs(r[, 1] - r[, 2]))
+        gc()
         names(compTable)[1] <- "Fstat"
         names(compTable)[c(-2, -1, 0) + ncol(compTable)] <- c("low", 
                                                             "high", "range")
@@ -343,10 +362,12 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
             x[i] <- 1
             return(rowttests(p, factor(x)))
         })
+        gc()
         trainingProbes <- IDOLOptimizedCpGs
         trainingProbes<-trainingProbes[trainingProbes%in%rownames(p)]
         p <- p[trainingProbes, ]
         pMeans <- colMeans(p)
+        gc()
         names(pMeans) <- pd$CellType
         form <- as.formula(sprintf("y ~ %s - 1", paste(levels(pd$CellType), 
                                                         collapse = "+")))
@@ -363,7 +384,6 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         }
         compData<-list(coefEsts = coefEsts, compTable = compTable,
                         sampleMeans = pMeans)
-        rm(referenceMset)
         if (verbose) 
             message("[estimateCellCounts2] Estimating composition.\n")
         counts <- projectCellType(getBeta(mSet)[rownames(coefs), ], coefs)

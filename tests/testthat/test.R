@@ -7,6 +7,7 @@ test_that("errors if bad parameters", {
     FlowSorted.Blood.EPIC1 <- hub[["EH1136"]]
     RGsetTargets=NULL
     RGsetTargets <- FlowSorted.Blood.EPIC1[, FlowSorted.Blood.EPIC1$CellType == "MIX"]
+    RGsetTargets <- RGsetTargets[,1:3]
     sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
                                        seq_len(dim(RGsetTargets)[2]), sep = "_")
     expect_error(expect_message(estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
@@ -38,6 +39,7 @@ test_that("errors if bad parameters", {
     FlowSorted.Blood.EPIC1 <- hub[["EH1136"]]
     RGsetTargets=NULL
     RGsetTargets <- FlowSorted.Blood.EPIC1[,FlowSorted.Blood.EPIC1$CellType == "MIX"]
+    RGsetTargets <- RGsetTargets[,1:3]
     sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
                                        seq_len(dim(RGsetTargets)[2]), sep = "_")    
     RGsetTargets2<-preprocessRaw(RGsetTargets)
