@@ -509,7 +509,7 @@ pickCompProbes <- function(mSet, cellTypes = NULL, numProbes = 50,
             yUp <- y[order(y[,"dm"], decreasing=TRUE),]
             yDown <- y[order(y[,"dm"], decreasing=FALSE),]
             c(rownames(yUp)[seq_len(numProbes)], 
-              rownames(yDown)[seq_len(numProbes)])
+                rownames(yDown)[seq_len(numProbes)])
         })
     }
     trainingProbes <- unique(unlist(probeList))
