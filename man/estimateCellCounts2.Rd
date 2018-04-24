@@ -19,7 +19,7 @@ estimateCellCounts2(rgSet, compositeCellType = "Blood",
 Should be one of "Blood", "CordBlood", or "DLPFC".
 See details.}
 
-\item{processMethod}{How should the user and reference data be processed together? 
+\item{processMethod}{How should the user and reference data be processed together 
 
 Default input, "preprocessNoob" in minfi, you can use "auto" 
 for preprocessQuantile for Blood and DLPFC in 450K datasets 
@@ -53,9 +53,9 @@ Default: c("CD8T", "CD4T", "NK", "Bcell", "Mono", "Neu").
 Please notice that this library use Neutrophils instead 
 of Granulocytes. See details.}
 
-\item{referencePlatform}{The platform for the reference dataset; if the input rgSet 
-belongs to another platform, it will be converted using 
-minfi function convertArray.}
+\item{referencePlatform}{The platform for the reference dataset; if the input
+rgSet belongs to another platform, it will be converted  
+using minfi function convertArray.}
 
 \item{referenceset}{It is NULL by default.
 
@@ -63,9 +63,9 @@ A custom reference RGChannelSet object (in quotes) if it is not
 a package installed. If using an installed 450k reference set to 
 NULL.}
 
-\item{IDOLOptimizedCpGs}{a vector of probe names for cell deconvolution. For EPIC
-datasets it should be equal to IDOLOptimizedCpGs (no quotes).
-For legacy 450K datasets you can use 
+\item{IDOLOptimizedCpGs}{a vector of probe names for cell deconvolution. For 
+EPIC datasets it should be equal to IDOLOptimizedCpGs (no 
+quotes). For legacy 450K datasets you can use 
 IDOLOptimizedCpGs450klegacy (no quotes) if you want to use 
 FlowSorted.EPIC.Blood for the deconvolution}
 
@@ -120,8 +120,8 @@ RGsetTargets
 # selected because their methylation signature differs across the six normal 
 # leukocyte subtypes.
 
+data (IDOLOptimizedCpGs)
 head (IDOLOptimizedCpGs)
-
 # If you need to deconvolute a 450k legacy dataset use 
 # IDOLOptimizedCpGs450klegacy instead
 
@@ -133,8 +133,8 @@ head (IDOLOptimizedCpGs)
 # estimateCellCounts2 an adaptation of the popular estimateCellCounts in 
 # minfi. This function also allows including customized reference arrays. 
 
-# Do not run with limited RAM the normalization step requires a big amount of 
-# memory resources
+# Do not run with limited RAM the normalization step requires a big amount 
+# of memory resources
 
 if (memory.limit()>8000){
  countsEPIC<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 

@@ -41,8 +41,8 @@
 #' \item LA Salas et al. (Under review). \emph{An optimized library for 
 #' reference-based deconvolution of whole-blood biospecimens assayed using the 
 #' Illumina HumanMethylationEPIC BeadArray}. 
-#' \item DC Koestler et al. (2016). \emph{Improving cell mixture deconvolution by
-#' identifying optimal DNA methylation libraries (IDOL)}. BMC bioinformatics.
+#' \item DC Koestler et al. (2016). \emph{Improving cell mixture deconvolution 
+#' by identifying optimal DNA methylation libraries (IDOL)}. BMC bioinformatics.
 #' 17, 120. doi: 10.1186/s12859-016-0943-7.
 #' \item EA Houseman et al. (2012) \emph{DNA methylation arrays as surrogate
 #' measures of cell mixture distribution}. BMC Bioinformatics 13, 86.

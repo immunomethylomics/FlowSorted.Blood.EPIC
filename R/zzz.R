@@ -1,4 +1,5 @@
-.onLoad <- function(libname = find.package("FlowSorted.Blood.EPIC"), pkgname = "FlowSorted.Blood.EPIC"){
+.onLoad <- function(libname = find.package("FlowSorted.Blood.EPIC"), 
+                    pkgname = "FlowSorted.Blood.EPIC"){
     
     # CRAN Note avoidance
     if(getRversion() >= "3.4.0") 

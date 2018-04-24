@@ -51,8 +51,8 @@
 #' # selected because their methylation signature differs across the six normal 
 #' # leukocyte subtypes.
 #' 
+#' data (IDOLOptimizedCpGs)
 #' head (IDOLOptimizedCpGs)
-#' 
 #' # If you need to deconvolute a 450k legacy dataset use 
 #' # IDOLOptimizedCpGs450klegacy instead
 #' 
@@ -64,8 +64,8 @@
 #' # estimateCellCounts2 an adaptation of the popular estimateCellCounts in 
 #' # minfi. This function also allows including customized reference arrays. 
 #' 
-#' # Do not run with limited RAM the normalization step requires a big amount of 
-#' # memory resources
+#' # Do not run with limited RAM the normalization step requires a big amount 
+#' # of memory resources
 #' 
 #' if (memory.limit()>8000){
 #'  countsEPIC<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
@@ -133,7 +133,7 @@
 #'                      Should be one of "Blood", "CordBlood", or "DLPFC".
 #'                      See details.
 #' @param
-#' processMethod How should the user and reference data be processed together? 
+#' processMethod How should the user and reference data be processed together 
 #'                
 #'                Default input, "preprocessNoob" in minfi, you can use "auto" 
 #'                for preprocessQuantile for Blood and DLPFC in 450K datasets 
@@ -167,9 +167,9 @@
 #'                Please notice that this library use Neutrophils instead 
 #'                of Granulocytes. See details.
 #' @param                 
-#' referencePlatform The platform for the reference dataset; if the input rgSet 
-#'                    belongs to another platform, it will be converted using 
-#'                    minfi function convertArray.
+#' referencePlatform The platform for the reference dataset; if the input  
+#'                    rgSet belongs to another platform, it will be converted  
+#'                    using minfi function convertArray.
 #' @param
 #' referenceset It is NULL by default.  
 #'             
@@ -177,9 +177,9 @@
 #'             a package installed. If using an installed 450k reference set to 
 #'             NULL.
 #' @param
-#' IDOLOptimizedCpGs a vector of probe names for cell deconvolution. For EPIC
-#'                 datasets it should be equal to IDOLOptimizedCpGs (no quotes).
-#'                 For legacy 450K datasets you can use 
+#' IDOLOptimizedCpGs a vector of probe names for cell deconvolution. For 
+#'                 EPIC datasets it should be equal to IDOLOptimizedCpGs (no 
+#'                 quotes). For legacy 450K datasets you can use 
 #'                 IDOLOptimizedCpGs450klegacy (no quotes) if you want to use 
 #'                 FlowSorted.EPIC.Blood for the deconvolution
 #' @param 
@@ -212,7 +212,27 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                                 returnAll = FALSE, meanPlot = FALSE, 
                                 verbose = TRUE, 
                                 ...) {
-    isRGOrStop2(rgSet)
+    if ((!is(rgSet, "RGChannelSet")) && (!is(rgSet, "MethylSet")))  
+        stop(strwrap(sprintf("object is of class '%s', but needs to be of 
+                                 class 'RGChannelSet' 'RGChannelSetExtended' or 
+                                 'MethylSet' to use this function", 
+                             class(rgSet)), width = 80, prefix = " ", 
+                     initial = ""))
+    if (!is(rgSet, "RGChannelSet") && 
+        (processMethod[1] != "preprocessQuantile")) 
+        stop(strwrap(sprintf("object is of class '%s', but needs to be of 
+                                 class 'RGChannelSet' or 'RGChannelSetExtended' 
+                                 to use other methods different to 
+                                 'preprocessQuantile'", class(rgSet)),
+                     width = 80, prefix = " ", initial = ""))
+    if (is(rgSet, "MethylSet") && 
+        (processMethod[1] == "preprocessQuantile")) 
+        message(strwrap("[estimateCellCounts2] The function will assume that
+                            no preprocessing has been performed. Using 
+                            'preprocessQuantile' in prenormalized data is 
+                            experimental and it should only be run under the 
+                            user responsibility",width = 80, prefix = " ", 
+                        initial = ""))
     if (is(rgSet, "RGChannelSetExtended"))
         rgSet <- as(rgSet, "RGChannelSet")
     referencePlatform <- match.arg(referencePlatform)
@@ -238,10 +258,10 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     } else{ 
         if (!require(referencePkg, character.only = TRUE)) 
             stop(strwrap(sprintf("Could not find reference data package for 
-                                 compositeCellType '%s' and referencePlatform 
-                                 '%s' (inferred package name is '%s')", 
-                                 compositeCellType, platform, referencePkg),
-                         width = 80, prefix = " ", initial = ""))
+                                compositeCellType '%s' and referencePlatform 
+                                '%s' (inferred package name is '%s')", 
+                                compositeCellType, platform, referencePkg),
+                        width = 80, prefix = " ", initial = ""))
         if(referencePkg!="FlowSorted.Blood.EPIC"){
             referenceRGset <- get(referencePkg)
         } else{
@@ -257,20 +277,20 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     }
     if (!"CellType" %in% names(colData(referenceRGset))) 
         stop(strwrap(sprintf("the reference sorted dataset (in this case '%s') 
-                             needs to have a phenoData column called 
-                             'CellType'"), names(referencePkg),
-                     width = 80, prefix = " ", initial = ""))
+                            needs to have a phenoData column called 
+                            'CellType'"), names(referencePkg),
+                    width = 80, prefix = " ", initial = ""))
     if (sum(colnames(rgSet) %in% colnames(referenceRGset)) > 0) 
         stop(strwrap("the sample/column names in the user set must not be in 
-                     the reference data ", width = 80, prefix = " ", 
-                     initial = ""))
+                    the reference data ", width = 80, prefix = " ", 
+                    initial = ""))
     if (!all(cellTypes %in% referenceRGset$CellType)) 
         stop(strwrap(sprintf("all elements of argument 'cellTypes' needs to be 
-                             part of the reference phenoData columns 'CellType' 
-                             (containg the following elements: '%s')", 
-                             paste(unique(referenceRGset$cellType), 
-                                   collapse = "', '")), width = 80, 
-                     prefix = " ", initial = ""))
+                            part of the reference phenoData columns 'CellType' 
+                            (containg the following elements: '%s')", 
+                            paste(unique(referenceRGset$cellType), 
+                                    collapse = "', '")), width = 80, 
+                    prefix = " ", initial = ""))
     if (length(unique(cellTypes)) < 2) 
         stop("At least 2 cell types must be provided.")
     if ((processMethod == "auto") && 
@@ -292,10 +312,10 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                         reference (flow sorted) data.\n", width = 80, 
                         prefix = " ", initial = ""))
     newpd <- DataFrame(sampleNames = c(colnames(rgSet), 
-                                       colnames(referenceRGset)), 
+                                        colnames(referenceRGset)), 
                         studyIndex = rep(c("user", "reference"), 
-                                         times = c(ncol(rgSet), 
-                                                   ncol(referenceRGset))), 
+                                        times = c(ncol(rgSet), 
+                                                    ncol(referenceRGset))), 
                         stringsAsFactors = FALSE)
     if(is.null(rgSet$CellType))
         rgSet$CellType<-rep("NA", dim(rgSet)[2])
@@ -304,7 +324,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     colData(referenceRGset)[commoncolumn] <- mapply(FUN = as,
                                         colData(referenceRGset)[commoncolumn],
                                         vapply(colData(rgSet)[commoncolumn],
-                                               class, FUN.VALUE=character(1)),
+                                                class, FUN.VALUE=character(1)),
                                                     SIMPLIFY = FALSE)
     colData(referenceRGset)<-colData(referenceRGset)[commoncolumn]
     colData(rgSet)<-colData(rgSet)[commoncolumn]
@@ -382,8 +402,8 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         if (!is.null(cellTypes)) {
             if (!all(cellTypes %in% pd$CellType)) 
                 stop(strwrap("elements of argument 'cellTypes' is not part of 
-                             'referenceMset$CellType'", width = 80, 
-                             prefix = " ", initial = ""))
+                            'referenceMset$CellType'", width = 80, 
+                            prefix = " ", initial = ""))
             keep <- which(pd$CellType %in% cellTypes)
             pd <- pd[keep, ]
             p <- p[, keep]
@@ -392,7 +412,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         ffComp <- rowFtests(p, pd$CellType)
         tIndexes <- split(seq(along=pd$CellType), pd$CellType)
         prof <- vapply(tIndexes, function(i) rowMeans(p[,i]),
-                       FUN.VALUE=numeric(dim(p)[1]))
+                        FUN.VALUE=numeric(dim(p)[1]))
         r <- rowRanges(p)
         compTable <- cbind(ffComp, prof, r, abs(r[, 1] - r[, 2]))
         names(compTable)[1] <- "Fstat"
@@ -629,29 +649,4 @@ validationCellType <- function(Y, pheno, modelFix, modelBatch=NULL,
                 degFree=degFree)
     
     out
-}
-
-isRGOrStop2<-function (object, processMethod) {
-    processMethod <- as.character(processMethod)
-    if ((!is(object, "RGChannelSet")) && (!is(object, "MethylSet")))  
-        stop(strwrap(sprintf("object is of class '%s', but needs to be of 
-                                 class 'RGChannelSet' 'RGChannelSetExtended' or 
-                                 'MethylSet' to use this function", 
-                             class(object)), width = 80, prefix = " ", 
-                     initial = ""))
-    if (!is(object, "RGChannelSet") && 
-        (processMethod[1] != "preprocessQuantile")) 
-        stop(strwrap(sprintf("object is of class '%s', but needs to be of 
-                                 class 'RGChannelSet' or 'RGChannelSetExtended' 
-                                 to use other methods different to 
-                                 'preprocessQuantile'", class(object)),
-                     width = 80, prefix = " ", initial = ""))
-    if (is(object, "MethylSet") && 
-        (processMethod[1] == "preprocessQuantile")) 
-        message(strwrap("[estimateCellCounts2] The function will assume that
-                            no preprocessing has been performed. Using 
-                            'preprocessQuantile' in prenormalized data is 
-                            experimental and it should only be run under the 
-                            user responsibility",width = 80, prefix = " ", 
-                        initial = ""))
 }

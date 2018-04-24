@@ -10,7 +10,6 @@ test_that("errors if bad parameters", {
     RGsetTargets <- RGsetTargets[,1:3]
     sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
                                        seq_len(dim(RGsetTargets)[2]), sep = "_")
-    if (memory.limit()>8000){
     expect_error(expect_message(estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
                                                     processMethod = "preprocessNoob",
                                                     probeSelect = "IDOL", 
@@ -30,7 +29,7 @@ test_that("errors if bad parameters", {
                                                                        "IlluminaHumanMethylationEPIC",
                                                                    IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
                                                                    returnAll = FALSE))))
-    }
+    
 })
 
 test_that("errors if bad parameters", {
@@ -45,7 +44,6 @@ test_that("errors if bad parameters", {
     sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
                                        seq_len(dim(RGsetTargets)[2]), sep = "_")    
     RGsetTargets2<-preprocessRaw(RGsetTargets)
-    if (memory.limit()>8000){
     expect_error(estimateCellCounts2(RGsetTargets2, compositeCellType = "Blood", 
                                      processMethod = "preprocessNoob",
                                      probeSelect = "IDOL", 
@@ -56,6 +54,5 @@ test_that("errors if bad parameters", {
                                      referenceset = NULL,
                                      IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
                                      returnAll = FALSE), "object is of class 'MethylSet', but needs to be of class 'RGChannelSet' or 'RGChannelSetExtended' to use other methods different to 'preprocessQuantile'")
-       }
     })
 

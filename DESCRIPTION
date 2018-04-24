@@ -1,7 +1,7 @@
 Package: FlowSorted.Blood.EPIC
 Type: Package
 Title: Illumina EPIC data on immunomagnetic sorted peripheral adult blood cells
-Version: 0.99.26
+Version: 0.99.27
 Date: 2018-04-05
 Authors@R: c( person(c("Lucas", "A."), "Salas", role = c("cre", "aut"),
             email = "lucas.a.salas.diaz@dartmouth.edu"),
@@ -34,6 +34,7 @@ Depends: R (>= 3.5), minfi (>= 1.21.2), SummarizedExperiment, genefilter,
 biocViews:ExperimentData, Homo_sapiens_Data, Tissue, MicroarrayData, Genome,
         TissueMicroarrayData, MethylationArrayData
 NeedsCompilation: no
+LazyData: yes
 Packaged: 2017-10-31 16:43:10 UTC; biocbuild
 Suggests:  knitr,
     rmarkdown, EpiDISH, FlowSorted.Blood.450k(>= 1.0.1),
