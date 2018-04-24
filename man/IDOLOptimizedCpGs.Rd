@@ -7,15 +7,15 @@
 \format{An object of class "character" of length 450.
 
         The format is:
-        chr [1:450] "cg08769189" "cg07661835" "cg00219921" "cg13468685" "cg04329870" "cg14085952" "cg09318840" "cg02133939" "cg07215281" "cg07879474" "cg00482026" "cg20538211" "cg00948513" ...}
+        chr [1:450] "cg08769189" "cg07661835" "cg00219921" "cg13468685" ...}
 \usage{
 IDOLOptimizedCpGs
 }
 \description{
-This object is nothing more than a vector of length 450 consisting of the names of 
-    the IDOL optimized CpGs.  These CpGs are used as the backbone for deconvolution
-    and were selected because their methylation signature differs across the six
-    normal leukocyte subtypes.
+This object is a vector of length 450 consisting of the names of the IDOL
+    optimized CpGs.  These CpGs are used as the backbone for deconvolution
+    and were selected because their methylation signature differs across the 
+    six normal leukocyte subtypes.
 }
 \examples{
 # Do not run
@@ -26,7 +26,7 @@ LA Salas et al. (Under review). \emph{An optimized library for
 reference-based deconvolution of whole-blood biospecimens assayed using the 
 Illumina HumanMethylationEPIC BeadArray}.
 
-D Koestler et al. (2016). \emph{Improving cell mixture 
+DC Koestler et al. (2016). \emph{Improving cell mixture 
 deconvolution by identifying optimal DNA methylation libraries (IDOL)}. 
 BMC bioinformatics. 17, 120. doi: 10.1186/s12859-016-0943-7.
 }

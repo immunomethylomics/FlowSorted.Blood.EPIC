@@ -1,7 +1,7 @@
 #' estimateCellCounts2 
 #' @description 
-#' estimateCellCounts2 function allows the use of customized reference datasets  
-#' and IDOL probes L-DMR lists
+#' estimateCellCounts2 function allows the use of customized reference   
+#' datasets and IDOL probes L-DMR lists
 #' @import minfi
 #' @import SummarizedExperiment
 #' @import S4Vectors
@@ -24,36 +24,49 @@
 #' @importFrom nlme getVarCov
 #' @examples
 #' # Step 1: Load the reference library to extract the artificial mixtures
+#' 
 #' library(ExperimentHub)
 #' hub <- ExperimentHub()
 #' query(hub, "FlowSorted.Blood.EPIC")
 #' FlowSorted.Blood.EPIC <- hub[["EH1136"]]
 #' FlowSorted.Blood.EPIC
+#' 
 #' # Step 2 separate the reference from the testing dataset if you want to run 
 #' # examples for estimations for this function example
+#' 
 #' RGsetTargets <- FlowSorted.Blood.EPIC[,
 #'              FlowSorted.Blood.EPIC$CellType == "MIX"]
+#'              
 #' sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
 #'                             seq_len(dim(RGsetTargets)[2]), sep = "_")
 #' RGsetTargets
+#' 
 #' # Step 3: use your favorite package for deconvolution.
 #' # Deconvolute a target data set consisting of EPIC DNA methylation 
-#' # data profiled in blood, using your prefered method estimateCellCounts 
-#' # (minfi), or similar.
-#' # You can also read in the IDOL optimized DMR library based on the EPIC 
-#' # array.  This object is nothing more than a vector of length 450 consisting 
-#' # of the names of the IDOL optimized CpGs.  These CpGs are used as the 
-#' # backbone for deconvolution and were selected because their methylation 
-#' # signature differs across the six normal leukocyte subtypes.
-#' data(IDOLOptimizedCpGs)
-#' # We recommend using Noob processMethod = "preprocessNoob" in minfi
-#' # for the target and reference datasets. Cell types included are 
-#' # cellTypes = c("CD8T", "CD4T", "NK", "Bcell", "Mono", "Neu")
-#' # We also provide an IDOL optimized list of CpGs (IDOLOptimizedCpGs)
-#' # that can be used for optimized cell estimations
-#' # We offer an adaptation of the popular estimateCellCounts in minfi to allow 
-#' # the inclusion of customized reference arrays. 
-#' # Do not run with limited RAM 
+#' # data profiled in blood, using your prefered method.
+#' 
+#' # You can use our IDOL optimized DMR library for the EPIC array.  This object
+#' # contains a vector of length 450 consisting of the IDs of the IDOL optimized
+#' # CpG probes.  These CpGs are used as the backbone for deconvolution and were
+#' # selected because their methylation signature differs across the six normal 
+#' # leukocyte subtypes.
+#' 
+#' head (IDOLOptimizedCpGs)
+#' 
+#' # If you need to deconvolute a 450k legacy dataset use 
+#' # IDOLOptimizedCpGs450klegacy instead
+#' 
+#' # We recommend using Noob processMethod = "preprocessNoob" in minfi for the 
+#' # target and reference datasets. 
+#' # Cell types included are "CD8T", "CD4T", "NK", "Bcell", "Mono", "Neu"
+#' 
+#' # To use the IDOL optimized list of CpGs (IDOLOptimizedCpGs) use 
+#' # estimateCellCounts2 an adaptation of the popular estimateCellCounts in 
+#' # minfi. This function also allows including customized reference arrays. 
+#' 
+#' # Do not run with limited RAM the normalization step requires a big amount of 
+#' # memory resources
+#' 
 #' if (memory.limit()>8000){
 #'  countsEPIC<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
 #'                                 processMethod = "preprocessNoob",
@@ -65,10 +78,14 @@
 #'                                 referenceset = NULL,
 #'                                 IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
 #'                                 returnAll = FALSE)
+#'                                 
 #' head(countsEPIC$counts)
 #' }
+#' 
 #' # If you prefer CIBERSORT or RPC deconvolution use EpiDISH or similar
+#' 
 #' # Example not to run
+#' 
 #' # countsEPIC<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
 #' #                                processMethod = "preprocessNoob",
 #' #                                probeSelect = "IDOL", 
@@ -79,17 +96,20 @@
 #' #                                referenceset = NULL,
 #' #                                IDOLOptimizedCpGs =IDOLOptimizedCpGs, 
 #' #                                returnAll = TRUE)
+#' 
 #' # library(EpiDISH)
-#' #  RPC <- epidish(getBeta(countsEPIC2$normalizedData), 
+#' # RPC <- epidish(getBeta(countsEPIC2$normalizedData), 
 #' # as.matrix(countsEPIC2$compTable[IDOLOptimizedCpGs, 3:8]), method = "RPC")
-#' # CBS <- epidish(getBeta(countsEPIC2$normalizedData), 
-#' #as.matrix(countsEPIC2$compTable[IDOLOptimizedCpGs, 3:8]), method = "CBS")
 #' # RPC$estF#RPC count estimates
+#' 
+#' # CBS <- epidish(getBeta(countsEPIC2$normalizedData), 
+#' # as.matrix(countsEPIC2$compTable[IDOLOptimizedCpGs, 3:8]), method = "CBS")
 #' # CBS$estF#CBS count estimates
+#' 
 #' @references LA Salas et al. (Under review). \emph{An optimized library for 
 #' reference-based deconvolution of whole-blood biospecimens assayed using the 
 #' Illumina HumanMethylationEPIC BeadArray}. 
-#' @references D Koestler et al. (2016). \emph{Improving cell mixture 
+#' @references DC Koestler et al. (2016). \emph{Improving cell mixture 
 #' deconvolution by identifying optimal DNA methylation libraries (IDOL)}. 
 #' BMC bioinformatics. 17, 120. doi: 10.1186/s12859-016-0943-7.
 #' @references EA Houseman, et al.(2012)  \emph{DNA methylation arrays as 
@@ -101,9 +121,9 @@
 #' @references KM Bakulski, et al. (2016) \emph{DNA methylation of cord blood 
 #' cell types: Applications for mixed cell birth studies}. Epigenetics 11:5. 
 #' doi:10.1080/15592294.2016.1161875.
-#' @references Titus AJ, et al. (2017). \emph{Cell-type deconvolution from DNA 
+#' @references AJ Titus, et al. (2017). \emph{Cell-type deconvolution from DNA 
 #' methylation: a review of recent applications}. Hum Mol Genet 26: R216-R224.
-#' @references Teschendorff AE, et al. (2017). \emph{A comparison of 
+#' @references AE Teschendorff, et al. (2017). \emph{A comparison of 
 #' reference-based algorithms for correcting cell-type heterogeneity in 
 #' Epigenome-Wide Association Studies}. BMC Bioinformatics 18: 105.
 #' @param 
@@ -114,29 +134,37 @@
 #'                      See details.
 #' @param
 #' processMethod How should the user and reference data be processed together? 
+#'                
 #'                Default input, "preprocessNoob" in minfi, you can use "auto" 
 #'                for preprocessQuantile for Blood and DLPFC in 450K datasets 
 #'                and preprocessNoob otherwise, according to existing 
-#'                literature. For MethylSet objects only "preprocessQuantile"  
+#'                literature. 
+#'                
+#'                For MethylSet objects only "preprocessQuantile"  
 #'                is available. Set it to any minfi preprocessing function as a 
 #'                character if you want to override it, like 
 #'                "preprocessFunnorm"
 #' @param 
 #' probeSelect    How should probes be selected to distinguish cell types? 
-#'                Options include "IDOL", for using a customized set of probes 
-#'                obtained from IDOL optimization, "both", which selects an 
-#'                equal number (50) of probes (with F-stat p-value < 1E-8) 
-#'                with the greatest magnitude of effect from the hyper- and 
-#'                hypo-methylated sides, and "any", which selects the 100  
-#'                probes (with F-stat p-value < 1E-8) with the greatest  
-#'                magnitude of difference regardless of direction of effect.  
+#' 
+#'                Options include:
+#'                1)  "IDOL", for using a customized set of probes obtained from
+#'                 IDOL optimization, 
+#'                2) "both", which selects an equal number (50) of probes (with 
+#'                F-stat p-value < 1E-8) with the greatest magnitude of effect 
+#'                from the hyper- and hypo-methylated sides, and 
+#'                3) "any", which selects the 100 probes (with F-stat p-value 
+#'                < 1E-8) with the greatest magnitude of difference regardless 
+#'                of direction of effect.  
+#'                
+#'                
 #'                This according to minfi algorithm. Default input "auto" in  
 #'                minfi will use "any" for cord blood and "both" otherwise.  
 #'                Please see references for more details.
 #' @param 
 #' cellTypes     A vector of length K that contains the cell type names.  
 #'                Default: c("CD8T", "CD4T", "NK", "Bcell", "Mono", "Neu").
-#'                Please notice that this platform use Neutrophils instead 
+#'                Please notice that this library use Neutrophils instead 
 #'                of Granulocytes. See details.
 #' @param                 
 #' referencePlatform The platform for the reference dataset; if the input rgSet 
@@ -144,8 +172,10 @@
 #'                    minfi function convertArray.
 #' @param
 #' referenceset It is NULL by default.  
-#'             A custom reference rgset (in quotes) if it is not a package 
-#'             installed. If using an installed 450k reference set to NULL.
+#'             
+#'             A custom reference RGChannelSet object (in quotes) if it is not 
+#'             a package installed. If using an installed 450k reference set to 
+#'             NULL.
 #' @param
 #' IDOLOptimizedCpGs a vector of probe names for cell deconvolution. For EPIC
 #'                 datasets it should be equal to IDOLOptimizedCpGs (no quotes).
@@ -168,79 +198,87 @@
 #' if returnAll=FALSE, or a list containing the counts, mean methylation per 
 #' cellType, and the normalized betas (if returnAll is set to TRUE). These 
 #' objects are important if you decide to use a different deconvolution 
-#' algorithm such as CIBERSORT or RPM.
+#' algorithm such as CIBERSORT or robust partial correlation (RPC).
 #' @export
 estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood", 
                                 processMethod = "preprocessNoob", 
                                 probeSelect = c("auto", "any", "IDOL"), 
                                 cellTypes = c("CD8T", "CD4T", "NK", "Bcell", 
                                                 "Mono", "Neu"), 
-                                referencePlatform = c("IlluminaHumanMethylation450k", 
-                                                        "IlluminaHumanMethylationEPIC", 
-                                                        "IlluminaHumanMethylation27k"), 
+                        referencePlatform = c("IlluminaHumanMethylation450k", 
+                                                "IlluminaHumanMethylationEPIC", 
+                                                "IlluminaHumanMethylation27k"), 
                                 referenceset = NULL, IDOLOptimizedCpGs = NULL, 
                                 returnAll = FALSE, meanPlot = FALSE, 
                                 verbose = TRUE, 
                                 ...) {
-    isRGOrStop2<-function (object) {
-        processMethod <- as.character(processMethod)
-        if ((!is(object, "RGChannelSet")) && (!is(object, "MethylSet")))  
-            stop(sprintf("object is of class '%s', but needs to be of class 'RGChannelSet' 'RGChannelSetExtended' or 'MethylSet' to use this function", class(object)))
-        if (!is(object, "RGChannelSet") && (processMethod[1] != "preprocessQuantile")) 
-            stop(sprintf("object is of class '%s', but needs to be of class 'RGChannelSet' or 'RGChannelSetExtended' to use other methods different to 'preprocessQuantile'", class(object)))
-        if (is(object, "MethylSet") && (processMethod[1] == "preprocessQuantile")) 
-            message("[estimateCellCounts2] The function will assume that no preprocessing has been performed. Using 'preprocessQuantile' in prenormalized data is experimental and it should only be run under the user responsibility")
-    }
     isRGOrStop2(rgSet)
     if (is(rgSet, "RGChannelSetExtended"))
         rgSet <- as(rgSet, "RGChannelSet")
     referencePlatform <- match.arg(referencePlatform)
-    rgPlatform <- sub("IlluminaHumanMethylation", "",annotation(rgSet)[which(names(annotation(rgSet)) == "array")])
+    rgPlatform <- sub("IlluminaHumanMethylation", "",
+                annotation(rgSet)[which(names(annotation(rgSet)) == "array")])
     platform <- sub("IlluminaHumanMethylation", "", referencePlatform)
     if ((compositeCellType == "CordBlood") && (!"nRBC" %in% cellTypes)) 
-        message("[estimateCellCounts2] Consider including 'nRBC' in argument 'cellTypes' for cord blood estimation.\n")
+        message(strwrap("[estimateCellCounts2] Consider including 'nRBC' in 
+                        argument 'cellTypes' for cord blood estimation.\n",
+                        width = 80, prefix = " ", initial = ""))
     if ((compositeCellType == "Blood") && 
         (referencePlatform == "IlluminaHumanMethylationEPIC") && 
         ("Gran" %in% cellTypes)) 
-        message("[estimateCellCounts2] Replace 'Gran' for 'Neu' in argument 'cellTypes' for EPIC blood estimation.\n")
+        message(strwrap("[estimateCellCounts2] Replace 'Gran' for 'Neu' in 
+                        argument 'cellTypes' for EPIC blood estimation.\n",
+                        width = 80, prefix = " ", initial = ""))
     referencePkg <- sprintf("FlowSorted.%s.%s", compositeCellType, platform)
     subverbose <- max(as.integer(verbose) - 1L, 0L)
     if (!is.null(referenceset)){
         referenceRGset<- get(referenceset)
-        gc()
         if (!is(rgSet, "RGChannelSet"))
             referenceRGset<-preprocessRaw(referenceRGset)
-        gc()
     } else{ 
         if (!require(referencePkg, character.only = TRUE)) 
-            stop(sprintf("Could not find reference data package for compositeCellType '%s' and referencePlatform '%s' (inferred package name is '%s')", compositeCellType, platform, referencePkg))
+            stop(strwrap(sprintf("Could not find reference data package for 
+                                 compositeCellType '%s' and referencePlatform 
+                                 '%s' (inferred package name is '%s')", 
+                                 compositeCellType, platform, referencePkg),
+                         width = 80, prefix = " ", initial = ""))
         if(referencePkg!="FlowSorted.Blood.EPIC"){
             referenceRGset <- get(referencePkg)
-            gc()
         } else{
             hub <- ExperimentHub()
             referenceRGset <-hub[["EH1136"]]
-            gc()
         }
         if (!is(rgSet, "RGChannelSet"))
             referenceRGset<-preprocessRaw(referenceRGset) 
-            gc()
     }   
     if (rgPlatform != platform) {
-        rgSet <- convertArray(rgSet, outType = referencePlatform, verbose = TRUE)
+        rgSet <- convertArray(rgSet, outType = referencePlatform, 
+                              verbose = TRUE)
     }
     if (!"CellType" %in% names(colData(referenceRGset))) 
-        stop(sprintf("the reference sorted dataset (in this case '%s') needs to have a phenoData column called 'CellType'"), 
-            names(referencePkg))
+        stop(strwrap(sprintf("the reference sorted dataset (in this case '%s') 
+                             needs to have a phenoData column called 
+                             'CellType'"), names(referencePkg),
+                     width = 80, prefix = " ", initial = ""))
     if (sum(colnames(rgSet) %in% colnames(referenceRGset)) > 0) 
-        stop("the sample/column names in the user set must not be in the reference data ")
+        stop(strwrap("the sample/column names in the user set must not be in 
+                     the reference data ", width = 80, prefix = " ", 
+                     initial = ""))
     if (!all(cellTypes %in% referenceRGset$CellType)) 
-        stop(sprintf("all elements of argument 'cellTypes' needs to be part of the reference phenoData columns 'CellType' (containg the following elements: '%s')", paste(unique(referenceRGset$cellType), collapse = "', '")))
+        stop(strwrap(sprintf("all elements of argument 'cellTypes' needs to be 
+                             part of the reference phenoData columns 'CellType' 
+                             (containg the following elements: '%s')", 
+                             paste(unique(referenceRGset$cellType), 
+                                   collapse = "', '")), width = 80, 
+                     prefix = " ", initial = ""))
     if (length(unique(cellTypes)) < 2) 
         stop("At least 2 cell types must be provided.")
-    if ((processMethod == "auto") && (compositeCellType %in% c("Blood", "DLPFC"))) 
+    if ((processMethod == "auto") && 
+        (compositeCellType %in% c("Blood", "DLPFC"))) 
         processMethod <- "preprocessQuantile"
-    if ((processMethod == "auto") && (!compositeCellType %in% c("Blood","DLPFC")) && (is(rgSet, "RGChannelSet"))) 
+    if ((processMethod == "auto") && 
+        (!compositeCellType %in% c("Blood","DLPFC")) && 
+        (is(rgSet, "RGChannelSet"))) 
         processMethod <- "preprocessNoob"
     processMethod <- get(processMethod)
     if ((probeSelect == "auto") && (compositeCellType == "CordBlood")) {
@@ -250,15 +288,23 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         probeSelect <- "both"
     }
     if (verbose) 
-        message("[estimateCellCounts2] Combining user data with reference (flow sorted) data.\n")
-    
-    newpd <- DataFrame(sampleNames = c(colnames(rgSet), colnames(referenceRGset)), 
-                        studyIndex = rep(c("user", "reference"), times = c(ncol(rgSet), ncol(referenceRGset))), 
+        message(strwrap("[estimateCellCounts2] Combining user data with 
+                        reference (flow sorted) data.\n", width = 80, 
+                        prefix = " ", initial = ""))
+    newpd <- DataFrame(sampleNames = c(colnames(rgSet), 
+                                       colnames(referenceRGset)), 
+                        studyIndex = rep(c("user", "reference"), 
+                                         times = c(ncol(rgSet), 
+                                                   ncol(referenceRGset))), 
                         stringsAsFactors = FALSE)
     if(is.null(rgSet$CellType))
         rgSet$CellType<-rep("NA", dim(rgSet)[2])
-    commoncolumn<-intersect(names(colData(rgSet)), names(colData(referenceRGset)))
-    colData(referenceRGset)[commoncolumn] <- mapply(FUN = as,colData(referenceRGset)[commoncolumn],vapply(colData(rgSet)[commoncolumn],class, FUN.VALUE=character(1)),
+    commoncolumn<-intersect(names(colData(rgSet)), 
+                            names(colData(referenceRGset)))
+    colData(referenceRGset)[commoncolumn] <- mapply(FUN = as,
+                                        colData(referenceRGset)[commoncolumn],
+                                        vapply(colData(rgSet)[commoncolumn],
+                                               class, FUN.VALUE=character(1)),
                                                     SIMPLIFY = FALSE)
     colData(referenceRGset)<-colData(referenceRGset)[commoncolumn]
     colData(rgSet)<-colData(rgSet)[commoncolumn]
@@ -268,22 +314,24 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     colData(combinedRGset) <- newpd
     colnames(combinedRGset) <- newpd$sampleNames
     rm(referenceRGset)
-    gc()
     if (verbose) 
-        message("[estimateCellCounts2] Processing user and reference data together.\n")
+        message(strwrap("[estimateCellCounts2] Processing user and reference 
+                        data together.\n", width = 80, prefix = " ",
+                        initial = ""))
     if (compositeCellType == "CordBlood") {
         if (!is(combinedRGset, "RGChannelSet"))
-            combinedRGset@preprocessMethod["rg.norm"]<-"Raw (no normalization or bg correction)"
+            combinedRGset@preprocessMethod["rg.norm"]<-
+                "Raw (no normalization or bg correction)"
         combinedMset <- processMethod(combinedRGset, verbose = subverbose)
         rm(combinedRGset)
         gc()
         compTable <- get(paste0(referencePkg, ".compTable"))
         combinedMset <- combinedMset[which(rownames(combinedMset) %in% 
                                                 rownames(compTable)), ]
-        gc()
     } else {
         if (!is(combinedRGset, "RGChannelSet"))
-            combinedRGset@preprocessMethod["rg.norm"]<-"Raw (no normalization or bg correction)"
+            combinedRGset@preprocessMethod["rg.norm"]<-
+                "Raw (no normalization or bg correction)"
         combinedMset <- processMethod(combinedRGset)
         rm(combinedRGset)
         gc()
@@ -293,10 +341,11 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     mSet <- combinedMset[, combinedMset$studyIndex == "user"]
     colData(mSet) <- as(colData(rgSet), "DataFrame")
     rm(combinedMset)
-    gc()
     if (probeSelect != "IDOL") {
         if (verbose) 
-            message("[estimateCellCounts2] Picking probes for composition estimation.\n")
+            message(strwrap("[estimateCellCounts2] Picking probes for 
+                            composition estimation.\n", width = 80, 
+                            prefix = " ", initial = ""))
         compData <- pickCompProbes(referenceMset, cellTypes = cellTypes, 
                                     compositeCellType = compositeCellType, 
                                     probeSelect = probeSelect)
@@ -324,28 +373,31 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         }
     } else {
         if (verbose) 
-            message("[estimateCellCounts2] Using IDOL L-DMR probes for composition estimation.\n")
+            message(strwrap("[estimateCellCounts2] Using IDOL L-DMR probes for 
+                            composition estimation.\n", width = 80, 
+                            prefix = " ", initial = ""))
         p <- getBeta(referenceMset)
         pd <- as.data.frame(colData(referenceMset))
         rm(referenceMset)
-        gc()
         if (!is.null(cellTypes)) {
             if (!all(cellTypes %in% pd$CellType)) 
-                stop("elements of argument 'cellTypes' is not part of 'referenceMset$CellType'")
+                stop(strwrap("elements of argument 'cellTypes' is not part of 
+                             'referenceMset$CellType'", width = 80, 
+                             prefix = " ", initial = ""))
             keep <- which(pd$CellType %in% cellTypes)
             pd <- pd[keep, ]
             p <- p[, keep]
-            gc()
         }
         pd$CellType <- factor(pd$CellType, levels = cellTypes)
         ffComp <- rowFtests(p, pd$CellType)
-        prof <- vapply(splitit(pd$CellType), function(i) rowMeans(p[,i]), FUN.VALUE=numeric(dim(p)[1]))
+        tIndexes <- split(seq(along=pd$CellType), pd$CellType)
+        prof <- vapply(tIndexes, function(i) rowMeans(p[,i]),
+                       FUN.VALUE=numeric(dim(p)[1]))
         r <- rowRanges(p)
         compTable <- cbind(ffComp, prof, r, abs(r[, 1] - r[, 2]))
         names(compTable)[1] <- "Fstat"
         names(compTable)[c(-2, -1, 0) + ncol(compTable)] <- c("low", 
                                                             "high", "range")
-        tIndexes <- splitit(pd$CellType)
         tstatList <- lapply(tIndexes, function(i) {
             x <- rep(0, ncol(p))
             x[i] <- 1
@@ -355,7 +407,6 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         trainingProbes<-trainingProbes[trainingProbes%in%rownames(p)]
         p <- p[trainingProbes, ]
         pMeans <- colMeans(p)
-        gc()
         names(pMeans) <- pd$CellType
         form <- as.formula(sprintf("y ~ %s - 1", paste(levels(pd$CellType), 
                                                         collapse = "+")))
@@ -394,18 +445,18 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     }
 }
 
-#These are a minfi internal functions here they are called to keep the function above running
+#These are a minfi internal functions here they are called to keep the function 
+#above running for the alternative selection ("auto" and "both")
 pickCompProbes <- function(mSet, cellTypes = NULL, numProbes = 50, 
-                            compositeCellType = compositeCellType, probeSelect = probeSelect) {
-    splitit <- function(x) {
-        split(seq(along=x), x)
-    }
-    
+                            compositeCellType = compositeCellType, 
+                           probeSelect = probeSelect) {
     p <- getBeta(mSet)
     pd <- as.data.frame(colData(mSet))
     if(!is.null(cellTypes)) {
         if(!all(cellTypes %in% pd$CellType))
-            stop("elements of argument 'cellTypes' is not part of 'mSet$CellType'")
+            stop(strwrap("elements of argument 'cellTypes' are not part of 
+                         'mSet$CellType'", width = 80, prefix = " ", 
+                         initial = ""))
         keep <- which(pd$CellType %in% cellTypes)
         pd <- pd[keep,]
         p <- p[,keep]
@@ -413,18 +464,18 @@ pickCompProbes <- function(mSet, cellTypes = NULL, numProbes = 50,
     ## make cell type a factor 
     pd$CellType <- factor(pd$CellType, levels = cellTypes)
     ffComp <- rowFtests(p, pd$CellType)
-    prof <- vapply(splitit(pd$CellType), function(i) rowMeans(p[,i]), FUN.VALUE=numeric(dim(p)[1]))
+    tIndexes <- split(seq(along=pd$CellType), pd$CellType)
+    prof <- vapply(tIndexes, function(i) rowMeans(p[,i]), 
+                   FUN.VALUE=numeric(dim(p)[1]))
     r <- rowRanges(p)
     compTable <- cbind(ffComp, prof, r, abs(r[,1] - r[,2]))
     names(compTable)[1] <- "Fstat"
     names(compTable)[c(-2,-1,0) + ncol(compTable)] <- c("low", "high", "range") 
-    tIndexes <- splitit(pd$CellType)
     tstatList <- lapply(tIndexes, function(i) {
         x <- rep(0,ncol(p))
         x[i] <- 1
         return(rowttests(p, factor(x)))
     })
-    
     if (probeSelect == "any"){
         probeList <- lapply(tstatList, function(x) {
             y <- x[x[,"p.value"] < 1e-8,]
@@ -436,7 +487,8 @@ pickCompProbes <- function(mSet, cellTypes = NULL, numProbes = 50,
             y <- x[x[,"p.value"] < 1e-8,]
             yUp <- y[order(y[,"dm"], decreasing=TRUE),]
             yDown <- y[order(y[,"dm"], decreasing=FALSE),]
-            c(rownames(yUp)[seq_len(numProbes)], rownames(yDown)[seq_len(numProbes)])
+            c(rownames(yUp)[seq_len(numProbes)], 
+              rownames(yDown)[seq_len(numProbes)])
         })
     }
     trainingProbes <- unique(unlist(probeList))
@@ -460,6 +512,8 @@ pickCompProbes <- function(mSet, cellTypes = NULL, numProbes = 50,
                 sampleMeans = pMeans)
     return(out)
 }
+#This is the modified version of the QP/CP from EA Houseman used by minfi
+#By default assumes non-negative and a less than one constrain to keep unity
 projectCellType <- function(Y, coefCellType, contrastCellType=NULL, 
                             nonnegative=TRUE, lessThanOne=FALSE){ 
     if(is.null(contrastCellType))
@@ -577,7 +631,27 @@ validationCellType <- function(Y, pheno, modelFix, modelBatch=NULL,
     out
 }
 
-
-splitit <- function(x) {
-    split(seq(along=x), x)
+isRGOrStop2<-function (object, processMethod) {
+    processMethod <- as.character(processMethod)
+    if ((!is(object, "RGChannelSet")) && (!is(object, "MethylSet")))  
+        stop(strwrap(sprintf("object is of class '%s', but needs to be of 
+                                 class 'RGChannelSet' 'RGChannelSetExtended' or 
+                                 'MethylSet' to use this function", 
+                             class(object)), width = 80, prefix = " ", 
+                     initial = ""))
+    if (!is(object, "RGChannelSet") && 
+        (processMethod[1] != "preprocessQuantile")) 
+        stop(strwrap(sprintf("object is of class '%s', but needs to be of 
+                                 class 'RGChannelSet' or 'RGChannelSetExtended' 
+                                 to use other methods different to 
+                                 'preprocessQuantile'", class(object)),
+                     width = 80, prefix = " ", initial = ""))
+    if (is(object, "MethylSet") && 
+        (processMethod[1] == "preprocessQuantile")) 
+        message(strwrap("[estimateCellCounts2] The function will assume that
+                            no preprocessing has been performed. Using 
+                            'preprocessQuantile' in prenormalized data is 
+                            experimental and it should only be run under the 
+                            user responsibility",width = 80, prefix = " ", 
+                        initial = ""))
 }

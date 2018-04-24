@@ -1,5 +1,5 @@
 #' FlowSorted.Blood.EPIC
-#'
+#' @description
 #' Illumina Human Methylation data from EPIC on immunomagnetic sorted adult 
 #' blood cell populations. The FlowSorted.Blood.EPIC package contains Illumina
 #' HumanMethylationEPIC (\dQuote{EPIC})) DNA methylation microarray data
@@ -34,7 +34,7 @@
 #'
 #' @format A class: RGChannelSet, dimensions: 1051815 49 
 #' @source \url{https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110554}
-#' The FlowSorted.Blood.EPIC objects is based in samples assayed
+#' The FlowSorted.Blood.EPIC object is based in samples assayed
 #' by Brock Christensen and colleagues; manuscript submmited.
 #' @seealso
 #' References \enumerate{

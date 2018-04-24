@@ -7,7 +7,7 @@
 \format{A class: RGChannelSet, dimensions: 1051815 49}
 \source{
 \url{https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110554}
-The FlowSorted.Blood.EPIC objects is based in samples assayed
+The FlowSorted.Blood.EPIC object is based in samples assayed
 by Brock Christensen and colleagues; manuscript submmited.
 }
 \usage{
@@ -21,8 +21,7 @@ from the immunomethylomics group (manuscript submitted), consisting of 37
 magnetic sorted blood cell references and 12 samples, formatted as an
 RGChannelSet object for  integration and normalization using
 most of the existing Bioconductor packages.
-}
-\details{
+
 This package contains data similar to the FlowSorted.Blood.450k
 package consisting of data from peripheral blood samples generated from
 adult men and women. However, when using the newer EPIC microarray minfi 

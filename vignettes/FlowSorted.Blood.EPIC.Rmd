@@ -1,6 +1,6 @@
 ---
 title: "FlowSorted.Blood.EPIC"
-author: "Lucas A Salas, Devin C Koestler"
+author: "Lucas A Salas"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -37,35 +37,110 @@ knitr::opts_chunk$set(
  (CD19+), monocytes (CD14+), NK cells (CD56+) and Neutrophils of cell
  sorted blood generated with high purity estimates. As a test of accuracy
  12 experimental mixtures were reconstructed using fixed amounts of DNA from
- purified cells. We offer the function estimateCellCounts2 a modification of 
- the popular estimatesCellCounts function in minfi.
- This function allows estimating cellular composition in
- users' whole blood Illumina EPIC samples using a modified version of
- the algorithm constrained projection/quadratic programming described
- in Houseman et al. 2012. For a slightly more accurate estimations we also
- offered an IDOL optimized CpG selection for cell deconvolution as the object 
- IDOLOptimizedCpGs, and the IDOLOptimizedCpGs450klegacy object for legacy 
- 450K datasets. See the objects help for details.
-
-
- The raw dataset is hosted in both ExperimentHub (EH1136) and GEO (GSE110554)
- The object in ExperimentHub is a class: RGChannelSet, dimensions: 1051815 49 
+ purified cells. 
  
- References 
+**Objects included:**  
+ 1. *FlowSorted.Blood.EPIC* is the RGChannelSet object containing the reference 
+ library
+ 
+```{r eval=FALSE}
+library(ExperimentHub)  
+
+hub <- ExperimentHub()  
+
+query(hub, "FlowSorted.Blood.EPIC")  
+
+FlowSorted.Blood.EPIC <- hub[["EH1136"]]  
+
+FlowSorted.Blood.EPIC  
+```
+ The raw dataset is hosted in both ExperimentHub (EH1136) and GEO [GSE110554](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110554)  
+
+ 2. *IDOLOptimizedCpGs* the IDOL L-DMR library for EPIC arrays  
+```{r eval=FALSE}
+head(IDOLOptimizedCpGs)  
+```  
+ 3. *IDOLOptimizedCpGs450klegacy* the IDOL L-DMR library for legacy 450k arrays  
+```{r eval=FALSE}
+head(IDOLOptimizedCpGs450klegacy)  
+```  
+ *See the object help files for additional information*  
+ 
+**estimateCellCounts2 function for cell type deconvolution:**  
+ 
+ We offer the function estimateCellCounts2 a modification of  the popular 
+ estimatesCellCounts function in minfi. Our function corrected small glitches 
+ when dealing with combining the DataFrame objects with the reference libraries.
+ We allow the use of MethylSet objects such as those from GEO. However, we offer
+ only Quantile normalization for those datasets (assuming that they have not 
+ been previously normalized). The estimates are calculated using the CP/QP  
+ method described in Houseman et al. 2012.  and adapted in minfi.
+ CIBERSORT and RPC are allowed using external packages.  
+ *see ?estimateCellCounts2 for details*  
+```{r eval=FALSE}
+# Step 1: Load the reference library to extract the artificial mixtures  
+
+library(ExperimentHub)  
+hub <- ExperimentHub()  
+query(hub, "FlowSorted.Blood.EPIC")  
+FlowSorted.Blood.EPIC <- hub[["EH1136"]]  
+FlowSorted.Blood.EPIC  
+
+# Step 2 separate the reference from the testing dataset  
+
+RGsetTargets <- FlowSorted.Blood.EPIC[,
+             FlowSorted.Blood.EPIC$CellType == "MIX"]  
+             
+sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
+                            seq_len(dim(RGsetTargets)[2]), sep = "_")  
+RGsetTargets  
+
+# Step 3: Deconvolute using the IDOL L-DMR  
+
+head (IDOLOptimizedCpGs)  
+
+# If you need to deconvolute a 450k legacy dataset use 
+# IDOLOptimizedCpGs450klegacy instead  
+
+# Do not run with limited RAM the normalization step requires a big amount of 
+# memory resources  
+
+if (memory.limit()>8000){  
+ countsEPIC<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood",   
+                                processMethod = "preprocessNoob",  
+                                probeSelect = "IDOL",  
+                                cellTypes = c("CD8T", "CD4T", "NK", "Bcell",  
+                                "Mono", "Neu"),  
+                                referencePlatform =   
+                                "IlluminaHumanMethylationEPIC",  
+                                referenceset = NULL,  
+                                IDOLOptimizedCpGs =IDOLOptimizedCpGs,   
+                                returnAll = FALSE)  
+                                
+head(countsEPIC$counts)  
+}
+``` 
+ 
+
+
+  
+ **References**  
 
  LA Salas et al. (Under review). An optimized library for 
  reference-based deconvolution of whole-blood biospecimens assayed using the 
- Illumina HumanMethylationEPIC BeadArray. 
+ Illumina HumanMethylationEPIC BeadArray.  
  
  DC Koestler et al. (2016). Improving cell mixture deconvolution by
  identifying optimal DNA methylation libraries (IDOL). BMC bioinformatics.
- 17, 120. doi: 10.1186/s12859-016-0943-7.
+ 17, 120. doi:
+ [10.1186/s12859-016-0943-7](https://dx.doi.org/10.1186/s12859-016-0943-7).  
  
  EA Houseman et al. (2012) DNA methylation arrays as surrogate
  measures of cell mixture distribution. BMC Bioinformatics 13, 86.
- doi:10.1186/1471-2105-13-86.
+ doi:
+ [10.1186/1471-2105-13-86](https://dx.doi.org/10.1186/1471-2105-13-86).  
  
- minfi package for tools for estimating cell type
- composition in blood using these data
+ [minfi](http://bioconductor.org/packages/release/bioc/html/minfi.html)
+ Tools to analyze & visualize Illumina Infinium methylation arrays.
 
 
