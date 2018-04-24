@@ -19,7 +19,8 @@ estimateCellCounts2(rgSet, compositeCellType = "Blood",
 Should be one of "Blood", "CordBlood", or "DLPFC".
 See details.}
 
-\item{processMethod}{How should the user and reference data be processed together 
+\item{processMethod}{Joint normalization/background correction for user and 
+reference data 
 
 Default input, "preprocessNoob" in minfi, you can use "auto" 
 for preprocessQuantile for Blood and DLPFC in 450K datasets 

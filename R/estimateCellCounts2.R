@@ -133,7 +133,8 @@
 #'                      Should be one of "Blood", "CordBlood", or "DLPFC".
 #'                      See details.
 #' @param
-#' processMethod How should the user and reference data be processed together 
+#' processMethod Joint normalization/background correction for user and 
+#'                reference data 
 #'                
 #'                Default input, "preprocessNoob" in minfi, you can use "auto" 
 #'                for preprocessQuantile for Blood and DLPFC in 450K datasets 
@@ -214,17 +215,17 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                                 ...) {
     if ((!is(rgSet, "RGChannelSet")) && (!is(rgSet, "MethylSet")))  
         stop(strwrap(sprintf("object is of class '%s', but needs to be of 
-                                 class 'RGChannelSet' 'RGChannelSetExtended' or 
-                                 'MethylSet' to use this function", 
-                             class(rgSet)), width = 80, prefix = " ", 
-                     initial = ""))
+                                class 'RGChannelSet' 'RGChannelSetExtended' or 
+                                'MethylSet' to use this function", 
+                            class(rgSet)), width = 80, prefix = " ", 
+                    initial = ""))
     if (!is(rgSet, "RGChannelSet") && 
         (processMethod[1] != "preprocessQuantile")) 
         stop(strwrap(sprintf("object is of class '%s', but needs to be of 
-                                 class 'RGChannelSet' or 'RGChannelSetExtended' 
-                                 to use other methods different to 
-                                 'preprocessQuantile'", class(rgSet)),
-                     width = 80, prefix = " ", initial = ""))
+                                class 'RGChannelSet' or 'RGChannelSetExtended' 
+                                to use other methods different to 
+                                'preprocessQuantile'", class(rgSet)),
+                    width = 80, prefix = " ", initial = ""))
     if (is(rgSet, "MethylSet") && 
         (processMethod[1] == "preprocessQuantile")) 
         message(strwrap("[estimateCellCounts2] The function will assume that
@@ -273,7 +274,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     }   
     if (rgPlatform != platform) {
         rgSet <- convertArray(rgSet, outType = referencePlatform, 
-                              verbose = TRUE)
+                                verbose = TRUE)
     }
     if (!"CellType" %in% names(colData(referenceRGset))) 
         stop(strwrap(sprintf("the reference sorted dataset (in this case '%s') 
@@ -469,14 +470,14 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
 #above running for the alternative selection ("auto" and "both")
 pickCompProbes <- function(mSet, cellTypes = NULL, numProbes = 50, 
                             compositeCellType = compositeCellType, 
-                           probeSelect = probeSelect) {
+                            probeSelect = probeSelect) {
     p <- getBeta(mSet)
     pd <- as.data.frame(colData(mSet))
     if(!is.null(cellTypes)) {
         if(!all(cellTypes %in% pd$CellType))
             stop(strwrap("elements of argument 'cellTypes' are not part of 
-                         'mSet$CellType'", width = 80, prefix = " ", 
-                         initial = ""))
+                        'mSet$CellType'", width = 80, prefix = " ", 
+                        initial = ""))
         keep <- which(pd$CellType %in% cellTypes)
         pd <- pd[keep,]
         p <- p[,keep]
@@ -486,7 +487,7 @@ pickCompProbes <- function(mSet, cellTypes = NULL, numProbes = 50,
     ffComp <- rowFtests(p, pd$CellType)
     tIndexes <- split(seq(along=pd$CellType), pd$CellType)
     prof <- vapply(tIndexes, function(i) rowMeans(p[,i]), 
-                   FUN.VALUE=numeric(dim(p)[1]))
+                    FUN.VALUE=numeric(dim(p)[1]))
     r <- rowRanges(p)
     compTable <- cbind(ffComp, prof, r, abs(r[,1] - r[,2]))
     names(compTable)[1] <- "Fstat"

@@ -54,13 +54,15 @@ FlowSorted.Blood.EPIC <- hub[["EH1136"]]
 
 FlowSorted.Blood.EPIC  
 ```
- The raw dataset is hosted in both ExperimentHub (EH1136) and GEO [GSE110554](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110554)  
+ The raw dataset is hosted in both ExperimentHub (EH1136) and GEO 
+ [GSE110554](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110554)  
 
  2. *IDOLOptimizedCpGs* the IDOL L-DMR library for EPIC arrays  
 ```{r eval=FALSE}
 head(IDOLOptimizedCpGs)  
 ```  
- 3. *IDOLOptimizedCpGs450klegacy* the IDOL L-DMR library for legacy 450k arrays  
+ 3. *IDOLOptimizedCpGs450klegacy* the IDOL L-DMR library for legacy 450k 
+ arrays  
 ```{r eval=FALSE}
 head(IDOLOptimizedCpGs450klegacy)  
 ```  
