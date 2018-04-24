@@ -1,7 +1,7 @@
 Package: FlowSorted.Blood.EPIC
 Type: Package
 Title: Illumina EPIC data on immunomagnetic sorted peripheral adult blood cells
-Version: 0.99.31
+Version: 0.99.32
 Date: 2018-04-05
 Authors@R: c( person(c("Lucas", "A."), "Salas", role = c("cre", "aut"),
             email = "lucas.a.salas.diaz@dartmouth.edu"),
@@ -28,9 +28,9 @@ Authors@R: c( person(c("Lucas", "A."), "Salas", role = c("cre", "aut"),
             comment = "author of the original estimateCellCounts and internal 
             functions within minfi"))
 Description: Raw data object to be used for blood cell proportion deconvolution 
-in Illumina DNA methylation microarrays. The FlowSorted.Blood.EPIC object is
-based in samples assayed by Brock Christensen and colleagues; 
-manuscript submmited. GEO: GSE110554.
+            in Illumina DNA methylation microarrays. The FlowSorted.Blood.EPIC 
+            object is based in samples assayed by Brock Christensen and 
+            colleagues; manuscript under review. GEO: GSE110554.
 
 License: GPL-3
 Depends: R (>= 3.5), minfi (>= 1.21.2), SummarizedExperiment, genefilter, 
