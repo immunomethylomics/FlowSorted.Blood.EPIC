@@ -1,7 +1,7 @@
 Package: FlowSorted.Blood.EPIC
 Type: Package
 Title: Illumina EPIC data on immunomagnetic sorted peripheral adult blood cells
-Version: 0.99.34
+Version: 0.99.35
 Date: 2018-04-05
 Authors@R: c( person(c("Lucas", "A."), "Salas", role = c("cre", "aut"),
             email = "lucas.a.salas.diaz@dartmouth.edu"),
@@ -13,25 +13,20 @@ Authors@R: c( person(c("Lucas", "A."), "Salas", role = c("cre", "aut"),
             person(c("Karl", "T."), "Kelsey", role = c("ctb")),
             person(c("Brock", "C."), "Christensen", role = c("ctb")),
             person(c("Kasper", "Daniel"), "Hansen", role = c("ctb"),
-            comment = "author and maintainer of the original minfi 
-            estimateCellCounts and internal functions"),
+            comment = "author and maintainer of the original minfi estimateCellCounts and internal functions"),
             person("Jean-Philippe", "Fortin", role = "ctb", 
-            comment = "contributor in the original minfi estimateCellCounts and 
-            internal functions"),
+            comment = "contributor in the original minfi estimateCellCounts and internal functions"),
             person(c("Shan", "V."), "Andrews", role = "ctb",
-            comment = "contributor in the original minfi estimateCellCounts and 
-            internal functions"),
+            comment = "contributor in the original minfi estimateCellCounts and internal functions"),
             person(c("E.", "Andres"), "Houseman", role = c("ctb"),
-            comment = "author of the original quadratic programming function 
-            used for cell projection"),
+            comment = "author of the original quadratic programming function used for cell projection"),
             person(c("Andrew", "E"), "Jaffe", role = c("ctb"),
-            comment = "author of the original estimateCellCounts and internal 
-            functions within minfi"))
-Description: Raw data object to be used for blood cell proportion deconvolution 
-            in Illumina DNA methylation microarrays. The FlowSorted.Blood.EPIC 
-            object is based in samples assayed by Brock Christensen and 
-            colleagues; manuscript under review. GEO: GSE110554.
-
+            comment = "author of the original estimateCellCounts and internal functions within minfi"))
+Description: Raw data objects to be used for blood cell proportion
+        estimation in minfi and similar packages. 
+        The FlowSorted.Blood.EPIC object is based in samples assayed
+        by Brock Christensen and colleagues; manuscript submmited.
+        https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110554
 License: GPL-3
 Depends: R (>= 3.5), minfi (>= 1.21.2), SummarizedExperiment, genefilter, 
          quadprog, nlme, S4Vectors,  graphics, stats, utils,
