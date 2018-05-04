@@ -2,6 +2,8 @@
 
 Illumina Human Methylation data from EPIC on antibody linked magnetic bead sorted adult blood cell populations
 
+[![DOI](https://zenodo.org/badge/122658970.svg)](https://zenodo.org/badge/latestdoi/122658970)
+
 License: GPL-3
 
 The FlowSorted.Blood.EPIC package contains Illumina HumanMethylationEPIC DNA methylation microarray data from the immunomethylomics group (Salas et al. 2018), consisting of 37 blood cell references and 12 samples, formatted as an RGChannelSet object for integration and normalization using most of the existing Bioconductor packages.
