@@ -22,9 +22,9 @@ This object is a vector of length 450 consisting of the names of the IDOL
 # data("IDOLOptimizedCpGs")
 }
 \references{
-LA Salas et al. (Under review). \emph{An optimized library for 
+LA Salas et al. (2018). \emph{An optimized library for 
 reference-based deconvolution of whole-blood biospecimens assayed using the 
-Illumina HumanMethylationEPIC BeadArray}.
+Illumina HumanMethylationEPIC BeadArray}. Genome Biology (In Press)
 
 DC Koestler et al. (2016). \emph{Improving cell mixture 
 deconvolution by identifying optimal DNA methylation libraries (IDOL)}. 

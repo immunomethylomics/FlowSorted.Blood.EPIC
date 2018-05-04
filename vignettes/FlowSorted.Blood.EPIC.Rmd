@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
  Illumina Human Methylation data from EPIC on immunomagnetic sorted adult 
  blood cell populations. The FlowSorted.Blood.EPIC package contains Illumina
- HumanMethylationEPIC (\dQuote{EPIC})) DNA methylation microarray data
+ HumanMethylationEPIC (EPIC)) DNA methylation microarray data
  from the immunomethylomics group (manuscript submitted), consisting of 37 
  magnetic sorted blood cell references and 12 samples, formatted as an
  RGChannelSet object for  integration and normalization using
@@ -75,7 +75,7 @@ head(IDOLOptimizedCpGs450klegacy)
  when dealing with combining the DataFrame objects with the reference libraries.
  We allow the use of MethylSet objects such as those from GEO. However, we offer
  only Quantile normalization for those datasets (assuming that they have not 
- been previously normalized). The estimates are calculated using the CP/QP  
+ been previously normalized). The estimates are calculated using the CP/QP 
  method described in Houseman et al. 2012.  and adapted in minfi.
  CIBERSORT and RPC are allowed using external packages.  
  *see ?estimateCellCounts2 for details*  
@@ -128,9 +128,9 @@ head(countsEPIC$counts)
   
  **References**  
 
- LA Salas et al. (Under review). An optimized library for 
- reference-based deconvolution of whole-blood biospecimens assayed using the 
- Illumina HumanMethylationEPIC BeadArray.  
+ LA Salas et al. (2018). An optimized library for reference-based deconvolution 
+ of whole-blood biospecimens assayed using the Illumina HumanMethylationEPIC
+ BeadArray. Genome Biology (In Press).  
  
  DC Koestler et al. (2016). Improving cell mixture deconvolution by
  identifying optimal DNA methylation libraries (IDOL). BMC bioinformatics.

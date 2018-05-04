@@ -13,9 +13,9 @@
 #'         The format is:
 #'         chr [1:350] "cg14232368" "cg15087459" "cg20538211" "cg11944101" ...
 #' 
-#' @references LA Salas et al. (Under review). \emph{An optimized library for 
+#' @references LA Salas et al. (2018). \emph{An optimized library for 
 #' reference-based deconvolution of whole-blood biospecimens assayed using the 
-#' Illumina HumanMethylationEPIC BeadArray}. 
+#' Illumina HumanMethylationEPIC BeadArray}. Genome Biology (In Press)
 #' @references D Koestler et al. (2016). \emph{Improving cell mixture 
 #' deconvolution by identifying optimal DNA methylation libraries (IDOL)}. 
 #' BMC bioinformatics. 17, 120. doi: 10.1186/s12859-016-0943-7.
