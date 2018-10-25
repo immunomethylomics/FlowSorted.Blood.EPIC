@@ -108,7 +108,8 @@
 #' 
 #' @references LA Salas et al. (2018). \emph{An optimized library for 
 #' reference-based deconvolution of whole-blood biospecimens assayed using the 
-#' Illumina HumanMethylationEPIC BeadArray}. Genome Biology (In press).
+#' Illumina HumanMethylationEPIC BeadArray}. Genome Biology 19, 64. doi:
+#' 10.1186/s13059-018-1448-7.
 #' @references DC Koestler et al. (2016). \emph{Improving cell mixture 
 #' deconvolution by identifying optimal DNA methylation libraries (IDOL)}. 
 #' BMC bioinformatics. 17, 120. doi: 10.1186/s12859-016-0943-7.
@@ -466,7 +467,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     }
 }
 
-#These are a minfi internal functions here they are called to keep the function 
+#These are minfi internal functions here they are called to keep the function 
 #above running for the alternative selection ("auto" and "both")
 pickCompProbes <- function(mSet, cellTypes = NULL, numProbes = 50, 
                             compositeCellType = compositeCellType, 
@@ -535,8 +536,33 @@ pickCompProbes <- function(mSet, cellTypes = NULL, numProbes = 50,
 }
 #This is the modified version of the QP/CP from EA Houseman used by minfi
 #By default assumes non-negative and a less than one constrain to keep unity
+ ###############################################################################
+# FUNCTION:  projectCellType
+#    This function predicts the underlying cellular composition of heterogeneous
+#    tissue types (i.e., WB) using the constrained projection procedure 
+#    described by Houseman et al., (2012) and modified in minfi.  
+#
+# REQUIRES:	quadprog    
+#
+# ARGUMENTS:
+#      
+#	Y:  			 A J x N matrix of methylation beta-values collected from 
+#                    mixed/ heterogeneous biospecimen (i.e., WB).  Target set.
+#
+#	coefWBC:         A J x K projection matrix;, i.e., within-cell type mean  
+#                    methylation matrix across J DMLs and K many cell types
+#
+#	contrastWBC:	 Contrast for cell composition predictions.  The user  
+#                    needn't modify this 
+#
+#	nonnegative:     Should cell predictions be nonnegative.  Defaults to TRUE
+#
+# RETURNS:   A N x K matrix of cell proportion estimates across the K cell 
+#            types for each of the N subjects contained in the Target Set.
+#    
+###############################################################################
 projectCellType <- function(Y, coefCellType, contrastCellType=NULL, 
-                            nonnegative=TRUE, lessThanOne=FALSE){ 
+                     nonnegative=TRUE, lessThanOne=FALSE){ 
     if(is.null(contrastCellType))
         Xmat <- coefCellType
     else
@@ -577,7 +603,7 @@ projectCellType <- function(Y, coefCellType, contrastCellType=NULL,
     }
 }
 validationCellType <- function(Y, pheno, modelFix, modelBatch=NULL,
-                                L.forFstat = NULL, verbose = FALSE){
+                               L.forFstat = NULL, verbose = FALSE){
     N <- dim(pheno)[1]
     pheno$y <- rep(0, N)
     xTest <- model.matrix(modelFix, pheno)
@@ -588,7 +614,7 @@ validationCellType <- function(Y, pheno, modelFix, modelBatch=NULL,
         colnames(L.forFstat) <- colnames(xTest) 
         rownames(L.forFstat) <- colnames(xTest)[-1] 
     }
-# Initialize various containers
+    # Initialize various containers
     sigmaResid <- sigmaIcept <- nObserved <- nClusters <- Fstat <- rep(NA, M)
     coefEsts <- matrix(NA, M, sizeModel)
     coefVcovs <- list()

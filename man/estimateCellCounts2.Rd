@@ -5,8 +5,8 @@
 \title{estimateCellCounts2}
 \usage{
 estimateCellCounts2(rgSet, compositeCellType = "Blood",
-  processMethod = "preprocessNoob", probeSelect = c("auto", "any", "IDOL"),
-  cellTypes = c("CD8T", "CD4T", "NK", "Bcell", "Mono", "Neu"),
+  processMethod = "preprocessNoob", probeSelect = c("auto", "any",
+  "IDOL"), cellTypes = c("CD8T", "CD4T", "NK", "Bcell", "Mono", "Neu"),
   referencePlatform = c("IlluminaHumanMethylation450k",
   "IlluminaHumanMethylationEPIC", "IlluminaHumanMethylation27k"),
   referenceset = NULL, IDOLOptimizedCpGs = NULL, returnAll = FALSE,
@@ -180,7 +180,8 @@ head(countsEPIC$counts)
 \references{
 LA Salas et al. (2018). \emph{An optimized library for 
 reference-based deconvolution of whole-blood biospecimens assayed using the 
-Illumina HumanMethylationEPIC BeadArray}. Genome Biology (In press).
+Illumina HumanMethylationEPIC BeadArray}. Genome Biology 19, 64. doi:
+10.1186/s13059-018-1448-7.
 
 DC Koestler et al. (2016). \emph{Improving cell mixture 
 deconvolution by identifying optimal DNA methylation libraries (IDOL)}. 
