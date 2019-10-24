@@ -10,14 +10,16 @@ estimateCellCounts2(rgSet, compositeCellType = "Blood",
   referencePlatform = c("IlluminaHumanMethylation450k",
   "IlluminaHumanMethylationEPIC", "IlluminaHumanMethylation27k"),
   referenceset = NULL, IDOLOptimizedCpGs = NULL, returnAll = FALSE,
-  meanPlot = FALSE, verbose = TRUE, ...)
+  meanPlot = FALSE, verbose = TRUE, lessThanOne = FALSE, ...)
 }
 \arguments{
 \item{rgSet}{The input RGChannelSet or raw MethylSet for the procedure.}
 
 \item{compositeCellType}{Which composite cell type is being deconvoluted. 
-Should be one of "Blood", "CordBlood", or "DLPFC".
-See details.}
+Should be one of "Blood", "CordBloodCombined",
+"CordBlood", "CordBloodNorway", "CordTissueAndBlood",
+or "DLPFC".
+See details for preferred approaches.}
 
 \item{processMethod}{Joint normalization/background correction for user and 
 reference data 
@@ -36,7 +38,8 @@ character if you want to override it, like
 
                Options include:
                1)  "IDOL", for using a customized set of probes obtained from
-                IDOL optimization, 
+                IDOL optimization, available for Blood and Umbilical Cord 
+                Blood 
                2) "both", which selects an equal number (50) of probes (with 
                F-stat p-value < 1E-8) with the greatest magnitude of effect 
                from the hyper- and hypo-methylated sides, and 
@@ -52,7 +55,7 @@ character if you want to override it, like
 \item{cellTypes}{A vector of length K that contains the cell type names.
 Default: c("CD8T", "CD4T", "NK", "Bcell", "Mono", "Neu").
 Please notice that this library use Neutrophils instead 
-of Granulocytes. See details.}
+of Granulocytes. See details for your library.}
 
 \item{referencePlatform}{The platform for the reference dataset; if the input
 rgSet belongs to another platform, it will be converted  
@@ -61,14 +64,20 @@ using minfi function convertArray.}
 \item{referenceset}{It is NULL by default.
 
 A custom reference RGChannelSet object (in quotes) if it is not 
-a package installed. If using an installed 450k reference set to 
-NULL.}
+a package installed. This option also allows the user to perform
+the deconvolution in closed computing clusters without internet
+access to ExperimentHub. For that download and save the 
+reference and input the resulting object here. If using an 
+installed reference package set to NULL.}
 
 \item{IDOLOptimizedCpGs}{a vector of probe names for cell deconvolution. For 
 EPIC datasets it should be equal to IDOLOptimizedCpGs (no 
 quotes). For legacy 450K datasets you can use 
 IDOLOptimizedCpGs450klegacy (no quotes) if you want to use 
-FlowSorted.EPIC.Blood for the deconvolution}
+FlowSorted.EPIC.Blood for the deconvolution. For umbilical
+cord blood use IDOLOptimizedCpGsCordBlood in the 
+FlowSorted.CordBloodCombined.450k package for both 450k and
+EPIC arrays. See details in help for each IDOL list.}
 
 \item{returnAll}{Should the composition table and the normalized user supplied 
 data be return? Default is False.}
@@ -79,7 +88,10 @@ samples.}
 
 \item{verbose}{Should the function be verbose?}
 
-\item{...}{Other arguments for preprocessquantile}
+\item{lessThanOne}{Should the predictions be constrained to exactly one, 
+in minfi default is FALSE, now you can select the option}
+
+\item{...}{Other arguments for preprocessquantile or other normalizations}
 }
 \value{
 This function will return a list containing matrix of cell counts (counts), 
@@ -176,6 +188,67 @@ head(countsEPIC$counts)
 # as.matrix(countsEPIC2$compTable[IDOLOptimizedCpGs, 3:8]), method = "CBS")
 # CBS$estF#CBS count estimates
 
+#For umbilical cord blood please use the following
+
+# Do not run
+# library (FlowSorted.Blood.EPIC)
+# data("IDOLOptimizedCpGsCordBlood")
+# Step 1: Load the reference library to extract the umbilical cord samples
+# library(ExperimentHub)
+# hub <- ExperimentHub()
+# myfiles <- query(hub, "FlowSorted.CordBloodCombined.450k")
+# FlowSorted.CordBloodCombined.450k <- myfiles[[1]]
+# FlowSorted.CordBloodCombined.450k
+
+# Step 2 separate the reference from the testing dataset if you want to run 
+# examples for estimations for this function example
+
+# RGsetTargets <- FlowSorted.CordBloodCombined.450k[,
+# FlowSorted.CordBloodCombined.450k$CellType == "WBC"]
+# sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
+#                               seq_len(dim(RGsetTargets)[2]), sep = "_")
+# RGsetTargets
+
+# Step 3: use your favorite package for deconvolution.
+# Deconvolute a target data set consisting of 450K DNA methylation 
+# data profiled in blood, using your prefered method.
+# You can use our IDOL optimized DMR library for the Cord Blood,  This object
+# contains a vector of length 517 consisting of the IDs of the IDOL optimized
+# CpG probes.  These CpGs are used as the backbone for deconvolution and were
+# selected because their methylation signature differs across the six normal 
+# leukocyte subtypes plus the nucleated red blood cells.
+
+# data (IDOLOptimizedCpGsCordBlood)
+# head (IDOLOptimizedCpGsCordBlood)
+# We recommend using Noob processMethod = "preprocessNoob" in minfi for the 
+# target and reference datasets. 
+# Cell types included are "CD8T", "CD4T", "NK", "Bcell", "Mono", "Gran", 
+# "nRBC"
+# To use the IDOL optimized list of CpGs (IDOLOptimizedCpGsCordBlood) use 
+# estimateCellCounts2 from FlowSorted.Blood.EPIC. 
+# Do not run with limited RAM the normalization step requires a big amount 
+# of memory resources. Use the parameters as specified below for 
+# reproducibility.
+# 
+# if (memory.limit()>8000){
+#     countsUCB<-estimateCellCounts2(RGsetTargets, 
+#                                     compositeCellType = 
+#                                                "CordBloodCombined", 
+#                                     processMethod = "preprocessNoob",
+#                                     probeSelect = "IDOL", 
+#                                     cellTypes = c("CD8T", "CD4T", "NK",  
+#                                     "Bcell", "Mono", "Gran", "nRBC"), 
+#                                     referencePlatform = 
+#                                         "IlluminaHumanMethylation450k",
+#                                     referenceset = 
+#                                      "FlowSorted.CordBloodCombined.450k",
+#                                     IDOLOptimizedCpGs =
+#                                       IDOLOptimizedCpGsCordBlood, 
+#                                     returnAll = FALSE)
+#     
+#     head(countsUCB$counts)
+# }
+
 }
 \references{
 LA Salas et al. (2018). \emph{An optimized library for 
@@ -194,6 +267,11 @@ doi:10.1186/1471-2105-13-86.
 AE Jaffe and RA Irizarry.(2014) \emph{Accounting for cellular 
 heterogeneity is critical in epigenome-wide association studies}. 
 Genome Biology  15:R31. doi:10.1186/gb-2014-15-2-r31.
+
+K Gervin, LA Salas et al. (2019) \emph{Systematic evaluation and 
+validation of references and library selection methods for deconvolution of 
+cord blood DNA methylation data}. Clin Epigenetics 11,125. doi:
+10.1186/s13148-019-0717-y
 
 KM Bakulski, et al. (2016) \emph{DNA methylation of cord blood 
 cell types: Applications for mixed cell birth studies}. Epigenetics 11:5. 

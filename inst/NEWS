@@ -6,3 +6,8 @@ Changes in version 0.99.37 (2018-10-25)
 + Made the following significant changes
   o Initial release to Bioconductor
   o Updated manuscript reference
+  
+Changes in version 2.0.0 (2019-10-24)
++ Made the following significant changes
+  o Correct combineArrays problems
+  o Updated cord blood reference (Gervin/Salas, 2019)

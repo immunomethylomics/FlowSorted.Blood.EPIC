@@ -106,6 +106,67 @@
 #' # as.matrix(countsEPIC2$compTable[IDOLOptimizedCpGs, 3:8]), method = "CBS")
 #' # CBS$estF#CBS count estimates
 #' 
+#' #For umbilical cord blood please use the following
+#' 
+#' # Do not run
+#' # library (FlowSorted.Blood.EPIC)
+#' # data("IDOLOptimizedCpGsCordBlood")
+#' # Step 1: Load the reference library to extract the umbilical cord samples
+#' # library(ExperimentHub)
+#' # hub <- ExperimentHub()
+#' # myfiles <- query(hub, "FlowSorted.CordBloodCombined.450k")
+#' # FlowSorted.CordBloodCombined.450k <- myfiles[[1]]
+#' # FlowSorted.CordBloodCombined.450k
+#' 
+#' # Step 2 separate the reference from the testing dataset if you want to run 
+#' # examples for estimations for this function example
+#' 
+#' # RGsetTargets <- FlowSorted.CordBloodCombined.450k[,
+#' # FlowSorted.CordBloodCombined.450k$CellType == "WBC"]
+#' # sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
+#' #                               seq_len(dim(RGsetTargets)[2]), sep = "_")
+#' # RGsetTargets
+#' 
+#' # Step 3: use your favorite package for deconvolution.
+#' # Deconvolute a target data set consisting of 450K DNA methylation 
+#' # data profiled in blood, using your prefered method.
+#' # You can use our IDOL optimized DMR library for the Cord Blood,  This object
+#' # contains a vector of length 517 consisting of the IDs of the IDOL optimized
+#' # CpG probes.  These CpGs are used as the backbone for deconvolution and were
+#' # selected because their methylation signature differs across the six normal 
+#' # leukocyte subtypes plus the nucleated red blood cells.
+#' 
+#' # data (IDOLOptimizedCpGsCordBlood)
+#' # head (IDOLOptimizedCpGsCordBlood)
+#' # We recommend using Noob processMethod = "preprocessNoob" in minfi for the 
+#' # target and reference datasets. 
+#' # Cell types included are "CD8T", "CD4T", "NK", "Bcell", "Mono", "Gran", 
+#' # "nRBC"
+#' # To use the IDOL optimized list of CpGs (IDOLOptimizedCpGsCordBlood) use 
+#' # estimateCellCounts2 from FlowSorted.Blood.EPIC. 
+#' # Do not run with limited RAM the normalization step requires a big amount 
+#' # of memory resources. Use the parameters as specified below for 
+#' # reproducibility.
+#' # 
+#' # if (memory.limit()>8000){
+#' #     countsUCB<-estimateCellCounts2(RGsetTargets, 
+#' #                                     compositeCellType = 
+#' #                                                "CordBloodCombined", 
+#' #                                     processMethod = "preprocessNoob",
+#' #                                     probeSelect = "IDOL", 
+#' #                                     cellTypes = c("CD8T", "CD4T", "NK",  
+#' #                                     "Bcell", "Mono", "Gran", "nRBC"), 
+#' #                                     referencePlatform = 
+#' #                                         "IlluminaHumanMethylation450k",
+#' #                                     referenceset = 
+#' #                                      "FlowSorted.CordBloodCombined.450k",
+#' #                                     IDOLOptimizedCpGs =
+#' #                                       IDOLOptimizedCpGsCordBlood, 
+#' #                                     returnAll = FALSE)
+#' #     
+#' #     head(countsUCB$counts)
+#' # }
+#' 
 #' @references LA Salas et al. (2018). \emph{An optimized library for 
 #' reference-based deconvolution of whole-blood biospecimens assayed using the 
 #' Illumina HumanMethylationEPIC BeadArray}. Genome Biology 19, 64. doi:
@@ -119,6 +180,10 @@
 #' @references AE Jaffe and RA Irizarry.(2014) \emph{Accounting for cellular 
 #' heterogeneity is critical in epigenome-wide association studies}. 
 #' Genome Biology  15:R31. doi:10.1186/gb-2014-15-2-r31.
+#' @references K Gervin, LA Salas et al. (2019) \emph{Systematic evaluation and 
+#' validation of references and library selection methods for deconvolution of 
+#' cord blood DNA methylation data}. Clin Epigenetics 11,125. doi:
+#' 10.1186/s13148-019-0717-y
 #' @references KM Bakulski, et al. (2016) \emph{DNA methylation of cord blood 
 #' cell types: Applications for mixed cell birth studies}. Epigenetics 11:5. 
 #' doi:10.1080/15592294.2016.1161875.
@@ -131,8 +196,10 @@
 #' rgSet           The input RGChannelSet or raw MethylSet for the procedure.
 #' @param
 #' compositeCellType   Which composite cell type is being deconvoluted. 
-#'                      Should be one of "Blood", "CordBlood", or "DLPFC".
-#'                      See details.
+#'                      Should be one of "Blood", "CordBloodCombined",
+#'                      "CordBlood", "CordBloodNorway", "CordTissueAndBlood",
+#'                      or "DLPFC".
+#'                      See details for preferred approaches.
 #' @param
 #' processMethod Joint normalization/background correction for user and 
 #'                reference data 
@@ -151,7 +218,8 @@
 #' 
 #'                Options include:
 #'                1)  "IDOL", for using a customized set of probes obtained from
-#'                 IDOL optimization, 
+#'                 IDOL optimization, available for Blood and Umbilical Cord 
+#'                 Blood 
 #'                2) "both", which selects an equal number (50) of probes (with 
 #'                F-stat p-value < 1E-8) with the greatest magnitude of effect 
 #'                from the hyper- and hypo-methylated sides, and 
@@ -167,7 +235,7 @@
 #' cellTypes     A vector of length K that contains the cell type names.  
 #'                Default: c("CD8T", "CD4T", "NK", "Bcell", "Mono", "Neu").
 #'                Please notice that this library use Neutrophils instead 
-#'                of Granulocytes. See details.
+#'                of Granulocytes. See details for your library.
 #' @param                 
 #' referencePlatform The platform for the reference dataset; if the input  
 #'                    rgSet belongs to another platform, it will be converted  
@@ -176,14 +244,20 @@
 #' referenceset It is NULL by default.  
 #'             
 #'             A custom reference RGChannelSet object (in quotes) if it is not 
-#'             a package installed. If using an installed 450k reference set to 
-#'             NULL.
+#'             a package installed. This option also allows the user to perform
+#'             the deconvolution in closed computing clusters without internet
+#'             access to ExperimentHub. For that download and save the 
+#'             reference and input the resulting object here. If using an 
+#'             installed reference package set to NULL.
 #' @param
 #' IDOLOptimizedCpGs a vector of probe names for cell deconvolution. For 
 #'                 EPIC datasets it should be equal to IDOLOptimizedCpGs (no 
 #'                 quotes). For legacy 450K datasets you can use 
 #'                 IDOLOptimizedCpGs450klegacy (no quotes) if you want to use 
-#'                 FlowSorted.EPIC.Blood for the deconvolution
+#'                 FlowSorted.EPIC.Blood for the deconvolution. For umbilical
+#'                 cord blood use IDOLOptimizedCpGsCordBlood in the 
+#'                 FlowSorted.CordBloodCombined.450k package for both 450k and
+#'                 EPIC arrays. See details in help for each IDOL list.
 #' @param 
 #' returnAll    Should the composition table and the normalized user supplied 
 #'              data be return? Default is False.
@@ -194,7 +268,10 @@
 #'             cell-type discriminating probes within the mixed and sorted 
 #'             samples.
 #' @param 
-#' ...  Other arguments for preprocessquantile
+#' lessThanOne Should the predictions be constrained to exactly one, 
+#'             in minfi default is FALSE, now you can select the option
+#' @param 
+#' ...  Other arguments for preprocessquantile or other normalizations
 #'@return
 #' This function will return a list containing matrix of cell counts (counts), 
 #' if returnAll=FALSE, or a list containing the counts, mean methylation per 
@@ -212,7 +289,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                                                 "IlluminaHumanMethylation27k"), 
                                 referenceset = NULL, IDOLOptimizedCpGs = NULL, 
                                 returnAll = FALSE, meanPlot = FALSE, 
-                                verbose = TRUE, 
+                                verbose = TRUE, lessThanOne = FALSE,
                                 ...) {
     if ((!is(rgSet, "RGChannelSet")) && (!is(rgSet, "MethylSet")))  
         stop(strwrap(sprintf("object is of class '%s', but needs to be of 
@@ -241,7 +318,8 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     rgPlatform <- sub("IlluminaHumanMethylation", "",
                 annotation(rgSet)[which(names(annotation(rgSet)) == "array")])
     platform <- sub("IlluminaHumanMethylation", "", referencePlatform)
-    if ((compositeCellType == "CordBlood") && (!"nRBC" %in% cellTypes)) 
+    if ((compositeCellType == "CordBlood" | 
+        compositeCellType == "CordBloodCombined") && (!"nRBC" %in% cellTypes)) 
         message(strwrap("[estimateCellCounts2] Consider including 'nRBC' in 
                         argument 'cellTypes' for cord blood estimation.\n",
                         width = 80, prefix = " ", initial = ""))
@@ -251,6 +329,14 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         message(strwrap("[estimateCellCounts2] Replace 'Gran' for 'Neu' in 
                         argument 'cellTypes' for EPIC blood estimation.\n",
                         width = 80, prefix = " ", initial = ""))
+    if ((compositeCellType != "Blood") && 
+        ("Neu" %in% cellTypes)) 
+        message(strwrap("[estimateCellCounts2] Check whether 'Gran' or 'Neu' is 
+                        present in your reference and adjust argument 
+                        'cellTypes' for your estimation.\n",
+                        width = 80, prefix = " ", initial = ""))
+    if (compositeCellType == "CordBloodCombined")
+        platform<="450k"
     referencePkg <- sprintf("FlowSorted.%s.%s", compositeCellType, platform)
     subverbose <- max(as.integer(verbose) - 1L, 0L)
     if (!is.null(referenceset)){
@@ -264,11 +350,15 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                                 '%s' (inferred package name is '%s')", 
                                 compositeCellType, platform, referencePkg),
                         width = 80, prefix = " ", initial = ""))
-        if(referencePkg!="FlowSorted.Blood.EPIC"){
+        if((referencePkg!="FlowSorted.Blood.EPIC")  && 
+            (referencePkg!="FlowSorted.CordBloodCombined.450k")){
             referenceRGset <- get(referencePkg)
-        } else{
+        } else if (referencePkg=="FlowSorted.Blood.EPIC"){
             hub <- ExperimentHub()
             referenceRGset <-hub[["EH1136"]]
+        } else if (referencePkg=="FlowSorted.CordBloodCombined.450k"){
+            hub <- ExperimentHub()
+            referenceRGset <-hub[["EH2256"]]            
         }
         if (!is(rgSet, "RGChannelSet"))
             referenceRGset<-preprocessRaw(referenceRGset) 
@@ -303,10 +393,14 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         (is(rgSet, "RGChannelSet"))) 
         processMethod <- "preprocessNoob"
     processMethod <- get(processMethod)
-    if ((probeSelect == "auto") && (compositeCellType == "CordBlood")) {
+    if ((probeSelect == "auto") && 
+        (compositeCellType %in% c("CordBloodCombined", "CordBlood", 
+                                    "CordBloodNorway", "CordTissueAndBlood"))) {
         probeSelect <- "any"
     }
-    if ((probeSelect == "auto") && (compositeCellType != "CordBlood")) {
+    if ((probeSelect == "auto") && 
+        (!compositeCellType %in% c("CordBloodCombined", "CordBlood", 
+                                    "CordBloodNorway", "CordTissueAndBlood"))) {
         probeSelect <- "both"
     }
     if (verbose) 
@@ -317,10 +411,13 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                                         colnames(referenceRGset)), 
                         studyIndex = rep(c("user", "reference"), 
                                         times = c(ncol(rgSet), 
-                                                    ncol(referenceRGset))), 
-                        stringsAsFactors = FALSE)
+                                                    ncol(referenceRGset))))
     if(is.null(rgSet$CellType))
         rgSet$CellType<-rep("NA", dim(rgSet)[2])
+    if(is.null(rgSet$Age))
+        rgSet$Age<-rep("NA", dim(rgSet)[2])
+    if(is.null(rgSet$Sex))
+        rgSet$Sex<-rep("NA", dim(rgSet)[2])
     commoncolumn<-intersect(names(colData(rgSet)), 
                             names(colData(referenceRGset)))
     colData(referenceRGset)[commoncolumn] <- mapply(FUN = as,
@@ -374,7 +471,8 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         coefs <- compData$coefEsts
         if (verbose) 
             message("[estimateCellCounts2] Estimating composition.\n")
-        counts <- projectCellType(getBeta(mSet)[rownames(coefs), ], coefs)
+        counts <- projectCellType(getBeta(mSet)[rownames(coefs), ], coefs,
+                                lessThanOne = lessThanOne)
         rownames(counts) <- colnames(rgSet)
         if (meanPlot) {
             smeans <- compData$sampleMeans
@@ -447,7 +545,8 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                         sampleMeans = pMeans)
         if (verbose) 
             message("[estimateCellCounts2] Estimating composition.\n")
-        counts <- projectCellType(getBeta(mSet)[rownames(coefs), ], coefs)
+        counts <- projectCellType(getBeta(mSet)[rownames(coefs), ], coefs,
+                                lessThanOne = lessThanOne)
         rownames(counts) <- colnames(rgSet)
         if (meanPlot) {
             smeans <- compData$sampleMeans
@@ -536,33 +635,36 @@ pickCompProbes <- function(mSet, cellTypes = NULL, numProbes = 50,
 }
 #This is the modified version of the QP/CP from EA Houseman used by minfi
 #By default assumes non-negative and a less than one constrain to keep unity
- ###############################################################################
+###############################################################################
 # FUNCTION:  projectCellType
 #    This function predicts the underlying cellular composition of heterogeneous
 #    tissue types (i.e., WB) using the constrained projection procedure 
 #    described by Houseman et al., (2012) and modified in minfi.  
 #
-# REQUIRES:	quadprog    
+# REQUIRES: quadprog
 #
 # ARGUMENTS:
 #      
-#	Y:  			 A J x N matrix of methylation beta-values collected from 
-#                    mixed/ heterogeneous biospecimen (i.e., WB).  Target set.
+# Y:    A J x N matrix of methylation beta-values collected from 
+#       mixed/ heterogeneous biospecimen (i.e., WB).  Target set.
 #
-#	coefWBC:         A J x K projection matrix;, i.e., within-cell type mean  
-#                    methylation matrix across J DMLs and K many cell types
+# coefWBC:    A J x K projection matrix;, i.e., within-cell type mean  
+#             methylation matrix across J DMLs and K many cell types
 #
-#	contrastWBC:	 Contrast for cell composition predictions.  The user  
-#                    needn't modify this 
+# contrastWBC: Contrast for cell composition predictions.  The user  
+#               needn't modify this 
 #
-#	nonnegative:     Should cell predictions be nonnegative.  Defaults to TRUE
+# nonnegative: Should cell predictions be nonnegative.  Defaults to TRUE
+#
+# lessThanOne: Should the predictions be constrained to exactly one, 
+#                in minfi default is FALSE
 #
 # RETURNS:   A N x K matrix of cell proportion estimates across the K cell 
 #            types for each of the N subjects contained in the Target Set.
 #    
 ###############################################################################
 projectCellType <- function(Y, coefCellType, contrastCellType=NULL, 
-                     nonnegative=TRUE, lessThanOne=FALSE){ 
+                    nonnegative=TRUE, lessThanOne=lessThanOne){ 
     if(is.null(contrastCellType))
         Xmat <- coefCellType
     else
@@ -603,7 +705,7 @@ projectCellType <- function(Y, coefCellType, contrastCellType=NULL,
     }
 }
 validationCellType <- function(Y, pheno, modelFix, modelBatch=NULL,
-                               L.forFstat = NULL, verbose = FALSE){
+                                L.forFstat = NULL, verbose = FALSE){
     N <- dim(pheno)[1]
     pheno$y <- rep(0, N)
     xTest <- model.matrix(modelFix, pheno)
@@ -625,7 +727,7 @@ validationCellType <- function(Y, pheno, modelFix, modelBatch=NULL,
         ii <- !is.na(Y[j,])
         nObserved[j] <- sum(ii)
         pheno$y <- Y[j,]
-        
+
         if(j%%round(M/10)==0 && verbose)
             cat(".") # Report progress
         
