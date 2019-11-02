@@ -164,6 +164,7 @@ if (memory.limit()>8000){
 head(countsEPIC$counts)
 }
 
+# CIBERSORT and/or RPC deconvolution
 # If you prefer CIBERSORT or RPC deconvolution use EpiDISH or similar
 
 # Example not to run
@@ -188,7 +189,7 @@ head(countsEPIC$counts)
 # as.matrix(countsEPIC2$compTable[IDOLOptimizedCpGs, 3:8]), method = "CBS")
 # CBS$estF#CBS count estimates
 
-#For umbilical cord blood please use the following
+# UMBILICAL CORD BLOOD DECONVOLUTION
 
 # Do not run
 # library (FlowSorted.Blood.EPIC)
