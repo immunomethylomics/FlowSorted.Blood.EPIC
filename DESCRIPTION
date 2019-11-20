@@ -1,7 +1,7 @@
 Package: FlowSorted.Blood.EPIC
 Type: Package
 Title: Illumina EPIC data on immunomagnetic sorted peripheral adult blood cells
-Version: 1.5.2
+Version: 1.5.3
 Date: 2018-04-05
 Authors@R: c( person(c("Lucas", "A."), "Salas", role = c("cre", "aut"),
             email = "lucas.a.salas.diaz@dartmouth.edu"),
@@ -44,6 +44,6 @@ Suggests: knitr,
     IlluminaHumanMethylation450kanno.ilmn12.hg19(>= 0.2.1), 
     IlluminaHumanMethylationEPICanno.ilm10b2.hg19
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.0
 URL: https://github.com/immunomethylomics/FlowSorted.Blood.EPIC
 BugReports: https://github.com/immunomethylomics/FlowSorted.Blood.EPIC/issues.

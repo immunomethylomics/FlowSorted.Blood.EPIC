@@ -4,8 +4,13 @@
 \alias{projectCellType_CP}
 \title{projectCellType_CP}
 \usage{
-projectCellType_CP(Y, coefCellType, contrastCellType = NULL,
-  nonnegative = TRUE, lessThanOne = FALSE)
+projectCellType_CP(
+  Y,
+  coefCellType,
+  contrastCellType = NULL,
+  nonnegative = TRUE,
+  lessThanOne = FALSE
+)
 }
 \arguments{
 \item{Y:}{A J x N matrix of methylation beta-values collected from mixed/
