@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Lucas A Salas" />
+
+<meta name="date" content="2019-12-19" />
+
+<title>FlowSorted.Blood.EPIC</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">FlowSorted.Blood.EPIC</h1>
+<h4 class="author">Lucas A Salas</h4>
+<h4 class="date">2019-12-19</h4>
+
+
+
+<p>Illumina Human Methylation data from EPIC on immunomagnetic sorted adult blood cell populations. The FlowSorted.Blood.EPIC package contains Illumina HumanMethylationEPIC (EPIC)) DNA methylation microarray data from the immunomethylomics group (manuscript submitted), consisting of 37 magnetic sorted blood cell references and 12 samples, formatted as an RGChannelSet object for integration and normalization using most of the existing Bioconductor packages.</p>
+<p>This package contains data similar to the FlowSorted.Blood.450k package consisting of data from peripheral blood samples generated from adult men and women. However, when using the newer EPIC microarray minfi estimates of cell type composition using the FlowSorted.Blood.450k package are less precise compared to actual cell counts. Hence, this package consists of appropriate data for deconvolution of adult blood samples used in for example EWAS relying in the newer EPIC technology.</p>
+<p>Researchers may find this package useful as these samples represent different cellular populations ( T lymphocytes (CD4+ and CD8+), B cells (CD19+), monocytes (CD14+), NK cells (CD56+) and Neutrophils of cell sorted blood generated with high purity estimates. As a test of accuracy 12 experimental mixtures were reconstructed using fixed amounts of DNA from purified cells.</p>
+<p><strong>Objects included:</strong><br />
+1. <em>FlowSorted.Blood.EPIC</em> is the RGChannelSet object containing the reference library</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ExperimentHub)  
+
+hub &lt;-<span class="st"> </span><span class="kw">ExperimentHub</span>()  
+
+<span class="kw">query</span>(hub, <span class="st">&quot;FlowSorted.Blood.EPIC&quot;</span>)  
+
+FlowSorted.Blood.EPIC &lt;-<span class="st"> </span>hub[[<span class="st">&quot;EH1136&quot;</span>]]  
+
+FlowSorted.Blood.EPIC  </code></pre></div>
+<p>The raw dataset is hosted in both ExperimentHub (EH1136) and GEO <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110554">GSE110554</a></p>
+<ol start="2" style="list-style-type: decimal">
+<li><em>IDOLOptimizedCpGs</em> the IDOL L-DMR library for EPIC arrays</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(IDOLOptimizedCpGs)  </code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li><em>IDOLOptimizedCpGs450klegacy</em> the IDOL L-DMR library for legacy 450k arrays</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(IDOLOptimizedCpGs450klegacy)  </code></pre></div>
+<p><em>See the object help files for additional information</em></p>
+<p><strong>estimateCellCounts2 function for cell type deconvolution:</strong></p>
+<p>We offer the function estimateCellCounts2 a modification of the popular estimatesCellCounts function in minfi. Our function corrected small glitches when dealing with combining the DataFrame objects with the reference libraries. We allow the use of MethylSet objects such as those from GEO. However, we offer only Quantile normalization for those datasets (assuming that they have not been previously normalized). The estimates are calculated using the CP/QP method described in Houseman et al. 2012. and adapted in minfi. CIBERSORT and RPC are allowed using external packages.<br />
+<em>see ?estimateCellCounts2 for details</em></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Step 1: Load the reference library to extract the artificial mixtures  </span>
+
+<span class="kw">library</span>(ExperimentHub)  
+hub &lt;-<span class="st"> </span><span class="kw">ExperimentHub</span>()  
+<span class="kw">query</span>(hub, <span class="st">&quot;FlowSorted.Blood.EPIC&quot;</span>)  
+FlowSorted.Blood.EPIC &lt;-<span class="st"> </span>hub[[<span class="st">&quot;EH1136&quot;</span>]]  
+FlowSorted.Blood.EPIC  
+
+<span class="co"># Step 2 separate the reference from the testing dataset  </span>
+
+RGsetTargets &lt;-<span class="st"> </span>FlowSorted.Blood.EPIC[,
+             FlowSorted.Blood.EPIC<span class="op">$</span>CellType <span class="op">==</span><span class="st"> &quot;MIX&quot;</span>]  
+             
+<span class="kw">sampleNames</span>(RGsetTargets) &lt;-<span class="st"> </span><span class="kw">paste</span>(RGsetTargets<span class="op">$</span>CellType,
+                            <span class="kw">seq_len</span>(<span class="kw">dim</span>(RGsetTargets)[<span class="dv">2</span>]), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)  
+RGsetTargets  
+
+<span class="co"># Step 3: Deconvolute using the IDOL L-DMR  </span>
+
+<span class="kw">head</span> (IDOLOptimizedCpGs)  
+
+<span class="co"># If you need to deconvolute a 450k legacy dataset use </span>
+<span class="co"># IDOLOptimizedCpGs450klegacy instead  </span>
+
+<span class="co"># Do not run with limited RAM the normalization step requires a big amount of </span>
+<span class="co"># memory resources  </span>
+
+<span class="cf">if</span> (<span class="kw">memory.limit</span>()<span class="op">&gt;</span><span class="dv">8000</span>){  
+ countsEPIC&lt;-<span class="kw">estimateCellCounts2</span>(RGsetTargets, <span class="dt">compositeCellType =</span> <span class="st">&quot;Blood&quot;</span>,   
+                                <span class="dt">processMethod =</span> <span class="st">&quot;preprocessNoob&quot;</span>,  
+                                <span class="dt">probeSelect =</span> <span class="st">&quot;IDOL&quot;</span>,  
+                                <span class="dt">cellTypes =</span> <span class="kw">c</span>(<span class="st">&quot;CD8T&quot;</span>, <span class="st">&quot;CD4T&quot;</span>, <span class="st">&quot;NK&quot;</span>, <span class="st">&quot;Bcell&quot;</span>,  
+                                <span class="st">&quot;Mono&quot;</span>, <span class="st">&quot;Neu&quot;</span>),  
+                                <span class="dt">referencePlatform =</span>   
+                                <span class="st">&quot;IlluminaHumanMethylationEPIC&quot;</span>,  
+                                <span class="dt">referenceset =</span> <span class="ot">NULL</span>,  
+                                <span class="dt">IDOLOptimizedCpGs =</span>IDOLOptimizedCpGs,   
+                                <span class="dt">returnAll =</span> <span class="ot">FALSE</span>)  
+                                
+<span class="kw">head</span>(countsEPIC<span class="op">$</span>counts)  
+}</code></pre></div>
+<p>Umbilical Cord Blood</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span> (FlowSorted.Blood.EPIC)
+<span class="co">#&gt; Loading required package: minfi</span>
+<span class="co">#&gt; Loading required package: BiocGenerics</span>
+<span class="co">#&gt; Loading required package: parallel</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'BiocGenerics'</span>
+<span class="co">#&gt; The following objects are masked from 'package:parallel':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,</span>
+<span class="co">#&gt;     clusterExport, clusterMap, parApply, parCapply, parLapply,</span>
+<span class="co">#&gt;     parLapplyLB, parRapply, parSapply, parSapplyLB</span>
+<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     IQR, mad, sd, var, xtabs</span>
+<span class="co">#&gt; The following objects are masked from 'package:base':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     anyDuplicated, append, as.data.frame, basename, cbind, colnames,</span>
+<span class="co">#&gt;     dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,</span>
+<span class="co">#&gt;     grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,</span>
+<span class="co">#&gt;     order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,</span>
+<span class="co">#&gt;     rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,</span>
+<span class="co">#&gt;     union, unique, unsplit, which, which.max, which.min</span>
+<span class="co">#&gt; Loading required package: GenomicRanges</span>
+<span class="co">#&gt; Loading required package: stats4</span>
+<span class="co">#&gt; Loading required package: S4Vectors</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'S4Vectors'</span>
+<span class="co">#&gt; The following object is masked from 'package:base':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     expand.grid</span>
+<span class="co">#&gt; Loading required package: IRanges</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'IRanges'</span>
+<span class="co">#&gt; The following object is masked from 'package:grDevices':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     windows</span>
+<span class="co">#&gt; Loading required package: GenomeInfoDb</span>
+<span class="co">#&gt; Loading required package: SummarizedExperiment</span>
+<span class="co">#&gt; Loading required package: Biobase</span>
+<span class="co">#&gt; Welcome to Bioconductor</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     Vignettes contain introductory material; view with</span>
+<span class="co">#&gt;     'browseVignettes()'. To cite Bioconductor, see</span>
+<span class="co">#&gt;     'citation(&quot;Biobase&quot;)', and for packages 'citation(&quot;pkgname&quot;)'.</span>
+<span class="co">#&gt; Loading required package: DelayedArray</span>
+<span class="co">#&gt; Loading required package: matrixStats</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'matrixStats'</span>
+<span class="co">#&gt; The following objects are masked from 'package:Biobase':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     anyMissing, rowMedians</span>
+<span class="co">#&gt; Loading required package: BiocParallel</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'DelayedArray'</span>
+<span class="co">#&gt; The following objects are masked from 'package:matrixStats':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges</span>
+<span class="co">#&gt; The following objects are masked from 'package:base':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     aperm, apply, rowsum</span>
+<span class="co">#&gt; Loading required package: Biostrings</span>
+<span class="co">#&gt; Loading required package: XVector</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'Biostrings'</span>
+<span class="co">#&gt; The following object is masked from 'package:base':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     strsplit</span>
+<span class="co">#&gt; Loading required package: bumphunter</span>
+<span class="co">#&gt; Loading required package: foreach</span>
+<span class="co">#&gt; Loading required package: iterators</span>
+<span class="co">#&gt; Loading required package: locfit</span>
+<span class="co">#&gt; locfit 1.5-9.1    2013-03-22</span>
+<span class="co">#&gt; Setting options('download.file.method.GEOquery'='auto')</span>
+<span class="co">#&gt; Setting options('GEOquery.inmemory.gpl'=FALSE)</span>
+<span class="co">#&gt; Loading required package: genefilter</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'genefilter'</span>
+<span class="co">#&gt; The following objects are masked from 'package:matrixStats':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     rowSds, rowVars</span>
+<span class="co">#&gt; Loading required package: quadprog</span>
+<span class="co">#&gt; Loading required package: nlme</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'nlme'</span>
+<span class="co">#&gt; The following object is masked from 'package:Biostrings':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     collapse</span>
+<span class="co">#&gt; The following object is masked from 'package:IRanges':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     collapse</span>
+<span class="co">#&gt; Loading required package: IlluminaHumanMethylationEPICanno.ilm10b4.hg19</span>
+<span class="co">#&gt; Loading required package: ExperimentHub</span>
+<span class="co">#&gt; Loading required package: AnnotationHub</span>
+<span class="co">#&gt; Loading required package: BiocFileCache</span>
+<span class="co">#&gt; Loading required package: dbplyr</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'AnnotationHub'</span>
+<span class="co">#&gt; The following object is masked from 'package:Biobase':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     cache</span>
+<span class="kw">library</span>(FlowSorted.CordBloodCombined.450k)
+<span class="co">#&gt; Loading required package: IlluminaHumanMethylation450kanno.ilmn12.hg19</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'IlluminaHumanMethylation450kanno.ilmn12.hg19'</span>
+<span class="co">#&gt; The following objects are masked from 'package:IlluminaHumanMethylationEPICanno.ilm10b4.hg19':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     Islands.UCSC, Locations, Manifest, Other, SNPs.132CommonSingle,</span>
+<span class="co">#&gt;     SNPs.135CommonSingle, SNPs.137CommonSingle, SNPs.138CommonSingle,</span>
+<span class="co">#&gt;     SNPs.141CommonSingle, SNPs.142CommonSingle, SNPs.144CommonSingle,</span>
+<span class="co">#&gt;     SNPs.146CommonSingle, SNPs.147CommonSingle, SNPs.Illumina</span>
+<span class="co">#&gt; snapshotDate(): 2019-10-22</span>
+<span class="kw">data</span>(<span class="st">&quot;IDOLOptimizedCpGsCordBlood&quot;</span>)
+<span class="co"># Step 1: Load the reference library to extract the umbilical cord samples</span>
+<span class="kw">library</span>(ExperimentHub)
+hub &lt;-<span class="st"> </span><span class="kw">ExperimentHub</span>()
+<span class="co">#&gt; snapshotDate(): 2019-10-22</span>
+myfiles &lt;-<span class="st"> </span><span class="kw">query</span>(hub, <span class="st">&quot;FlowSorted.CordBloodCombined.450k&quot;</span>)
+FlowSorted.CordBloodCombined.450k &lt;-<span class="st"> </span>myfiles[[<span class="dv">1</span>]]
+<span class="co">#&gt; see ?FlowSorted.CordBloodCombined.450k and browseVignettes('FlowSorted.CordBloodCombined.450k') for documentation</span>
+<span class="co">#&gt; loading from cache</span>
+FlowSorted.CordBloodCombined.450k
+<span class="co">#&gt; class: RGChannelSet </span>
+<span class="co">#&gt; dim: 575719 289 </span>
+<span class="co">#&gt; metadata(0):</span>
+<span class="co">#&gt; assays(2): Green Red</span>
+<span class="co">#&gt; rownames(575719): 10600322 10600328 ... 74810485 74810492</span>
+<span class="co">#&gt; rowData names(0):</span>
+<span class="co">#&gt; colnames(289): 3999984027_R02C01 3999984027_R06C01 ...</span>
+<span class="co">#&gt;   200705360098_R08C01 200705360110_R03C01</span>
+<span class="co">#&gt; colData names(13): Sample_Name Subject.ID ... CellType_original</span>
+<span class="co">#&gt;   Reclassified</span>
+<span class="co">#&gt; Annotation</span>
+<span class="co">#&gt;   array: IlluminaHumanMethylation450k</span>
+<span class="co">#&gt;   annotation: ilmn12.hg19</span>
+
+<span class="co"># Step 2 separate the reference from the testing dataset if you want to run </span>
+<span class="co"># examples for estimations for this function example</span>
+
+RGsetTargets &lt;-<span class="st"> </span>FlowSorted.CordBloodCombined.450k[,
+                FlowSorted.CordBloodCombined.450k<span class="op">$</span>CellType <span class="op">==</span><span class="st"> &quot;WBC&quot;</span>]
+<span class="kw">sampleNames</span>(RGsetTargets) &lt;-<span class="st"> </span><span class="kw">paste</span>(RGsetTargets<span class="op">$</span>CellType,
+                                <span class="kw">seq_len</span>(<span class="kw">dim</span>(RGsetTargets)[<span class="dv">2</span>]), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)
+RGsetTargets
+<span class="co">#&gt; class: RGChannelSet </span>
+<span class="co">#&gt; dim: 575719 26 </span>
+<span class="co">#&gt; metadata(0):</span>
+<span class="co">#&gt; assays(2): Green Red</span>
+<span class="co">#&gt; rownames(575719): 10600322 10600328 ... 74810485 74810492</span>
+<span class="co">#&gt; rowData names(0):</span>
+<span class="co">#&gt; colnames(26): WBC_1 WBC_2 ... WBC_25 WBC_26</span>
+<span class="co">#&gt; colData names(13): Sample_Name Subject.ID ... CellType_original</span>
+<span class="co">#&gt;   Reclassified</span>
+<span class="co">#&gt; Annotation</span>
+<span class="co">#&gt;   array: IlluminaHumanMethylation450k</span>
+<span class="co">#&gt;   annotation: ilmn12.hg19</span>
+
+<span class="co"># Step 3: use your favorite package for deconvolution.</span>
+<span class="co"># Deconvolute a target data set consisting of 450K DNA methylation </span>
+<span class="co"># data profiled in blood, using your prefered method.</span>
+<span class="co"># You can use our IDOL optimized DMR library for the Cord Blood,  This object</span>
+<span class="co"># contains a vector of length 517 consisting of the IDs of the IDOL optimized</span>
+<span class="co"># CpG probes.  These CpGs are used as the backbone for deconvolution and were</span>
+<span class="co"># selected because their methylation signature differs across the six normal </span>
+<span class="co"># leukocyte subtypes plus the nucleated red blood cells.</span>
+
+<span class="kw">data</span> (IDOLOptimizedCpGsCordBlood)
+<span class="kw">head</span> (IDOLOptimizedCpGsCordBlood)
+<span class="co">#&gt; [1] &quot;cg12603453&quot; &quot;cg24765783&quot; &quot;cg06975018&quot; &quot;cg19708055&quot; &quot;cg11900509&quot;</span>
+<span class="co">#&gt; [6] &quot;cg09581911&quot;</span>
+<span class="co"># We recommend using Noob processMethod = &quot;preprocessNoob&quot; in minfi for the </span>
+<span class="co"># target and reference datasets. </span>
+<span class="co"># Cell types included are &quot;CD8T&quot;, &quot;CD4T&quot;, &quot;NK&quot;, &quot;Bcell&quot;, &quot;Mono&quot;, &quot;Gran&quot;, </span>
+<span class="co"># &quot;nRBC&quot;</span>
+<span class="co"># To use the IDOL optimized list of CpGs (IDOLOptimizedCpGsCordBlood) use </span>
+<span class="co"># estimateCellCounts2 from FlowSorted.Blood.EPIC. </span>
+<span class="co"># Do not run with limited RAM the normalization step requires a big amount </span>
+<span class="co"># of memory resources. Use the parameters as specified below for </span>
+<span class="co"># reproducibility.</span>
+
+<span class="cf">if</span> (<span class="kw">memory.limit</span>()<span class="op">&gt;</span><span class="dv">8000</span>){
+    countsUCB&lt;-<span class="kw">estimateCellCounts2</span>(RGsetTargets, 
+                                    <span class="dt">compositeCellType =</span> 
+                                                <span class="st">&quot;CordBloodCombined&quot;</span>, 
+                                    <span class="dt">processMethod =</span> <span class="st">&quot;preprocessNoob&quot;</span>,
+                                    <span class="dt">probeSelect =</span> <span class="st">&quot;IDOL&quot;</span>, 
+                                    <span class="dt">cellTypes =</span> <span class="kw">c</span>(<span class="st">&quot;CD8T&quot;</span>, <span class="st">&quot;CD4T&quot;</span>, <span class="st">&quot;NK&quot;</span>,  
+                                    <span class="st">&quot;Bcell&quot;</span>, <span class="st">&quot;Mono&quot;</span>, <span class="st">&quot;Gran&quot;</span>, <span class="st">&quot;nRBC&quot;</span>), 
+                                    <span class="dt">referencePlatform =</span> 
+                                        <span class="st">&quot;IlluminaHumanMethylation450k&quot;</span>,
+                                    <span class="dt">referenceset =</span> 
+                                        <span class="st">&quot;FlowSorted.CordBloodCombined.450k&quot;</span>,
+                                    <span class="dt">IDOLOptimizedCpGs =</span>
+                                        IDOLOptimizedCpGsCordBlood, 
+                                    <span class="dt">returnAll =</span> <span class="ot">FALSE</span>)
+    
+    <span class="kw">head</span>(countsUCB<span class="op">$</span>counts)
+}
+<span class="co">#&gt; [estimateCellCounts2] Combining user data with reference (flow sorted) data.</span>
+<span class="co">#&gt; [estimateCellCounts2] Processing user and reference data together.</span>
+<span class="co">#&gt; Loading required package: IlluminaHumanMethylation450kmanifest</span>
+<span class="co">#&gt; [estimateCellCounts2] Using IDOL L-DMR probes for composition estimation.</span>
+<span class="co">#&gt; [estimateCellCounts2] Estimating composition.</span>
+<span class="co">#&gt;             CD8T       CD4T         NK      Bcell       Mono      Gran</span>
+<span class="co">#&gt; WBC_1 0.05346047 0.19385977 0.04740254 0.05263905 0.09193623 0.4782162</span>
+<span class="co">#&gt; WBC_2 0.02407560 0.07754949 0.01756794 0.02623153 0.10545983 0.6282946</span>
+<span class="co">#&gt; WBC_3 0.00000000 0.12053599 0.09423365 0.00164263 0.08580405 0.6577766</span>
+<span class="co">#&gt; WBC_4 0.03334680 0.16665169 0.10638825 0.05602585 0.05479126 0.4980870</span>
+<span class="co">#&gt; WBC_5 0.05807522 0.16233837 0.06095911 0.02007502 0.07265118 0.5451731</span>
+<span class="co">#&gt; WBC_6 0.04797527 0.11605401 0.05841137 0.01983578 0.10084251 0.6434691</span>
+<span class="co">#&gt;             nRBC</span>
+<span class="co">#&gt; WBC_1 0.07147758</span>
+<span class="co">#&gt; WBC_2 0.11282631</span>
+<span class="co">#&gt; WBC_3 0.02450290</span>
+<span class="co">#&gt; WBC_4 0.04429688</span>
+<span class="co">#&gt; WBC_5 0.07022071</span>
+<span class="co">#&gt; WBC_6 0.02317434</span></code></pre></div>
+<p><strong>References</strong></p>
+<p>LA Salas et al. (2018). An optimized library for reference-based deconvolution of whole-blood biospecimens assayed using the Illumina HumanMethylationEPIC BeadArray. Genome Biology 19, 64. doi: <a href="https://dx.doi.org/10.1186/s13059-018-1448-7">10.1186/s13059-018-1448-7</a>.</p>
+<p>DC Koestler et al. (2016). Improving cell mixture deconvolution by identifying optimal DNA methylation libraries (IDOL). BMC bioinformatics. 17, 120. doi: <a href="https://dx.doi.org/10.1186/s12859-016-0943-7">10.1186/s12859-016-0943-7</a>.</p>
+<p>K Gervin, LA Salas et al. (2019) . Clin Epigenetics 11,125. doi: <a href="https://dx.doi.org/10.1186/s13148-019-0717-y">10.1186/s13148-019-0717-y</a>.</p>
+<p>EA Houseman et al. (2012) DNA methylation arrays as surrogate measures of cell mixture distribution. BMC Bioinformatics 13, 86. doi: <a href="https://dx.doi.org/10.1186/1471-2105-13-86">10.1186/1471-2105-13-86</a>.</p>
+<p><a href="http://bioconductor.org/packages/release/bioc/html/minfi.html">minfi</a> Tools to analyze &amp; visualize Illumina Infinium methylation arrays.</p>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

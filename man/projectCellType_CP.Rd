@@ -13,18 +13,18 @@ projectCellType_CP(
 )
 }
 \arguments{
-\item{Y:}{A J x N matrix of methylation beta-values collected from mixed/
+\item{Y}{A J x N matrix of methylation beta-values collected from mixed/
 heterogeneous biospecimen (i.e., Whole Blood).  Target set.}
 
-\item{coefWBC:}{A J x K projection matrix;, i.e., within-cell type mean methylation
+\item{nonnegative}{Should cell predictions be nonnegative.  Defaults to TRUE}
+
+\item{lessThanOne}{Should the predictions sum less than one. Default is FALSE}
+
+\item{coefWBC}{A J x K projection matrix;, i.e., within-cell type mean methylation
 matrix across J DMLs and K many cell types}
 
-\item{contrastWBC:}{Contrast for cell composition predictions set to NULL by
+\item{contrastWBC}{Contrast for cell composition predictions set to NULL by
 default. The user needn't modify this}
-
-\item{nonnegative:}{Should cell predictions be nonnegative.  Defaults to TRUE}
-
-\item{lessThanOne:}{Should the predictions sum less than one. Default is FALSE}
 }
 \value{
 A N x K matrix of cell proportion estimates across the K cell types for each 
