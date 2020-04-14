@@ -53,7 +53,7 @@
 #' if (memory.limit()>8000){
 #'  countsEPIC<-projectCellType_CP (
 #'  getBeta(preprocessNoob(RGsetTargets))[IDOLOptimizedCpGs,], 
-#'  IDOLOptimizedCpGs.compTable, contrastCellType=NULL, nonnegative=TRUE, 
+#'  IDOLOptimizedCpGs.compTable, contrastWBC=NULL, nonnegative=TRUE, 
 #'  lessThanOne=FALSE)
 #'                                 
 #' head(countsEPIC)
@@ -85,12 +85,12 @@
 
 
 
-projectCellType_CP <- function(Y, coefCellType, contrastCellType=NULL, 
+projectCellType_CP <- function(Y, coefWBC, contrastWBC=NULL, 
                             nonnegative=TRUE, lessThanOne=FALSE){ 
-    if(is.null(contrastCellType))
-        Xmat <- coefCellType
+    if(is.null(contrastWBC))
+        Xmat <- coefWBC
     else
-        Xmat <- tcrossprod(coefCellType, contrastCellType) 
+        Xmat <- tcrossprod(coefWBC, contrastWBC) 
     nCol <- dim(Xmat)[2]
     if(nCol == 2) {
         Dmat <- crossprod(Xmat)

@@ -6,8 +6,8 @@
 \usage{
 projectCellType_CP(
   Y,
-  coefCellType,
-  contrastCellType = NULL,
+  coefWBC,
+  contrastWBC = NULL,
   nonnegative = TRUE,
   lessThanOne = FALSE
 )
@@ -16,15 +16,15 @@ projectCellType_CP(
 \item{Y}{A J x N matrix of methylation beta-values collected from mixed/
 heterogeneous biospecimen (i.e., Whole Blood).  Target set.}
 
-\item{nonnegative}{Should cell predictions be nonnegative.  Defaults to TRUE}
-
-\item{lessThanOne}{Should the predictions sum less than one. Default is FALSE}
-
 \item{coefWBC}{A J x K projection matrix;, i.e., within-cell type mean methylation
 matrix across J DMLs and K many cell types}
 
 \item{contrastWBC}{Contrast for cell composition predictions set to NULL by
 default. The user needn't modify this}
+
+\item{nonnegative}{Should cell predictions be nonnegative.  Defaults to TRUE}
+
+\item{lessThanOne}{Should the predictions sum less than one. Default is FALSE}
 }
 \value{
 A N x K matrix of cell proportion estimates across the K cell types for each 
@@ -83,7 +83,7 @@ head (IDOLOptimizedCpGs.compTable)
 if (memory.limit()>8000){
  countsEPIC<-projectCellType_CP (
  getBeta(preprocessNoob(RGsetTargets))[IDOLOptimizedCpGs,], 
- IDOLOptimizedCpGs.compTable, contrastCellType=NULL, nonnegative=TRUE, 
+ IDOLOptimizedCpGs.compTable, contrastWBC=NULL, nonnegative=TRUE, 
  lessThanOne=FALSE)
                                 
 head(countsEPIC)
