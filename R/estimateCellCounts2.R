@@ -421,11 +421,9 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
         rgSet$Sex<-rep("NA", dim(rgSet)[2])
     commoncolumn<-intersect(names(colData(rgSet)), 
                             names(colData(referenceRGset)))
-    colData(referenceRGset)[commoncolumn] <- mapply(FUN = as,
-                                        colData(referenceRGset)[commoncolumn],
-                                        vapply(colData(rgSet)[commoncolumn],
-                                                class, FUN.VALUE=character(1)),
-                                                    SIMPLIFY = FALSE)
+    colData(referenceRGset)[commoncolumn] <- mapply(FUN = function(object, Class) eval(str2lang(paste0("as.", Class, "(object)"))), 
+                                                colData(referenceRGset)[commoncolumn], vapply(colData(rgSet)[commoncolumn], 
+                                                                                              class, FUN.VALUE = character(1)), SIMPLIFY = FALSE)
     colData(referenceRGset)<-colData(referenceRGset)[commoncolumn]
     colData(rgSet)<-colData(rgSet)[commoncolumn]
     referencePd <- colData(referenceRGset)
