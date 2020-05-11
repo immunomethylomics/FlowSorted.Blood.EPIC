@@ -264,33 +264,37 @@ head(countsEPIC$counts)
 LA Salas et al. (2018). \emph{An optimized library for 
 reference-based deconvolution of whole-blood biospecimens assayed using the 
 Illumina HumanMethylationEPIC BeadArray}. Genome Biology 19, 64. doi:
-10.1186/s13059-018-1448-7.
+\href{https://dx.doi.org/10.1186/s13059-018-1448-7}{10.1186/s13059-018-1448-7}
 
 DC Koestler et al. (2016). \emph{Improving cell mixture 
 deconvolution by identifying optimal DNA methylation libraries (IDOL)}. 
-BMC bioinformatics. 17, 120. doi: 10.1186/s12859-016-0943-7.
+BMC bioinformatics. 17, 120. doi: 
+\href{https://dx.doi.org/10.1186/s13059-018-1448-7}{10.1186/s13059-018-1448-7}.
 
 EA Houseman, et al.(2012)  \emph{DNA methylation arrays as 
 surrogate measures of cell mixture distribution}. BMC bioinformatics  13:86. 
-doi:10.1186/1471-2105-13-86.
+doi:\href{https://dx.doi.org/10.1186/s12859-016-0943-7}{10.1186/1471-2105-13-86}.
 
 AE Jaffe and RA Irizarry.(2014) \emph{Accounting for cellular 
 heterogeneity is critical in epigenome-wide association studies}. 
-Genome Biology  15:R31. doi:10.1186/gb-2014-15-2-r31.
+Genome Biology  15:R31. doi:
+\href{https://dx.doi.org/10.1186/gb-2014-15-2-r31}{10.1186/gb-2014-15-2-r31}.
 
 K Gervin, LA Salas et al. (2019) \emph{Systematic evaluation and 
 validation of references and library selection methods for deconvolution of 
 cord blood DNA methylation data}. Clin Epigenetics 11,125. doi:
-10.1186/s13148-019-0717-y
+\href{https://dx.doi.org/10.1186/s13148-019-0717-y}{10.1186/s13148-019-0717-y}.
 
 KM Bakulski, et al. (2016) \emph{DNA methylation of cord blood 
 cell types: Applications for mixed cell birth studies}. Epigenetics 11:5. 
-doi:10.1080/15592294.2016.1161875.
+doi:\href{https://dx.doi.org/10.1080/15592294.2016.1161875}{10.1080/15592294.2016.1161875}.
 
 AJ Titus, et al. (2017). \emph{Cell-type deconvolution from DNA 
 methylation: a review of recent applications}. Hum Mol Genet 26: R216-R224.
+doi:\href{https://dx.doi.org/10.1093/hmg/ddx275}{10.1093/hmg/ddx275}
 
 AE Teschendorff, et al. (2017). \emph{A comparison of 
 reference-based algorithms for correcting cell-type heterogeneity in 
-Epigenome-Wide Association Studies}. BMC Bioinformatics 18: 105.
+Epigenome-Wide Association Studies}. BMC Bioinformatics 18: 105. doi:
+\href{https://dx.doi.org/10.1186/s12859-017-1511-5}{10.1186/s12859-017-1511-5}
 }

@@ -4,10 +4,12 @@
 \name{IDOLOptimizedCpGs450klegacy}
 \alias{IDOLOptimizedCpGs450klegacy}
 \title{IDOL Optimized CpGs for adult blood DNA methylation deconvolution EPIC}
-\format{An object of class "character" of length 350.
+\format{
+An object of class "character" of length 350.
 
         The format is:
-        chr [1:350] "cg14232368" "cg15087459" "cg20538211" "cg11944101" ...}
+        chr [1:350] "cg14232368" "cg15087459" "cg20538211" "cg11944101" ...
+}
 \usage{
 IDOLOptimizedCpGs450klegacy
 }
@@ -26,10 +28,11 @@ This object is a vector of length 350 consisting of the names of the IDOL
 LA Salas et al. (2018). \emph{An optimized library for 
 reference-based deconvolution of whole-blood biospecimens assayed using the 
 Illumina HumanMethylationEPIC BeadArray}. Genome Biology 19, 64. doi:
-10.1186/s13059-018-1448-7.
+\href{https://dx.doi.org/10.1186/s13059-018-1448-7}{10.1186/s13059-018-1448-7}
 
-D Koestler et al. (2016). \emph{Improving cell mixture 
+DC Koestler et al. (2016). \emph{Improving cell mixture 
 deconvolution by identifying optimal DNA methylation libraries (IDOL)}. 
-BMC bioinformatics. 17, 120. doi: 10.1186/s12859-016-0943-7.
+BMC bioinformatics. 17, 120. doi: 
+\href{https://dx.doi.org/10.1186/s13059-018-1448-7}{10.1186/s13059-018-1448-7}.
 }
 \keyword{datasets}

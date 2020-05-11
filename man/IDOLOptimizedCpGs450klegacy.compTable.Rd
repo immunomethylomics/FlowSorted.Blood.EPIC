@@ -4,10 +4,12 @@
 \name{IDOLOptimizedCpGs450klegacy.compTable}
 \alias{IDOLOptimizedCpGs450klegacy.compTable}
 \title{IDOL Optimized CpGs matrix for adult blood DNA methylation deconvolution EPIC}
-\format{An object of class "matrix" of dimensions 450 x 6.
+\format{
+An object of class "matrix" of dimensions 450 x 6.
 
         The format is:
-        num [1:350, 1:6] 0.904  0.122  0.633  0.841  0.135 ...}
+        num [1:350, 1:6] 0.904  0.122  0.633  0.841  0.135 ...
+}
 \usage{
 IDOLOptimizedCpGs450klegacy.compTable
 }
@@ -28,10 +30,11 @@ This object is a matrix of dimensions 350 x 6 consisting of the average
 LA Salas et al. (2018). \emph{An optimized library for 
 reference-based deconvolution of whole-blood biospecimens assayed using the 
 Illumina HumanMethylationEPIC BeadArray}. Genome Biology 19, 64. doi:
-10.1186/s13059-018-1448-7.
+\href{https://dx.doi.org/10.1186/s13059-018-1448-7}{10.1186/s13059-018-1448-7}
 
-D Koestler et al. (2016). \emph{Improving cell mixture 
+DC Koestler et al. (2016). \emph{Improving cell mixture 
 deconvolution by identifying optimal DNA methylation libraries (IDOL)}. 
-BMC bioinformatics. 17, 120. doi: 10.1186/s12859-016-0943-7.
+BMC bioinformatics. 17, 120. doi: 
+\href{https://dx.doi.org/10.1186/s13059-018-1448-7}{10.1186/s13059-018-1448-7}.
 }
 \keyword{datasets}

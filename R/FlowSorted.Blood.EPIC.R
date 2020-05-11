@@ -3,9 +3,10 @@
 #' Illumina Human Methylation data from EPIC on immunomagnetic sorted adult 
 #' blood cell populations. The FlowSorted.Blood.EPIC package contains Illumina
 #' HumanMethylationEPIC (\dQuote{EPIC})) DNA methylation microarray data
-#' from the immunomethylomics group (manuscript submitted), consisting of 37 
-#' magnetic sorted blood cell references and 12 samples, formatted as an
-#' RGChannelSet object for  integration and normalization using
+#' from the immunomethylomics group  
+#' \href{https://dx.doi.org/10.1186/s13059-018-1448-7}{(Salas et al. 2018)}, 
+#' consisting of 37 magnetic sorted blood cell references and 12 samples, 
+#' formatted as an RGChannelSet object for  integration and normalization using
 #' most of the existing Bioconductor packages.
 #'
 #' This package contains data similar to the FlowSorted.Blood.450k
@@ -33,24 +34,22 @@
 #'
 #'
 #' @format A class: RGChannelSet, dimensions: 1051815 49 
-#' @source \url{https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110554}
-#' The FlowSorted.Blood.EPIC object is based in samples assayed
-#' by Brock Christensen and colleagues; manuscript submmited.
+#' @source The FlowSorted.Blood.EPIC object is based in samples assayed
+#' by Brock Christensen and colleagues; Salas et al. 2018. 
+#' \href{https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110554}{GSE110554}
 #' @seealso
 #' References \enumerate{
 #' \item LA Salas et al. (2018). \emph{An optimized library for 
 #' reference-based deconvolution of whole-blood biospecimens assayed using the 
 #' Illumina HumanMethylationEPIC BeadArray}. Genome Biology 19, 64. doi:
-#' 10.1186/s13059-018-1448-7.
+#' \href{https://dx.doi.org/10.1186/s13059-018-1448-7}{10.1186/s13059-018-1448-7}.
 #' \item DC Koestler et al. (2016). \emph{Improving cell mixture deconvolution 
 #' by identifying optimal DNA methylation libraries (IDOL)}. BMC bioinformatics.
-#' 17, 120. doi: 10.1186/s12859-016-0943-7.
+#' 17, 120. doi:\href{https://dx.doi.org/10.1186/s12859-016-0943-7}{10.1186/s12859-016-0943-7}.
 #' \item EA Houseman et al. (2012) \emph{DNA methylation arrays as surrogate
 #' measures of cell mixture distribution}. BMC Bioinformatics 13, 86.
-#' doi:10.1186/1471-2105-13-86.
-#' \item \pkg{minfi} package for tools for estimating cell type
-#' composition in blood using these data
-
+#' doi:\href{https://dx.doi.org/10.1186/s12859-016-0943-7}{10.1186/1471-2105-13-86}.
+#' \item \pkg{minfi} package, tools for analyzing DNA methylation microarrays
 #' }
 #' 
 #' @examples

@@ -171,28 +171,32 @@
 #' @references LA Salas et al. (2018). \emph{An optimized library for 
 #' reference-based deconvolution of whole-blood biospecimens assayed using the 
 #' Illumina HumanMethylationEPIC BeadArray}. Genome Biology 19, 64. doi:
-#' 10.1186/s13059-018-1448-7.
+#' \href{https://dx.doi.org/10.1186/s13059-018-1448-7}{10.1186/s13059-018-1448-7}
 #' @references DC Koestler et al. (2016). \emph{Improving cell mixture 
 #' deconvolution by identifying optimal DNA methylation libraries (IDOL)}. 
-#' BMC bioinformatics. 17, 120. doi: 10.1186/s12859-016-0943-7.
+#' BMC bioinformatics. 17, 120. doi: 
+#' \href{https://dx.doi.org/10.1186/s13059-018-1448-7}{10.1186/s13059-018-1448-7}.
 #' @references EA Houseman, et al.(2012)  \emph{DNA methylation arrays as 
 #' surrogate measures of cell mixture distribution}. BMC bioinformatics  13:86. 
-#' doi:10.1186/1471-2105-13-86.
+#' doi:\href{https://dx.doi.org/10.1186/s12859-016-0943-7}{10.1186/1471-2105-13-86}.
 #' @references AE Jaffe and RA Irizarry.(2014) \emph{Accounting for cellular 
 #' heterogeneity is critical in epigenome-wide association studies}. 
-#' Genome Biology  15:R31. doi:10.1186/gb-2014-15-2-r31.
+#' Genome Biology  15:R31. doi:
+#' \href{https://dx.doi.org/10.1186/gb-2014-15-2-r31}{10.1186/gb-2014-15-2-r31}.
 #' @references K Gervin, LA Salas et al. (2019) \emph{Systematic evaluation and 
 #' validation of references and library selection methods for deconvolution of 
 #' cord blood DNA methylation data}. Clin Epigenetics 11,125. doi:
-#' 10.1186/s13148-019-0717-y
+#' \href{https://dx.doi.org/10.1186/s13148-019-0717-y}{10.1186/s13148-019-0717-y}.
 #' @references KM Bakulski, et al. (2016) \emph{DNA methylation of cord blood 
 #' cell types: Applications for mixed cell birth studies}. Epigenetics 11:5. 
-#' doi:10.1080/15592294.2016.1161875.
+#' doi:\href{https://dx.doi.org/10.1080/15592294.2016.1161875}{10.1080/15592294.2016.1161875}.
 #' @references AJ Titus, et al. (2017). \emph{Cell-type deconvolution from DNA 
 #' methylation: a review of recent applications}. Hum Mol Genet 26: R216-R224.
+#' doi:\href{https://dx.doi.org/10.1093/hmg/ddx275}{10.1093/hmg/ddx275}
 #' @references AE Teschendorff, et al. (2017). \emph{A comparison of 
 #' reference-based algorithms for correcting cell-type heterogeneity in 
-#' Epigenome-Wide Association Studies}. BMC Bioinformatics 18: 105.
+#' Epigenome-Wide Association Studies}. BMC Bioinformatics 18: 105. doi:
+#' \href{https://dx.doi.org/10.1186/s12859-017-1511-5}{10.1186/s12859-017-1511-5}
 #' @param 
 #' rgSet           The input RGChannelSet or raw MethylSet for the procedure.
 #' @param
@@ -413,19 +417,44 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                         studyIndex = rep(c("user", "reference"), 
                                         times = c(ncol(rgSet), 
                                                     ncol(referenceRGset))))
+    referenceRGset$CellType<-as.character(referenceRGset$CellType)
     if(is.null(rgSet$CellType))
         rgSet$CellType<-rep("NA", dim(rgSet)[2])
     if(is.null(rgSet$Age))
         rgSet$Age<-rep("NA", dim(rgSet)[2])
     if(is.null(rgSet$Sex))
         rgSet$Sex<-rep("NA", dim(rgSet)[2])
+    if(is.null(referenceRGset$Sex)){
+        referenceRGset$Sex<-rep("NA", dim(referenceRGset)[2])
+    }else{
+        referenceRGset$Sex<-as.character(referenceRGset$Sex)
+    }
+    if(is.null(referenceRGset$Age)){
+        referenceRGset$Age<-rep("NA", dim(referenceRGset)[2])
+    }else{
+        try(referenceRGset$Age<-as.numeric(referenceRGset$Age))
+    }
     commoncolumn<-intersect(names(colData(rgSet)), 
                             names(colData(referenceRGset)))
-    colData(referenceRGset)[commoncolumn] <- mapply(FUN = as,
-                                        colData(referenceRGset)[commoncolumn],
-                                        vapply(colData(rgSet)[commoncolumn],
+    restry<-try({colData(rgSet)[commoncolumn] <- mapply(FUN = as,
+                                        colData(rgSet)[commoncolumn],
+                                vapply(colData(referenceRGset)[commoncolumn],
                                                 class, FUN.VALUE=character(1)),
-                                                    SIMPLIFY = FALSE)
+                                                    SIMPLIFY = FALSE)}, 
+                                                    silent = TRUE)
+    if ( "try-error" %in% class(restry) ) {
+        commoncolumn<-c("CellType", "Sex", "Age")
+        colData(rgSet)[commoncolumn] <- mapply(FUN = as,
+                                           colData(rgSet)[commoncolumn],
+                                vapply(colData(referenceRGset)[commoncolumn],
+                                                class, FUN.VALUE=character(1)),
+                                                    SIMPLIFY = FALSE)} else{
+    colData(rgSet)[commoncolumn] <- mapply(FUN = as,
+                                           colData(rgSet)[commoncolumn],
+                                vapply(colData(referenceRGset)[commoncolumn],
+                                                class, FUN.VALUE=character(1)),
+                                                    SIMPLIFY = FALSE)}
+    rm(restry)
     colData(referenceRGset)<-colData(referenceRGset)[commoncolumn]
     colData(rgSet)<-colData(rgSet)[commoncolumn]
     referencePd <- colData(referenceRGset)
