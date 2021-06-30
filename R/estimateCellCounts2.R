@@ -337,7 +337,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                         'cellTypes' for your estimation.\n",
                         width = 80, prefix = " ", initial = ""))
     if (compositeCellType == "CordBloodCombined")
-        platform<="450k"
+        platform <- "450k"
     referencePkg <- sprintf("FlowSorted.%s.%s", compositeCellType, platform)
     subverbose <- max(as.integer(verbose) - 1L, 0L)
     if (!is.null(referenceset)){
