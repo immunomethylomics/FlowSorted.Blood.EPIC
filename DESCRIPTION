@@ -1,8 +1,8 @@
 Package: FlowSorted.Blood.EPIC
 Type: Package
 Title: Illumina EPIC data on immunomagnetic sorted peripheral adult blood cells
-Version: 1.7.1
-Date: 2020-05-10
+Version: 1.11.0
+Date: 2020-14-04
 Authors@R: c( person(c("Lucas", "A."), "Salas", role = c("cre", "aut"),
             email = "lucas.a.salas.diaz@dartmouth.edu"),
             person(c("Devin", "C."), "Koestler", role = c("aut"),
