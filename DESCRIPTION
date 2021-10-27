@@ -1,8 +1,8 @@
 Package: FlowSorted.Blood.EPIC
 Type: Package
 Title: Illumina EPIC data on immunomagnetic sorted peripheral adult blood cells
-Version: 1.13.0
-Date: 2020-14-04
+Version: 1.99.0
+Date: 2021-10-26
 Authors@R: c( person(c("Lucas", "A."), "Salas", role = c("cre", "aut"),
             email = "lucas.a.salas.diaz@dartmouth.edu"),
             person(c("Devin", "C."), "Koestler", role = c("aut"),
@@ -35,7 +35,6 @@ biocViews: ExperimentData, Homo_sapiens_Data, Tissue, MicroarrayData, Genome,
         TissueMicroarrayData, MethylationArrayData
 NeedsCompilation: no
 LazyData: yes
-Packaged: 2017-10-31 16:43:10 UTC; biocbuild
 Suggests: knitr,
     rmarkdown, EpiDISH, FlowSorted.CordBloodCombined.450k,
     FlowSorted.Blood.450k(>= 1.0.1), FlowSorted.CordBlood.450k, 
@@ -44,6 +43,6 @@ Suggests: knitr,
     IlluminaHumanMethylation450kanno.ilmn12.hg19(>= 0.2.1), 
     IlluminaHumanMethylationEPICanno.ilm10b2.hg19
 VignetteBuilder: knitr
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.2
 URL: https://github.com/immunomethylomics/FlowSorted.Blood.EPIC
 BugReports: https://github.com/immunomethylomics/FlowSorted.Blood.EPIC/issues.

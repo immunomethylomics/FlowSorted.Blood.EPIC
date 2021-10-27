@@ -49,13 +49,8 @@ IDOLOptimizedCpGs, and the IDOLOptimizedCpGs450klegacy object for legacy
 450K datasets. See the objects help for details.
 }
 \examples{
-# Explore the reference library
-library(ExperimentHub)
-hub <- ExperimentHub()
-query(hub, "FlowSorted.Blood.EPIC")
-FlowSorted.Blood.EPIC <- hub[["EH1136"]]
 FlowSorted.Blood.EPIC
-
+table(FlowSorted.Blood.EPIC$CellType)
 }
 \seealso{
 References \enumerate{

@@ -53,11 +53,6 @@
 #' }
 #' 
 #' @examples
-#' # Explore the reference library
-#' library(ExperimentHub)
-#' hub <- ExperimentHub()
-#' query(hub, "FlowSorted.Blood.EPIC")
-#' FlowSorted.Blood.EPIC <- hub[["EH1136"]]
 #' FlowSorted.Blood.EPIC
-#' 
+#' table(FlowSorted.Blood.EPIC$CellType)
 "FlowSorted.Blood.EPIC"

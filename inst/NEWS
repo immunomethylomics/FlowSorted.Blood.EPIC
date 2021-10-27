@@ -16,3 +16,11 @@ Changes in version 1.3.1 (2019-10-24)
 Changes in version 1.5.2 (2019-11-05)
 + Made the following significant changes
   o Added the projectCellType_CP function for projecting the cell counts on beta values
+  
+Changes in version 1.99.0 (2021-10-26)
++ Made the following significant changes
+  o The IDOL libraries are automatically selected
+  o The slot counts is now only for cell counts, if available
+  o Projections are based on cell proportions
+  o estimateCellCounts2 supports additional packages and extended deconvolution
+  o The reference library is CACHED automatically 

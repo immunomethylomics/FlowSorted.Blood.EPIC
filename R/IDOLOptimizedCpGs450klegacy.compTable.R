@@ -23,6 +23,5 @@
 #' 
 #' @examples
 #' # Do not run
-#' # data("IDOLOptimizedCpGs450klegacy.compTable")
 #' # head(IDOLOptimizedCpGs450klegacy.compTable)
 "IDOLOptimizedCpGs450klegacy.compTable"

@@ -24,6 +24,5 @@
 #' 
 #' @examples
 #' # Do not run
-#' # data("IDOLOptimizedCpGs.compTable")
 #' # head(IDOLOptimizedCpGs.compTable)
 "IDOLOptimizedCpGs.compTable"

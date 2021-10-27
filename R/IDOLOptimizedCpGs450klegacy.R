@@ -24,5 +24,5 @@
 #' 
 #' @examples
 #' # Do not run
-#' # data("IDOLOptimizedCpGs450klegacy")
+#' # head(IDOLOptimizedCpGs450klegacy)
 "IDOLOptimizedCpGs450klegacy"

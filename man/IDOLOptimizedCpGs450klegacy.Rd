@@ -22,7 +22,7 @@ This object is a vector of length 350 consisting of the names of the IDOL
 }
 \examples{
 # Do not run
-# data("IDOLOptimizedCpGs450klegacy")
+# head(IDOLOptimizedCpGs450klegacy)
 }
 \references{
 LA Salas et al. (2018). \emph{An optimized library for 

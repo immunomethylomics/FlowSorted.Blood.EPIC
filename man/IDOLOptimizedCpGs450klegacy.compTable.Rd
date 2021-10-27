@@ -23,7 +23,6 @@ This object is a matrix of dimensions 350 x 6 consisting of the average
 }
 \examples{
 # Do not run
-# data("IDOLOptimizedCpGs450klegacy.compTable")
 # head(IDOLOptimizedCpGs450klegacy.compTable)
 }
 \references{

@@ -13,10 +13,6 @@
 #' @examples
 #' # Step 1: Load the reference library to extract the artificial mixtures
 #' 
-#' library(ExperimentHub)
-#' hub <- ExperimentHub()
-#' query(hub, "FlowSorted.Blood.EPIC")
-#' FlowSorted.Blood.EPIC <- hub[["EH1136"]]
 #' FlowSorted.Blood.EPIC
 #' 
 #' # Step 2 separate the reference from the testing dataset if you want to run 
@@ -40,7 +36,6 @@
 #' # their methylation signature differs across the six normal leukocyte 
 #' # subtypes.
 #' 
-#' data (IDOLOptimizedCpGs.compTable)
 #' head (IDOLOptimizedCpGs.compTable)
 #' # If you need to deconvolute a 450k legacy dataset use 
 #' # IDOLOptimizedCpGs450klegacy.compTable instead
@@ -53,12 +48,13 @@
 #' #normalization step requires a big amount of memory resources
 #' 
 #' if (memory.limit()>8000){
-#'  countsEPIC<-projectCellType_CP (
+#'  propEPIC<-projectCellType_CP (
 #'  getBeta(preprocessNoob(RGsetTargets))[IDOLOptimizedCpGs,], 
 #'  IDOLOptimizedCpGs.compTable, contrastWBC=NULL, nonnegative=TRUE, 
 #'  lessThanOne=FALSE)
 #'                                 
-#' head(countsEPIC)
+#' head(propEPIC)
+#' percEPIC<-round(propEPIC*100,1)
 #' }
 #' 
 #' @param	
