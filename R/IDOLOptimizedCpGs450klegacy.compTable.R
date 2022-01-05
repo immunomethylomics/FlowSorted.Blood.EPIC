@@ -22,6 +22,8 @@
 #' \href{https://dx.doi.org/10.1186/s13059-018-1448-7}{10.1186/s13059-018-1448-7}.
 #' 
 #' @examples
-#' # Do not run
-#' # head(IDOLOptimizedCpGs450klegacy.compTable)
+#' 
+#' #data("IDOLOptimizedCpGs450klegacy.compTable")
+#' #head(IDOLOptimizedCpGs450klegacy.compTable)
+#' #See ?estimateCellCounts2 for deconvolution examples (advanced user)
 "IDOLOptimizedCpGs450klegacy.compTable"

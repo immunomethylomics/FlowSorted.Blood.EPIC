@@ -44,18 +44,24 @@ knitr::opts_chunk$set(
  library
  
 ```{r eval=TRUE}
-FlowSorted.Blood.EPIC  
+library(FlowSorted.Blood.EPIC)
+if (memory.limit()>8000){
+FlowSorted.Blood.EPIC <- libraryDataGet('FlowSorted.Blood.EPIC')
+FlowSorted.Blood.EPIC
+}
 ```
  The raw dataset is hosted in both ExperimentHub (EH1136) and GEO 
  [GSE110554](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110554)  
 
  2. *IDOLOptimizedCpGs* the IDOL L-DMR library for EPIC arrays  
-```{r eval=TRUE}
+```{r eval=FALSE}
+data("IDOLOptimizedCpGs") 
 head(IDOLOptimizedCpGs)  
 ```  
  3. *IDOLOptimizedCpGs450klegacy* the IDOL L-DMR library for legacy 450k 
  arrays  
-```{r eval=TRUE}
+```{r eval=FALSE}
+data("IDOLOptimizedCpGs450klegacy") 
 head(IDOLOptimizedCpGs450klegacy)  
 ```  
  *See the object help files for additional information*  
@@ -73,12 +79,14 @@ head(IDOLOptimizedCpGs450klegacy)
  *see ?estimateCellCounts2 for details*  
 ```{r eval=TRUE}
 # Step 1: Load the reference library to extract the artificial mixtures
+# if (memory.limit()>8000){
+# FlowSorted.Blood.EPIC <- libraryDataGet('FlowSorted.Blood.EPIC')
+# FlowSorted.Blood.EPIC
+# }
 FlowSorted.Blood.EPIC
 # Note: If your machine does not allow access to internet you can download
 # and save the file. Then load it manually into the R environment
-# library(ExperimentHub)
-# FlowSorted.Blood.EPIC <- ExperimentHub()[[query(ExperimentHub(), 
-#                                           "FlowSorted.Blood.EPIC")$ah_id]]
+
 
 # Step 2 separate the reference from the testing dataset if you want to run 
 # examples for estimations for this function example
@@ -122,32 +130,42 @@ if (memory.limit()>8000){
                                 cellTypes = c("CD8T", "CD4T", "NK", "Bcell", 
                                 "Mono", "Neu"))
                                 
-head(propEPIC$prop)
+print(head(propEPIC$prop))
 percEPIC<-round(propEPIC$prop*100,1)
 }
+```
 
-# CIBERSORT and/or RPC deconvolution
+# Advanced user deconvolution CP/QP, CIBERSORT and/or RPC deconvolution
+```{r eval=FALSE}
+
+noobset<- preprocessNoob(RGsetTargets)
+#or from estimateCellCounts2 returnAll=TRUE
+
+if (memory.limit()>8000){
+ propEPIC<-projectCellType_CP (
+ getBeta(noobset)[IDOLOptimizedCpGs,],
+ IDOLOptimizedCpGs.compTable, contrastWBC=NULL, nonnegative=TRUE,
+ lessThanOne=FALSE)
+
+head(propEPIC)
+percEPIC<-round(propEPIC*100,1)
+}
+
 # If you prefer CIBERSORT or RPC deconvolution use EpiDISH or similar
 
 # Example not to run
 
-# propEPIC2<-estimateCellCounts2(RGsetTargets, compositeCellType = "Blood", 
-#                                processMethod = "preprocessNoob",
-#                                probeSelect = "IDOL", 
-#                                cellTypes = c("CD8T", "CD4T", "NK", 
-#                                "Bcell", "Mono", "Neu"), 
-#                                returnAll = TRUE)
-
 # library(EpiDISH)
-# RPC <- epidish(getBeta(propEPIC2$normalizedData), 
-# as.matrix(propEPIC2$compTable[IDOLOptimizedCpGs, 3:8]), method = "RPC")
-# RPC$estF#RPC count estimates
+# RPC <- epidish(getBeta(noobset)[IDOLOptimizedCpGs,], 
+# IDOLOptimizedCpGs.compTable), method = "RPC")
+# RPC$estF#RPC proportion estimates
+# percEPICRPC<-round(RPC$estF*100,1)#percentages
 
-# CBS <- epidish(getBeta(propEPIC2$normalizedData), 
-# as.matrix(propEPIC2$compTable[IDOLOptimizedCpGs, 3:8]), method = "CBS")
-# CBS$estF#CBS count estimates
-
-``` 
+# CBS <- epidish(getBeta(noobset)[IDOLOptimizedCpGs,],
+# IDOLOptimizedCpGs.compTable), method = "CBS")
+# CBS$estF#CBS proportion estimates
+# percEPICCBS<-round(CBS$estF*100,1)#percentages
+```
  
 Umbilical Cord Blood
 ```{r Umbilical Cord Blood, eval=FALSE}
@@ -156,7 +174,9 @@ Umbilical Cord Blood
 # Do not run
 library (FlowSorted.CordBloodCombined.450k)
 # Step 1: Load the reference library to extract the umbilical cord samples
-FlowSorted.CordBloodCombined.450k <- FlowSorted.CordBloodCombined.450k()
+FlowSorted.CordBloodCombined.450k <- 
+    libraryDataGet('FlowSorted.CordBloodCombined.450k') 
+
 FlowSorted.CordBloodCombined.450k
 
 # Step 2 separate the reference from the testing dataset if you want to run 
@@ -176,8 +196,7 @@ RGsetTargets
 # CpG probes.  These CpGs are used as the backbone for deconvolution and were
 # selected because their methylation signature differs across the six normal 
 # leukocyte subtypes plus the nucleated red blood cells.
-data("IDOLOptimizedCpGsCordBlood")
-head (IDOLOptimizedCpGsCordBlood)
+
 # We recommend using Noob processMethod = "preprocessNoob" in minfi for the 
 # target and reference datasets. 
 # Cell types included are "CD8T", "CD4T", "NK", "Bcell", "Mono", "Gran", 
@@ -202,7 +221,8 @@ if (memory.limit()>8000){
 }
 ```
 
-Using cell counts instead of proportions
+Using cell counts instead of proportions. 
+Note: These are random numbers, not the actual cell counts of the experiment
 ```{r cell counts, eval=TRUE}
 library(FlowSorted.Blood.450k)
 RGsetTargets2 <- FlowSorted.Blood.450k[,
@@ -227,19 +247,20 @@ Blood Extended deconvolution
 # please contact \email{Technology.Transfer@@dartmouth.edu}
 
 # Do not run
-# library (FlowSorted.BloodExtended.EPIC)
+library (FlowSorted.BloodExtended.EPIC)
 # 
 # Step 1: Extract the mix samples
-# library(FlowSorted.Blood.EPIC)
+
+FlowSorted.Blood.EPIC <- libraryDataGet('FlowSorted.Blood.EPIC')
 
 # Step 2 separate the reference from the testing dataset if you want to run 
 # examples for estimations for this function example
 
-# RGsetTargets <- FlowSorted.Blood.EPIC[,
-# FlowSorted.Blood.EPIC$CellType == "MIX"]
-# sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
-#                               seq_len(dim(RGsetTargets)[2]), sep = "_")
-# RGsetTargets
+RGsetTargets <- FlowSorted.Blood.EPIC[,
+FlowSorted.Blood.EPIC$CellType == "MIX"]
+sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
+                              seq_len(dim(RGsetTargets)[2]), sep = "_")
+RGsetTargets
 
 # Step 3: use your favorite package for deconvolution.
 # Deconvolute the target data set 450K or EPIC blood DNA methylation. 
@@ -255,20 +276,20 @@ Blood Extended deconvolution
 # of memory resources. Use the parameters as specified below for 
 # reproducibility.
 # 
-# if (memory.limit()>8000){
-#     prop_ext<-estimateCellCounts2(RGsetTargets, 
-#                                     compositeCellType = 
-#                                                "BloodExtended", 
-#                                     processMethod = "preprocessNoob",
-#                                     probeSelect = "IDOL", 
-#                                     cellTypes = c("Bas", "Bmem", "Bnv", 
-#                                                "CD4mem", "CD4nv", 
-#                                               "CD8mem", "CD8nv", "Eos", 
-#                                               "Mono", "Neu", "NK", "Treg"))
-#     
-#    perc_ext<-round(prop_ext$prop*100,1) 
-#    head(perc_ext)
-# }
+if (memory.limit()>8000){
+    prop_ext<-estimateCellCounts2(RGsetTargets,
+                                    compositeCellType =
+                                               "BloodExtended",
+                                    processMethod = "preprocessNoob",
+                                    probeSelect = "IDOL",
+                                    cellTypes = c("Bas", "Bmem", "Bnv",
+                                               "CD4mem", "CD4nv",
+                                              "CD8mem", "CD8nv", "Eos",
+                                              "Mono", "Neu", "NK", "Treg"))
+
+   perc_ext<-round(prop_ext$prop*100,1)
+   head(perc_ext)
+}
 ```
 
   
@@ -278,6 +299,11 @@ Blood Extended deconvolution
  of whole-blood biospecimens assayed using the Illumina HumanMethylationEPIC
  BeadArray. Genome Biology 19, 64. doi:
  [10.1186/s13059-018-1448-7](https://dx.doi.org/10.1186/s13059-018-1448-7).  
+ 
+ LA Salas et al. (2022). \emph{Enhanced cell deconvolution of 
+ peripheral blood using DNA methylation for high-resolution immune 
+ profiling}. Nat Comm (In Press). doi (biorxiv):
+ [10.1101/2021.04.11.439377](https://dx.doi.org/10.1101/2021.04.11.439377).
  
  DC Koestler et al. (2016). Improving cell mixture deconvolution by
  identifying optimal DNA methylation libraries (IDOL). BMC bioinformatics.

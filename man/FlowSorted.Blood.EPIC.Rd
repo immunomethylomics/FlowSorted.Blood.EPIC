@@ -14,6 +14,10 @@ by Brock Christensen and colleagues; Salas et al. 2018.
 }
 \usage{
 FlowSorted.Blood.EPIC
+#See ?estimateCellCounts2 for cell deconvolution guidelines
+}
+\value{
+RGChannelSet 49 samples
 }
 \description{
 Illumina Human Methylation data from EPIC on immunomagnetic sorted adult 
@@ -50,7 +54,10 @@ IDOLOptimizedCpGs, and the IDOLOptimizedCpGs450klegacy object for legacy
 }
 \examples{
 FlowSorted.Blood.EPIC
-table(FlowSorted.Blood.EPIC$CellType)
+#FlowSorted.Blood.EPIC<-
+#libraryDataGet('FlowSorted.Blood.EPIC')
+#FlowSorted.Blood.EPIC
+#table(FlowSorted.Blood.EPIC$CellType)
 }
 \seealso{
 References \enumerate{

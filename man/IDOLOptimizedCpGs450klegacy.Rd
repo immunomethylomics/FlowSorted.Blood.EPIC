@@ -21,8 +21,9 @@ This object is a vector of length 350 consisting of the names of the IDOL
     normal leukocyte subtypes.
 }
 \examples{
-# Do not run
-# head(IDOLOptimizedCpGs450klegacy)
+#data ("IDOLOptimizedCpGs450klegacy")
+#head(IDOLOptimizedCpGs450klegacy)
+#See ?estimateCellCounts2 for deconvolution examples
 }
 \references{
 LA Salas et al. (2018). \emph{An optimized library for 

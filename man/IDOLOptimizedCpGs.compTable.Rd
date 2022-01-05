@@ -21,8 +21,9 @@ This object is a matrix of dimensions 450 x 6 consisting of the average
     methylation signature differs across the six normal leukocyte subtypes.
 }
 \examples{
-# Do not run
-# head(IDOLOptimizedCpGs.compTable)
+#data ("IDOLOptimizedCpGs.compTable")
+#head(IDOLOptimizedCpGs.compTable)
+#See ?estimateCellCounts2 for deconvolution examples (advanced user option)
 }
 \references{
 LA Salas et al. (2018). \emph{An optimized library for 

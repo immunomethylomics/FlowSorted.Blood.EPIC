@@ -22,8 +22,10 @@ This object is a matrix of dimensions 350 x 6 consisting of the average
     normal leukocyte subtypes.
 }
 \examples{
-# Do not run
-# head(IDOLOptimizedCpGs450klegacy.compTable)
+
+#data("IDOLOptimizedCpGs450klegacy.compTable")
+#head(IDOLOptimizedCpGs450klegacy.compTable)
+#See ?estimateCellCounts2 for deconvolution examples (advanced user)
 }
 \references{
 LA Salas et al. (2018). \emph{An optimized library for 

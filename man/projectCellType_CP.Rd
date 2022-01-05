@@ -42,7 +42,7 @@ dataset filtering potential bad quality samples.
 }
 \examples{
 # Step 1: Load the reference library to extract the artificial mixtures
-
+FlowSorted.Blood.EPIC<-libraryDataGet('FlowSorted.Blood.EPIC')
 FlowSorted.Blood.EPIC
 
 # Step 2 separate the reference from the testing dataset if you want to run 

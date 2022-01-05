@@ -12,7 +12,7 @@
 #' @import 	quadprog
 #' @examples
 #' # Step 1: Load the reference library to extract the artificial mixtures
-#' 
+#' FlowSorted.Blood.EPIC<-libraryDataGet('FlowSorted.Blood.EPIC')
 #' FlowSorted.Blood.EPIC
 #' 
 #' # Step 2 separate the reference from the testing dataset if you want to run 
@@ -111,14 +111,15 @@ projectCellType_CP <- function(Y, coefWBC, contrastWBC=NULL,
             for(i in seq_len(nSubj)) {
                 obs <- which(!is.na(Y[,i])) 
                 Dmat <- crossprod(Xmat[obs,])
-                mixCoef[i,] <- solve.QP(Dmat, crossprod(Xmat[obs,], Y[obs,i]), 
-                                        Amat, b0vec)$sol
+                mixCoef[i,] <- round(solve.QP(Dmat, crossprod(Xmat[obs,], 
+                                        Y[obs,i]), 
+                                        Amat, b0vec)$sol,4)
             }
         } else {
             for(i in seq_len(nSubj)) {
                 obs <- which(!is.na(Y[,i])) 
                 Dmat <- crossprod(Xmat[obs,])
-                mixCoef[i,] <- solve(Dmat, t(Xmat[obs,]) %*% Y[obs,i])
+                mixCoef[i,] <- round(solve(Dmat, t(Xmat[obs,]) %*% Y[obs,i]),4)
             }
         }
         return(mixCoef)

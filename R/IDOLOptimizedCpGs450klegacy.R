@@ -23,6 +23,7 @@
 #' \href{https://dx.doi.org/10.1186/s13059-018-1448-7}{10.1186/s13059-018-1448-7}.
 #' 
 #' @examples
-#' # Do not run
-#' # head(IDOLOptimizedCpGs450klegacy)
+#' #data ("IDOLOptimizedCpGs450klegacy")
+#' #head(IDOLOptimizedCpGs450klegacy)
+#' #See ?estimateCellCounts2 for deconvolution examples
 "IDOLOptimizedCpGs450klegacy"

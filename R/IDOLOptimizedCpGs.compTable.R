@@ -23,6 +23,7 @@
 #' \href{https://dx.doi.org/10.1186/s13059-018-1448-7}{10.1186/s13059-018-1448-7}.
 #' 
 #' @examples
-#' # Do not run
-#' # head(IDOLOptimizedCpGs.compTable)
+#' #data ("IDOLOptimizedCpGs.compTable")
+#' #head(IDOLOptimizedCpGs.compTable)
+#' #See ?estimateCellCounts2 for deconvolution examples (advanced user option)
 "IDOLOptimizedCpGs.compTable"

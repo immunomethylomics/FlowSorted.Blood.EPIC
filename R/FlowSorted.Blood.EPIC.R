@@ -54,5 +54,12 @@
 #' 
 #' @examples
 #' FlowSorted.Blood.EPIC
-#' table(FlowSorted.Blood.EPIC$CellType)
+#' #FlowSorted.Blood.EPIC<-
+#' #libraryDataGet('FlowSorted.Blood.EPIC')
+#' #FlowSorted.Blood.EPIC
+#' #table(FlowSorted.Blood.EPIC$CellType)
+#' @return RGChannelSet 49 samples
+#' @usage 
+#' FlowSorted.Blood.EPIC
+#' #See ?estimateCellCounts2 for cell deconvolution guidelines
 "FlowSorted.Blood.EPIC"
