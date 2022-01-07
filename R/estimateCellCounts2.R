@@ -167,7 +167,7 @@
 #' percEPIC2<-round(propEPIC2$prop*100,1)
 #' 
 #' ## Blood Extended deconvolution 
-#' ## please contact \email{Technology.Transfer@@dartmouth.edu}
+#' please contact \email{Technology.Transfer@@dartmouth.edu}
 #' 
 #' #library (FlowSorted.BloodExtended.EPIC)
 #'  
@@ -207,7 +207,9 @@
 #' #                                     cellTypes = c("Bas", "Bmem", "Bnv", 
 #' #                                                "CD4mem", "CD4nv", 
 #' #                                               "CD8mem", "CD8nv", "Eos", 
-#' #                                               "Mono", "Neu", "NK", "Treg"))
+#' #                                               "Mono", "Neu", "NK", "Treg"),
+#' # CustomCpGs =if(RGsetTargets@annotation[1]=="IlluminaHumanMethylationEPIC"){
+#' # IDOLOptimizedCpGsBloodExtended}else{IDOLOptimizedCpGsBloodExtended450k})
 #' #     
 #' #    perc_ext<-round(prop_ext$prop*100,1) 
 #' #    head(perc_ext)
@@ -553,16 +555,16 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
             CustomCpGs = FlowSorted.Blood.EPIC::IDOLOptimizedCpGs
         }
     } 
-    if ((probeSelect == "IDOL") && 
-        (compositeCellType == "BloodExtended")){
-        if((rgPlatform == "450k")){
-            CustomCpGs = 
-            FlowSorted.BloodExtended.EPIC::IDOLOptimizedCpGsBloodExtended450k
-        } else{
-            CustomCpGs = 
-                FlowSorted.BloodExtended.EPIC::IDOLOptimizedCpGsBloodExtended
-        }
-    } 
+    # if ((probeSelect == "IDOL") && 
+    #     (compositeCellType == "BloodExtended")){
+    #     if((rgPlatform == "450k")){
+    #         CustomCpGs = 
+    #         FlowSorted.BloodExtended.EPIC::IDOLOptimizedCpGsBloodExtended450k
+    #     } else{
+    #         CustomCpGs = 
+    #             FlowSorted.BloodExtended.EPIC::IDOLOptimizedCpGsBloodExtended
+    #     }
+    # } 
     if (verbose) 
         message(strwrap("[estimateCellCounts2] Combining user data with 
                         reference (flow sorted) data.\n", width = 80, 

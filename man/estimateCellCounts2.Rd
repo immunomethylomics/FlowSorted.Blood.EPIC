@@ -257,7 +257,7 @@ head(propEPIC2$counts)
 percEPIC2<-round(propEPIC2$prop*100,1)
 
 ## Blood Extended deconvolution 
-## please contact \email{Technology.Transfer@dartmouth.edu}
+please contact \email{Technology.Transfer@dartmouth.edu}
 
 #library (FlowSorted.BloodExtended.EPIC)
  
@@ -297,7 +297,9 @@ percEPIC2<-round(propEPIC2$prop*100,1)
 #                                     cellTypes = c("Bas", "Bmem", "Bnv", 
 #                                                "CD4mem", "CD4nv", 
 #                                               "CD8mem", "CD8nv", "Eos", 
-#                                               "Mono", "Neu", "NK", "Treg"))
+#                                               "Mono", "Neu", "NK", "Treg"),
+# CustomCpGs =if(RGsetTargets@annotation[1]=="IlluminaHumanMethylationEPIC"){
+# IDOLOptimizedCpGsBloodExtended}else{IDOLOptimizedCpGsBloodExtended450k})
 #     
 #    perc_ext<-round(prop_ext$prop*100,1) 
 #    head(perc_ext)

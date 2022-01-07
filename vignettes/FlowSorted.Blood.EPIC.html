@@ -8,53 +8,98 @@
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Lucas A Salas" />
 
-<meta name="date" content="2019-12-19" />
+<meta name="date" content="2022-01-06" />
 
 <title>FlowSorted.Blood.EPIC</title>
 
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 
 </style>
 <script>
@@ -81,7 +126,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
 
 
 
@@ -95,7 +141,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">FlowSorted.Blood.EPIC</h1>
 <h4 class="author">Lucas A Salas</h4>
-<h4 class="date">2019-12-19</h4>
+<h4 class="date">2022-01-06</h4>
 
 
 
@@ -104,292 +150,556 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Researchers may find this package useful as these samples represent different cellular populations ( T lymphocytes (CD4+ and CD8+), B cells (CD19+), monocytes (CD14+), NK cells (CD56+) and Neutrophils of cell sorted blood generated with high purity estimates. As a test of accuracy 12 experimental mixtures were reconstructed using fixed amounts of DNA from purified cells.</p>
 <p><strong>Objects included:</strong><br />
 1. <em>FlowSorted.Blood.EPIC</em> is the RGChannelSet object containing the reference library</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ExperimentHub)  
-
-hub &lt;-<span class="st"> </span><span class="kw">ExperimentHub</span>()  
-
-<span class="kw">query</span>(hub, <span class="st">&quot;FlowSorted.Blood.EPIC&quot;</span>)  
-
-FlowSorted.Blood.EPIC &lt;-<span class="st"> </span>hub[[<span class="st">&quot;EH1136&quot;</span>]]  
-
-FlowSorted.Blood.EPIC  </code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FlowSorted.Blood.EPIC)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: minfi</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: BiocGenerics</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;BiocGenerics&#39;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:stats&#39;:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     IQR, mad, sd, var, xtabs</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:base&#39;:</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     anyDuplicated, append, as.data.frame, basename, cbind, colnames,</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     union, unique, unsplit, which.max, which.min</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: GenomicRanges</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: stats4</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: S4Vectors</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;S4Vectors&#39;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:base&#39;:</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     expand.grid, I, unname</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: IRanges</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;IRanges&#39;</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:grDevices&#39;:</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     windows</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: GenomeInfoDb</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: SummarizedExperiment</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: MatrixGenerics</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: matrixStats</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;MatrixGenerics&#39;</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:matrixStats&#39;:</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse,</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     colCounts, colCummaxs, colCummins, colCumprods, colCumsums,</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs,</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats,</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds,</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads,</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     colWeightedMeans, colWeightedMedians, colWeightedSds,</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet,</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods,</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps,</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins,</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks,</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars,</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rowWeightedMads, rowWeightedMeans, rowWeightedMedians,</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rowWeightedSds, rowWeightedVars</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: Biobase</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Welcome to Bioconductor</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Vignettes contain introductory material; view with</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &#39;browseVignettes()&#39;. To cite Bioconductor, see</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &#39;citation(&quot;Biobase&quot;)&#39;, and for packages &#39;citation(&quot;pkgname&quot;)&#39;.</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;Biobase&#39;</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:MatrixGenerics&#39;:</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rowMedians</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:matrixStats&#39;:</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     anyMissing, rowMedians</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: Biostrings</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: XVector</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;Biostrings&#39;</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:base&#39;:</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     strsplit</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: bumphunter</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: foreach</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: iterators</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: parallel</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: locfit</span></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; locfit 1.5-9.4    2020-03-24</span></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Setting options(&#39;download.file.method.GEOquery&#39;=&#39;auto&#39;)</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Setting options(&#39;GEOquery.inmemory.gpl&#39;=FALSE)</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: genefilter</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;genefilter&#39;</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:MatrixGenerics&#39;:</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rowSds, rowVars</span></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:matrixStats&#39;:</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rowSds, rowVars</span></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: quadprog</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: nlme</span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;nlme&#39;</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:Biostrings&#39;:</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     collapse</span></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:IRanges&#39;:</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     collapse</span></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: AnnotationHub</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: BiocFileCache</span></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: dbplyr</span></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;AnnotationHub&#39;</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:Biobase&#39;:</span></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     cache</span></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: IlluminaHumanMethylationEPICanno.ilm10b4.hg19</span></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: ExperimentHub</span></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">memory.limit</span>()<span class="sc">&gt;</span><span class="dv">8000</span>){</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>FlowSorted.Blood.EPIC <span class="ot">&lt;-</span> <span class="fu">libraryDataGet</span>(<span class="st">&#39;FlowSorted.Blood.EPIC&#39;</span>)</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>FlowSorted.Blood.EPIC</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; snapshotDate(): 2021-10-19</span></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; snapshotDate(): 2021-10-19</span></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; see ?FlowSorted.Blood.EPIC and browseVignettes(&#39;FlowSorted.Blood.EPIC&#39;) for documentation</span></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; loading from cache</span></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; class: RGChannelSet </span></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dim: 1051815 49 </span></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; metadata(0):</span></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; assays(2): Green Red</span></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rownames(1051815): 1600101 1600111 ... 99810990 99810992</span></span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rowData names(0):</span></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; colnames(49): 201868500150_R01C01 201868500150_R03C01 ...</span></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   201870610111_R06C01 201870610111_R07C01</span></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; colData names(32): Sample_Plate Sample_Well ... filenames normalmix</span></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Annotation</span></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   array: IlluminaHumanMethylationEPIC</span></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   annotation: ilm10b4.hg19</span></span></code></pre></div>
 <p>The raw dataset is hosted in both ExperimentHub (EH1136) and GEO <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110554">GSE110554</a></p>
 <ol start="2" style="list-style-type: decimal">
 <li><em>IDOLOptimizedCpGs</em> the IDOL L-DMR library for EPIC arrays</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(IDOLOptimizedCpGs)  </code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;IDOLOptimizedCpGs&quot;</span>) </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(IDOLOptimizedCpGs)  </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;cg08769189&quot; &quot;cg07661835&quot; &quot;cg00219921&quot; &quot;cg13468685&quot; &quot;cg04329870&quot;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6] &quot;cg14085952&quot;</span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li><em>IDOLOptimizedCpGs450klegacy</em> the IDOL L-DMR library for legacy 450k arrays</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(IDOLOptimizedCpGs450klegacy)  </code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;IDOLOptimizedCpGs450klegacy&quot;</span>) </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(IDOLOptimizedCpGs450klegacy)  </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;cg14232368&quot; &quot;cg15087459&quot; &quot;cg20538211&quot; &quot;cg11944101&quot; &quot;cg00219921&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6] &quot;cg23752651&quot;</span></span></code></pre></div>
 <p><em>See the object help files for additional information</em></p>
 <p><strong>estimateCellCounts2 function for cell type deconvolution:</strong></p>
-<p>We offer the function estimateCellCounts2 a modification of the popular estimatesCellCounts function in minfi. Our function corrected small glitches when dealing with combining the DataFrame objects with the reference libraries. We allow the use of MethylSet objects such as those from GEO. However, we offer only Quantile normalization for those datasets (assuming that they have not been previously normalized). The estimates are calculated using the CP/QP method described in Houseman et al. 2012. and adapted in minfi. CIBERSORT and RPC are allowed using external packages.<br />
+<p>We offer the function estimateCellCounts2 a modification of the popular estimatesCellCounts function in minfi. Our function corrected small glitches when dealing with combining the DataFrame objects with the reference libraries. We allow the use of MethylSet objects such as those from GEO. However, we offer only Quantile normalization for those datasets (assuming that they have not been previously normalized). The estimates are calculated using the CP/QP method described in Houseman et al. 2012. and adapted in minfi. CIBERSORT and RPC are allowed using external packages.<br />
 <em>see ?estimateCellCounts2 for details</em></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Step 1: Load the reference library to extract the artificial mixtures  </span>
-
-<span class="kw">library</span>(ExperimentHub)  
-hub &lt;-<span class="st"> </span><span class="kw">ExperimentHub</span>()  
-<span class="kw">query</span>(hub, <span class="st">&quot;FlowSorted.Blood.EPIC&quot;</span>)  
-FlowSorted.Blood.EPIC &lt;-<span class="st"> </span>hub[[<span class="st">&quot;EH1136&quot;</span>]]  
-FlowSorted.Blood.EPIC  
-
-<span class="co"># Step 2 separate the reference from the testing dataset  </span>
-
-RGsetTargets &lt;-<span class="st"> </span>FlowSorted.Blood.EPIC[,
-             FlowSorted.Blood.EPIC<span class="op">$</span>CellType <span class="op">==</span><span class="st"> &quot;MIX&quot;</span>]  
-             
-<span class="kw">sampleNames</span>(RGsetTargets) &lt;-<span class="st"> </span><span class="kw">paste</span>(RGsetTargets<span class="op">$</span>CellType,
-                            <span class="kw">seq_len</span>(<span class="kw">dim</span>(RGsetTargets)[<span class="dv">2</span>]), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)  
-RGsetTargets  
-
-<span class="co"># Step 3: Deconvolute using the IDOL L-DMR  </span>
-
-<span class="kw">head</span> (IDOLOptimizedCpGs)  
-
-<span class="co"># If you need to deconvolute a 450k legacy dataset use </span>
-<span class="co"># IDOLOptimizedCpGs450klegacy instead  </span>
-
-<span class="co"># Do not run with limited RAM the normalization step requires a big amount of </span>
-<span class="co"># memory resources  </span>
-
-<span class="cf">if</span> (<span class="kw">memory.limit</span>()<span class="op">&gt;</span><span class="dv">8000</span>){  
- countsEPIC&lt;-<span class="kw">estimateCellCounts2</span>(RGsetTargets, <span class="dt">compositeCellType =</span> <span class="st">&quot;Blood&quot;</span>,   
-                                <span class="dt">processMethod =</span> <span class="st">&quot;preprocessNoob&quot;</span>,  
-                                <span class="dt">probeSelect =</span> <span class="st">&quot;IDOL&quot;</span>,  
-                                <span class="dt">cellTypes =</span> <span class="kw">c</span>(<span class="st">&quot;CD8T&quot;</span>, <span class="st">&quot;CD4T&quot;</span>, <span class="st">&quot;NK&quot;</span>, <span class="st">&quot;Bcell&quot;</span>,  
-                                <span class="st">&quot;Mono&quot;</span>, <span class="st">&quot;Neu&quot;</span>),  
-                                <span class="dt">referencePlatform =</span>   
-                                <span class="st">&quot;IlluminaHumanMethylationEPIC&quot;</span>,  
-                                <span class="dt">referenceset =</span> <span class="ot">NULL</span>,  
-                                <span class="dt">IDOLOptimizedCpGs =</span>IDOLOptimizedCpGs,   
-                                <span class="dt">returnAll =</span> <span class="ot">FALSE</span>)  
-                                
-<span class="kw">head</span>(countsEPIC<span class="op">$</span>counts)  
-}</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Load the reference library to extract the artificial mixtures</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># if (memory.limit()&gt;8000){</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># FlowSorted.Blood.EPIC &lt;- libraryDataGet(&#39;FlowSorted.Blood.EPIC&#39;)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># FlowSorted.Blood.EPIC</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>FlowSorted.Blood.EPIC</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; class: RGChannelSet </span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dim: 1051815 49 </span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; metadata(0):</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; assays(2): Green Red</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rownames(1051815): 1600101 1600111 ... 99810990 99810992</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rowData names(0):</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; colnames(49): 201868500150_R01C01 201868500150_R03C01 ...</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   201870610111_R06C01 201870610111_R07C01</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; colData names(32): Sample_Plate Sample_Well ... filenames normalmix</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Annotation</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   array: IlluminaHumanMethylationEPIC</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   annotation: ilm10b4.hg19</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: If your machine does not allow access to internet you can download</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># and save the file. Then load it manually into the R environment</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2 separate the reference from the testing dataset if you want to run </span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co"># examples for estimations for this function example</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>RGsetTargets <span class="ot">&lt;-</span> FlowSorted.Blood.EPIC[,</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>             FlowSorted.Blood.EPIC<span class="sc">$</span>CellType <span class="sc">==</span> <span class="st">&quot;MIX&quot;</span>]</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>             </span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="fu">sampleNames</span>(RGsetTargets) <span class="ot">&lt;-</span> <span class="fu">paste</span>(RGsetTargets<span class="sc">$</span>CellType,</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">seq_len</span>(<span class="fu">dim</span>(RGsetTargets)[<span class="dv">2</span>]), <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>RGsetTargets</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; class: RGChannelSet </span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dim: 1051815 12 </span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; metadata(0):</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; assays(2): Green Red</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rownames(1051815): 1600101 1600111 ... 99810990 99810992</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rowData names(0):</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; colnames(12): MIX_1 MIX_2 ... MIX_11 MIX_12</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; colData names(32): Sample_Plate Sample_Well ... filenames normalmix</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Annotation</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   array: IlluminaHumanMethylationEPIC</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   annotation: ilm10b4.hg19</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: use your favorite package for deconvolution.</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Deconvolute a target data set consisting of EPIC DNA methylation </span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="co"># data profiled in blood, using your prefered method.</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="co"># You can use our IDOL optimized DMR library for the EPIC array.  This object</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="co"># contains a vector of length 450 consisting of the IDs of the IDOL optimized</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="co"># CpG probes.  These CpGs are used as the backbone for deconvolution and were</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="co"># selected because their methylation signature differs across the six normal </span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="co"># leukocyte subtypes. Use the option &quot;IDOL&quot;</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> (IDOLOptimizedCpGs)</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;cg08769189&quot; &quot;cg07661835&quot; &quot;cg00219921&quot; &quot;cg13468685&quot; &quot;cg04329870&quot;</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6] &quot;cg14085952&quot;</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="co"># If you need to deconvolute a 450k legacy dataset use </span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="co"># IDOLOptimizedCpGs450klegacy instead</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="co"># We recommend using Noob processMethod = &quot;preprocessNoob&quot; in minfi for the </span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="co"># target and reference datasets. </span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Cell types included are &quot;CD8T&quot;, &quot;CD4T&quot;, &quot;NK&quot;, &quot;Bcell&quot;, &quot;Mono&quot;, &quot;Neu&quot;</span></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="co"># To use the IDOL optimized list of CpGs (IDOLOptimizedCpGs) use </span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="co"># estimateCellCounts2 an adaptation of the popular estimateCellCounts in </span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="co"># minfi. This function also allows including customized reference arrays. </span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Do not run with limited RAM the normalization step requires a big amount </span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a><span class="co"># of memory resources</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">memory.limit</span>()<span class="sc">&gt;</span><span class="dv">8000</span>){</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a> propEPIC<span class="ot">&lt;-</span><span class="fu">estimateCellCounts2</span>(RGsetTargets, <span class="at">compositeCellType =</span> <span class="st">&quot;Blood&quot;</span>, </span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>                                <span class="at">processMethod =</span> <span class="st">&quot;preprocessNoob&quot;</span>,</span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>                                <span class="at">probeSelect =</span> <span class="st">&quot;IDOL&quot;</span>, </span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>                                <span class="at">cellTypes =</span> <span class="fu">c</span>(<span class="st">&quot;CD8T&quot;</span>, <span class="st">&quot;CD4T&quot;</span>, <span class="st">&quot;NK&quot;</span>, <span class="st">&quot;Bcell&quot;</span>, </span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;Mono&quot;</span>, <span class="st">&quot;Neu&quot;</span>))</span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>                                </span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(propEPIC<span class="sc">$</span>prop))</span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>percEPIC<span class="ot">&lt;-</span><span class="fu">round</span>(propEPIC<span class="sc">$</span>prop<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>)</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; snapshotDate(): 2021-10-19</span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; snapshotDate(): 2021-10-19</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; see ?FlowSorted.Blood.EPIC and browseVignettes(&#39;FlowSorted.Blood.EPIC&#39;) for documentation</span></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; loading from cache</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [estimateCellCounts2] Combining user data with reference (flow sorted) data.</span></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [estimateCellCounts2] Processing user and reference data together.</span></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: IlluminaHumanMethylationEPICmanifest</span></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [estimateCellCounts2] Using IDOL L-DMR probes for composition estimation.</span></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [estimateCellCounts2] Estimating proportion composition (prop), if you provide cellcounts those will be provided as counts in the composition estimation.</span></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         CD8T   CD4T     NK  Bcell   Mono    Neu</span></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_1 0.1916 0.0708 0.1515 0.1904 0.1901 0.2118</span></span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_2 0.0463 0.1763 0.0179 0.0442 0.0582 0.6699</span></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_3 0.0675 0.1012 0.0043 0.0223 0.1092 0.7033</span></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_4 0.1208 0.1781 0.0200 0.0167 0.0764 0.6032</span></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_5 0.2891 0.1603 0.1525 0.0718 0.2227 0.1126</span></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_6 0.0963 0.1576 0.0269 0.0243 0.0703 0.6401</span></span></code></pre></div>
+<div id="advanced-user-deconvolution-cpqp-cibersort-andor-rpc-deconvolution" class="section level1">
+<h1>Advanced user deconvolution CP/QP, CIBERSORT and/or RPC deconvolution</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>noobset<span class="ot">&lt;-</span> <span class="fu">preprocessNoob</span>(RGsetTargets)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#or from estimateCellCounts2 returnAll=TRUE</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">memory.limit</span>()<span class="sc">&gt;</span><span class="dv">8000</span>){</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a> propEPIC<span class="ot">&lt;-</span><span class="fu">projectCellType_CP</span> (</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">getBeta</span>(noobset)[IDOLOptimizedCpGs,],</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a> IDOLOptimizedCpGs.compTable, <span class="at">contrastWBC=</span><span class="cn">NULL</span>, <span class="at">nonnegative=</span><span class="cn">TRUE</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a> <span class="at">lessThanOne=</span><span class="cn">FALSE</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(propEPIC))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>percEPIC<span class="ot">&lt;-</span><span class="fu">round</span>(propEPIC<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         CD8T   CD4T     NK  Bcell   Mono    Neu</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_1 0.1916 0.0708 0.1515 0.1904 0.1901 0.2118</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_2 0.0463 0.1763 0.0179 0.0442 0.0582 0.6699</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_3 0.0675 0.1012 0.0043 0.0223 0.1092 0.7033</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_4 0.1208 0.1781 0.0200 0.0167 0.0764 0.6032</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_5 0.2891 0.1603 0.1525 0.0718 0.2227 0.1126</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_6 0.0963 0.1576 0.0269 0.0243 0.0703 0.6401</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co"># If you prefer CIBERSORT or RPC deconvolution use EpiDISH or similar</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Example not to run</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(EpiDISH)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>RPC <span class="ot">&lt;-</span> <span class="fu">epidish</span>(<span class="fu">getBeta</span>(noobset)[IDOLOptimizedCpGs,],</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>IDOLOptimizedCpGs.compTable, <span class="at">method =</span> <span class="st">&quot;RPC&quot;</span>)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>RPC<span class="sc">$</span>estF<span class="co">#RPC proportion estimates</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              CD8T       CD4T          NK      Bcell       Mono       Neu</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_1  0.18723549 0.06344726 0.152976049 0.18762161 0.19435185 0.2143677</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_2  0.04338515 0.17384347 0.017979655 0.04088377 0.05897200 0.6649360</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_3  0.06527541 0.10370815 0.005141605 0.02283216 0.10928249 0.6937602</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_4  0.11665056 0.17908446 0.016942149 0.01310402 0.07500227 0.5992166</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_5  0.28762167 0.15583953 0.153174202 0.06596356 0.22881533 0.1085857</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_6  0.09303322 0.15625881 0.025696867 0.02153546 0.06838019 0.6350955</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_7  0.32927353 0.04932388 0.113576423 0.07926068 0.19601783 0.2325477</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_8  0.05946573 0.12833567 0.071089219 0.06174776 0.05079921 0.6285624</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_9  0.02529701 0.15081169 0.037550443 0.01509220 0.05868862 0.7125600</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_10 0.19625344 0.10595202 0.224418904 0.19789143 0.10307633 0.1724079</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_11 0.12787582 0.17627767 0.155287922 0.25726997 0.22585412 0.0574345</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_12 0.10426682 0.12528666 0.125373186 0.15776189 0.23568863 0.2516228</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>percEPICRPC<span class="ot">&lt;-</span><span class="fu">round</span>(RPC<span class="sc">$</span>estF<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>)<span class="co">#percentages</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>CBS <span class="ot">&lt;-</span> <span class="fu">epidish</span>(<span class="fu">getBeta</span>(noobset)[IDOLOptimizedCpGs,],</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>IDOLOptimizedCpGs.compTable, <span class="at">method =</span> <span class="st">&quot;CBS&quot;</span>)</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>CBS<span class="sc">$</span>estF<span class="co">#CBS proportion estimates</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              CD8T       CD4T          NK      Bcell       Mono        Neu</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_1  0.17666356 0.06182577 0.139597826 0.19561529 0.21052297 0.21577458</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_2  0.03783207 0.15693947 0.017102972 0.04049153 0.06281336 0.68482060</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_3  0.06333661 0.08890943 0.004653714 0.02555739 0.11252240 0.70502045</span></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_4  0.11660217 0.15428533 0.012726362 0.01862971 0.07784295 0.61991349</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_5  0.27651820 0.13799755 0.150658107 0.07411478 0.24702538 0.11368598</span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_6  0.08411183 0.14180937 0.025276344 0.02055713 0.07123746 0.65700787</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_7  0.31869884 0.03791118 0.108776955 0.08345484 0.21002582 0.24113236</span></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_8  0.05688105 0.11237798 0.067290606 0.06525834 0.05432752 0.64386451</span></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_9  0.02185306 0.13574140 0.036107739 0.01531114 0.06346435 0.72752231</span></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_10 0.18446410 0.10666903 0.212445210 0.21275108 0.11009259 0.17357799</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_11 0.12108559 0.15714252 0.148030181 0.27330088 0.24265957 0.05778125</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_12 0.10533530 0.10614286 0.114794784 0.16796691 0.24803551 0.25772463</span></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>percEPICCBS<span class="ot">&lt;-</span><span class="fu">round</span>(CBS<span class="sc">$</span>estF<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>)<span class="co">#percentages</span></span></code></pre></div>
 <p>Umbilical Cord Blood</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span> (FlowSorted.Blood.EPIC)
-<span class="co">#&gt; Loading required package: minfi</span>
-<span class="co">#&gt; Loading required package: BiocGenerics</span>
-<span class="co">#&gt; Loading required package: parallel</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'BiocGenerics'</span>
-<span class="co">#&gt; The following objects are masked from 'package:parallel':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,</span>
-<span class="co">#&gt;     clusterExport, clusterMap, parApply, parCapply, parLapply,</span>
-<span class="co">#&gt;     parLapplyLB, parRapply, parSapply, parSapplyLB</span>
-<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     IQR, mad, sd, var, xtabs</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     anyDuplicated, append, as.data.frame, basename, cbind, colnames,</span>
-<span class="co">#&gt;     dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,</span>
-<span class="co">#&gt;     grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,</span>
-<span class="co">#&gt;     order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,</span>
-<span class="co">#&gt;     rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,</span>
-<span class="co">#&gt;     union, unique, unsplit, which, which.max, which.min</span>
-<span class="co">#&gt; Loading required package: GenomicRanges</span>
-<span class="co">#&gt; Loading required package: stats4</span>
-<span class="co">#&gt; Loading required package: S4Vectors</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'S4Vectors'</span>
-<span class="co">#&gt; The following object is masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     expand.grid</span>
-<span class="co">#&gt; Loading required package: IRanges</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'IRanges'</span>
-<span class="co">#&gt; The following object is masked from 'package:grDevices':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     windows</span>
-<span class="co">#&gt; Loading required package: GenomeInfoDb</span>
-<span class="co">#&gt; Loading required package: SummarizedExperiment</span>
-<span class="co">#&gt; Loading required package: Biobase</span>
-<span class="co">#&gt; Welcome to Bioconductor</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     Vignettes contain introductory material; view with</span>
-<span class="co">#&gt;     'browseVignettes()'. To cite Bioconductor, see</span>
-<span class="co">#&gt;     'citation(&quot;Biobase&quot;)', and for packages 'citation(&quot;pkgname&quot;)'.</span>
-<span class="co">#&gt; Loading required package: DelayedArray</span>
-<span class="co">#&gt; Loading required package: matrixStats</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'matrixStats'</span>
-<span class="co">#&gt; The following objects are masked from 'package:Biobase':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     anyMissing, rowMedians</span>
-<span class="co">#&gt; Loading required package: BiocParallel</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'DelayedArray'</span>
-<span class="co">#&gt; The following objects are masked from 'package:matrixStats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     aperm, apply, rowsum</span>
-<span class="co">#&gt; Loading required package: Biostrings</span>
-<span class="co">#&gt; Loading required package: XVector</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'Biostrings'</span>
-<span class="co">#&gt; The following object is masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     strsplit</span>
-<span class="co">#&gt; Loading required package: bumphunter</span>
-<span class="co">#&gt; Loading required package: foreach</span>
-<span class="co">#&gt; Loading required package: iterators</span>
-<span class="co">#&gt; Loading required package: locfit</span>
-<span class="co">#&gt; locfit 1.5-9.1    2013-03-22</span>
-<span class="co">#&gt; Setting options('download.file.method.GEOquery'='auto')</span>
-<span class="co">#&gt; Setting options('GEOquery.inmemory.gpl'=FALSE)</span>
-<span class="co">#&gt; Loading required package: genefilter</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'genefilter'</span>
-<span class="co">#&gt; The following objects are masked from 'package:matrixStats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     rowSds, rowVars</span>
-<span class="co">#&gt; Loading required package: quadprog</span>
-<span class="co">#&gt; Loading required package: nlme</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'nlme'</span>
-<span class="co">#&gt; The following object is masked from 'package:Biostrings':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     collapse</span>
-<span class="co">#&gt; The following object is masked from 'package:IRanges':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     collapse</span>
-<span class="co">#&gt; Loading required package: IlluminaHumanMethylationEPICanno.ilm10b4.hg19</span>
-<span class="co">#&gt; Loading required package: ExperimentHub</span>
-<span class="co">#&gt; Loading required package: AnnotationHub</span>
-<span class="co">#&gt; Loading required package: BiocFileCache</span>
-<span class="co">#&gt; Loading required package: dbplyr</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'AnnotationHub'</span>
-<span class="co">#&gt; The following object is masked from 'package:Biobase':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     cache</span>
-<span class="kw">library</span>(FlowSorted.CordBloodCombined.450k)
-<span class="co">#&gt; Loading required package: IlluminaHumanMethylation450kanno.ilmn12.hg19</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'IlluminaHumanMethylation450kanno.ilmn12.hg19'</span>
-<span class="co">#&gt; The following objects are masked from 'package:IlluminaHumanMethylationEPICanno.ilm10b4.hg19':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     Islands.UCSC, Locations, Manifest, Other, SNPs.132CommonSingle,</span>
-<span class="co">#&gt;     SNPs.135CommonSingle, SNPs.137CommonSingle, SNPs.138CommonSingle,</span>
-<span class="co">#&gt;     SNPs.141CommonSingle, SNPs.142CommonSingle, SNPs.144CommonSingle,</span>
-<span class="co">#&gt;     SNPs.146CommonSingle, SNPs.147CommonSingle, SNPs.Illumina</span>
-<span class="co">#&gt; snapshotDate(): 2019-10-22</span>
-<span class="kw">data</span>(<span class="st">&quot;IDOLOptimizedCpGsCordBlood&quot;</span>)
-<span class="co"># Step 1: Load the reference library to extract the umbilical cord samples</span>
-<span class="kw">library</span>(ExperimentHub)
-hub &lt;-<span class="st"> </span><span class="kw">ExperimentHub</span>()
-<span class="co">#&gt; snapshotDate(): 2019-10-22</span>
-myfiles &lt;-<span class="st"> </span><span class="kw">query</span>(hub, <span class="st">&quot;FlowSorted.CordBloodCombined.450k&quot;</span>)
-FlowSorted.CordBloodCombined.450k &lt;-<span class="st"> </span>myfiles[[<span class="dv">1</span>]]
-<span class="co">#&gt; see ?FlowSorted.CordBloodCombined.450k and browseVignettes('FlowSorted.CordBloodCombined.450k') for documentation</span>
-<span class="co">#&gt; loading from cache</span>
-FlowSorted.CordBloodCombined.450k
-<span class="co">#&gt; class: RGChannelSet </span>
-<span class="co">#&gt; dim: 575719 289 </span>
-<span class="co">#&gt; metadata(0):</span>
-<span class="co">#&gt; assays(2): Green Red</span>
-<span class="co">#&gt; rownames(575719): 10600322 10600328 ... 74810485 74810492</span>
-<span class="co">#&gt; rowData names(0):</span>
-<span class="co">#&gt; colnames(289): 3999984027_R02C01 3999984027_R06C01 ...</span>
-<span class="co">#&gt;   200705360098_R08C01 200705360110_R03C01</span>
-<span class="co">#&gt; colData names(13): Sample_Name Subject.ID ... CellType_original</span>
-<span class="co">#&gt;   Reclassified</span>
-<span class="co">#&gt; Annotation</span>
-<span class="co">#&gt;   array: IlluminaHumanMethylation450k</span>
-<span class="co">#&gt;   annotation: ilmn12.hg19</span>
-
-<span class="co"># Step 2 separate the reference from the testing dataset if you want to run </span>
-<span class="co"># examples for estimations for this function example</span>
-
-RGsetTargets &lt;-<span class="st"> </span>FlowSorted.CordBloodCombined.450k[,
-                FlowSorted.CordBloodCombined.450k<span class="op">$</span>CellType <span class="op">==</span><span class="st"> &quot;WBC&quot;</span>]
-<span class="kw">sampleNames</span>(RGsetTargets) &lt;-<span class="st"> </span><span class="kw">paste</span>(RGsetTargets<span class="op">$</span>CellType,
-                                <span class="kw">seq_len</span>(<span class="kw">dim</span>(RGsetTargets)[<span class="dv">2</span>]), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)
-RGsetTargets
-<span class="co">#&gt; class: RGChannelSet </span>
-<span class="co">#&gt; dim: 575719 26 </span>
-<span class="co">#&gt; metadata(0):</span>
-<span class="co">#&gt; assays(2): Green Red</span>
-<span class="co">#&gt; rownames(575719): 10600322 10600328 ... 74810485 74810492</span>
-<span class="co">#&gt; rowData names(0):</span>
-<span class="co">#&gt; colnames(26): WBC_1 WBC_2 ... WBC_25 WBC_26</span>
-<span class="co">#&gt; colData names(13): Sample_Name Subject.ID ... CellType_original</span>
-<span class="co">#&gt;   Reclassified</span>
-<span class="co">#&gt; Annotation</span>
-<span class="co">#&gt;   array: IlluminaHumanMethylation450k</span>
-<span class="co">#&gt;   annotation: ilmn12.hg19</span>
-
-<span class="co"># Step 3: use your favorite package for deconvolution.</span>
-<span class="co"># Deconvolute a target data set consisting of 450K DNA methylation </span>
-<span class="co"># data profiled in blood, using your prefered method.</span>
-<span class="co"># You can use our IDOL optimized DMR library for the Cord Blood,  This object</span>
-<span class="co"># contains a vector of length 517 consisting of the IDs of the IDOL optimized</span>
-<span class="co"># CpG probes.  These CpGs are used as the backbone for deconvolution and were</span>
-<span class="co"># selected because their methylation signature differs across the six normal </span>
-<span class="co"># leukocyte subtypes plus the nucleated red blood cells.</span>
-
-<span class="kw">data</span> (IDOLOptimizedCpGsCordBlood)
-<span class="kw">head</span> (IDOLOptimizedCpGsCordBlood)
-<span class="co">#&gt; [1] &quot;cg12603453&quot; &quot;cg24765783&quot; &quot;cg06975018&quot; &quot;cg19708055&quot; &quot;cg11900509&quot;</span>
-<span class="co">#&gt; [6] &quot;cg09581911&quot;</span>
-<span class="co"># We recommend using Noob processMethod = &quot;preprocessNoob&quot; in minfi for the </span>
-<span class="co"># target and reference datasets. </span>
-<span class="co"># Cell types included are &quot;CD8T&quot;, &quot;CD4T&quot;, &quot;NK&quot;, &quot;Bcell&quot;, &quot;Mono&quot;, &quot;Gran&quot;, </span>
-<span class="co"># &quot;nRBC&quot;</span>
-<span class="co"># To use the IDOL optimized list of CpGs (IDOLOptimizedCpGsCordBlood) use </span>
-<span class="co"># estimateCellCounts2 from FlowSorted.Blood.EPIC. </span>
-<span class="co"># Do not run with limited RAM the normalization step requires a big amount </span>
-<span class="co"># of memory resources. Use the parameters as specified below for </span>
-<span class="co"># reproducibility.</span>
-
-<span class="cf">if</span> (<span class="kw">memory.limit</span>()<span class="op">&gt;</span><span class="dv">8000</span>){
-    countsUCB&lt;-<span class="kw">estimateCellCounts2</span>(RGsetTargets, 
-                                    <span class="dt">compositeCellType =</span> 
-                                                <span class="st">&quot;CordBloodCombined&quot;</span>, 
-                                    <span class="dt">processMethod =</span> <span class="st">&quot;preprocessNoob&quot;</span>,
-                                    <span class="dt">probeSelect =</span> <span class="st">&quot;IDOL&quot;</span>, 
-                                    <span class="dt">cellTypes =</span> <span class="kw">c</span>(<span class="st">&quot;CD8T&quot;</span>, <span class="st">&quot;CD4T&quot;</span>, <span class="st">&quot;NK&quot;</span>,  
-                                    <span class="st">&quot;Bcell&quot;</span>, <span class="st">&quot;Mono&quot;</span>, <span class="st">&quot;Gran&quot;</span>, <span class="st">&quot;nRBC&quot;</span>), 
-                                    <span class="dt">referencePlatform =</span> 
-                                        <span class="st">&quot;IlluminaHumanMethylation450k&quot;</span>,
-                                    <span class="dt">referenceset =</span> 
-                                        <span class="st">&quot;FlowSorted.CordBloodCombined.450k&quot;</span>,
-                                    <span class="dt">IDOLOptimizedCpGs =</span>
-                                        IDOLOptimizedCpGsCordBlood, 
-                                    <span class="dt">returnAll =</span> <span class="ot">FALSE</span>)
-    
-    <span class="kw">head</span>(countsUCB<span class="op">$</span>counts)
-}
-<span class="co">#&gt; [estimateCellCounts2] Combining user data with reference (flow sorted) data.</span>
-<span class="co">#&gt; [estimateCellCounts2] Processing user and reference data together.</span>
-<span class="co">#&gt; Loading required package: IlluminaHumanMethylation450kmanifest</span>
-<span class="co">#&gt; [estimateCellCounts2] Using IDOL L-DMR probes for composition estimation.</span>
-<span class="co">#&gt; [estimateCellCounts2] Estimating composition.</span>
-<span class="co">#&gt;             CD8T       CD4T         NK      Bcell       Mono      Gran</span>
-<span class="co">#&gt; WBC_1 0.05346047 0.19385977 0.04740254 0.05263905 0.09193623 0.4782162</span>
-<span class="co">#&gt; WBC_2 0.02407560 0.07754949 0.01756794 0.02623153 0.10545983 0.6282946</span>
-<span class="co">#&gt; WBC_3 0.00000000 0.12053599 0.09423365 0.00164263 0.08580405 0.6577766</span>
-<span class="co">#&gt; WBC_4 0.03334680 0.16665169 0.10638825 0.05602585 0.05479126 0.4980870</span>
-<span class="co">#&gt; WBC_5 0.05807522 0.16233837 0.06095911 0.02007502 0.07265118 0.5451731</span>
-<span class="co">#&gt; WBC_6 0.04797527 0.11605401 0.05841137 0.01983578 0.10084251 0.6434691</span>
-<span class="co">#&gt;             nRBC</span>
-<span class="co">#&gt; WBC_1 0.07147758</span>
-<span class="co">#&gt; WBC_2 0.11282631</span>
-<span class="co">#&gt; WBC_3 0.02450290</span>
-<span class="co">#&gt; WBC_4 0.04429688</span>
-<span class="co">#&gt; WBC_5 0.07022071</span>
-<span class="co">#&gt; WBC_6 0.02317434</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># UMBILICAL CORD BLOOD DECONVOLUTION</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Do not run</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (FlowSorted.CordBloodCombined<span class="fl">.450</span>k)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: IlluminaHumanMethylation450kanno.ilmn12.hg19</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;IlluminaHumanMethylation450kanno.ilmn12.hg19&#39;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:IlluminaHumanMethylationEPICanno.ilm10b4.hg19&#39;:</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Islands.UCSC, Locations, Manifest, Other, SNPs.132CommonSingle,</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     SNPs.135CommonSingle, SNPs.137CommonSingle, SNPs.138CommonSingle,</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     SNPs.141CommonSingle, SNPs.142CommonSingle, SNPs.144CommonSingle,</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     SNPs.146CommonSingle, SNPs.147CommonSingle, SNPs.Illumina</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; snapshotDate(): 2021-10-19</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;FlowSorted.CordBloodCombined.450k&#39;</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:FlowSorted.Blood.EPIC&#39;:</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     libraryDataGet</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Load the reference library to extract the umbilical cord samples</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>FlowSorted.CordBloodCombined<span class="fl">.450</span>k <span class="ot">&lt;-</span> </span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">libraryDataGet</span>(<span class="st">&#39;FlowSorted.CordBloodCombined.450k&#39;</span>) </span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; snapshotDate(): 2021-10-19</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; snapshotDate(): 2021-10-19</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; see ?FlowSorted.CordBloodCombined.450k and browseVignettes(&#39;FlowSorted.CordBloodCombined.450k&#39;) for documentation</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; loading from cache</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>FlowSorted.CordBloodCombined<span class="fl">.450</span>k</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; class: RGChannelSet </span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dim: 575719 289 </span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; metadata(0):</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; assays(2): Green Red</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rownames(575719): 10600322 10600328 ... 74810485 74810492</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rowData names(0):</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; colnames(289): 3999984027_R02C01 3999984027_R06C01 ...</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   200705360098_R08C01 200705360110_R03C01</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; colData names(13): Sample_Name Subject.ID ... CellType_original</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Reclassified</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Annotation</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   array: IlluminaHumanMethylation450k</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   annotation: ilmn12.hg19</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2 separate the reference from the testing dataset if you want to run </span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="co"># examples for estimations for this function example</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>RGsetTargets <span class="ot">&lt;-</span> FlowSorted.CordBloodCombined<span class="fl">.450</span>k[,</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>FlowSorted.CordBloodCombined<span class="fl">.450</span>k<span class="sc">$</span>CellType <span class="sc">==</span> <span class="st">&quot;WBC&quot;</span>]</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="fu">sampleNames</span>(RGsetTargets) <span class="ot">&lt;-</span> <span class="fu">paste</span>(RGsetTargets<span class="sc">$</span>CellType,</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">seq_len</span>(<span class="fu">dim</span>(RGsetTargets)[<span class="dv">2</span>]), <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>RGsetTargets</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; class: RGChannelSet </span></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dim: 575719 26 </span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; metadata(0):</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; assays(2): Green Red</span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rownames(575719): 10600322 10600328 ... 74810485 74810492</span></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rowData names(0):</span></span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; colnames(26): WBC_1 WBC_2 ... WBC_25 WBC_26</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; colData names(13): Sample_Name Subject.ID ... CellType_original</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Reclassified</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Annotation</span></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   array: IlluminaHumanMethylation450k</span></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   annotation: ilmn12.hg19</span></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: use your favorite package for deconvolution.</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a><span class="co"># Deconvolute a target data set consisting of 450K DNA methylation </span></span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a><span class="co"># data profiled in blood, using your prefered method.</span></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a><span class="co"># You can use our IDOL optimized DMR library for the Cord Blood,  This object</span></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a><span class="co"># contains a vector of length 517 consisting of the IDs of the IDOL optimized</span></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a><span class="co"># CpG probes.  These CpGs are used as the backbone for deconvolution and were</span></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a><span class="co"># selected because their methylation signature differs across the six normal </span></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a><span class="co"># leukocyte subtypes plus the nucleated red blood cells.</span></span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a><span class="co"># We recommend using Noob processMethod = &quot;preprocessNoob&quot; in minfi for the </span></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a><span class="co"># target and reference datasets. </span></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a><span class="co"># Cell types included are &quot;CD8T&quot;, &quot;CD4T&quot;, &quot;NK&quot;, &quot;Bcell&quot;, &quot;Mono&quot;, &quot;Gran&quot;, </span></span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;nRBC&quot;</span></span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a><span class="co"># To use the IDOL optimized list of CpGs (IDOLOptimizedCpGsCordBlood) use </span></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a><span class="co"># estimateCellCounts2 from FlowSorted.Blood.EPIC. </span></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a><span class="co"># Do not run with limited RAM the normalization step requires a big amount </span></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a><span class="co"># of memory resources. Use the parameters as specified below for </span></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a><span class="co"># reproducibility.</span></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">memory.limit</span>()<span class="sc">&gt;</span><span class="dv">8000</span>){</span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>    propUCB<span class="ot">&lt;-</span><span class="fu">estimateCellCounts2</span>(RGsetTargets,</span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">compositeCellType =</span></span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">&quot;CordBloodCombined&quot;</span>,</span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">processMethod =</span> <span class="st">&quot;preprocessNoob&quot;</span>,</span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">probeSelect =</span> <span class="st">&quot;IDOL&quot;</span>,</span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">cellTypes =</span> <span class="fu">c</span>(<span class="st">&quot;CD8T&quot;</span>, <span class="st">&quot;CD4T&quot;</span>, <span class="st">&quot;NK&quot;</span>,</span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">&quot;Bcell&quot;</span>, <span class="st">&quot;Mono&quot;</span>, <span class="st">&quot;Gran&quot;</span>, <span class="st">&quot;nRBC&quot;</span>))</span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(propUCB<span class="sc">$</span>prop)</span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>    percUCB<span class="ot">&lt;-</span><span class="fu">round</span>(propUCB<span class="sc">$</span>prop<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>)</span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [estimateCellCounts2] Platform EPIC is not available defaulting to platform 450k for your estimation.</span></span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; snapshotDate(): 2021-10-19</span></span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; snapshotDate(): 2021-10-19</span></span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; see ?FlowSorted.CordBloodCombined.450k and browseVignettes(&#39;FlowSorted.CordBloodCombined.450k&#39;) for documentation</span></span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; loading from cache</span></span>
+<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [estimateCellCounts2] Combining user data with reference (flow sorted) data.</span></span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [estimateCellCounts2] Processing user and reference data together.</span></span>
+<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: IlluminaHumanMethylation450kmanifest</span></span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [estimateCellCounts2] Using IDOL L-DMR probes for composition estimation.</span></span>
+<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [estimateCellCounts2] Estimating proportion composition (prop), if you provide cellcounts those will be provided as counts in the composition estimation.</span></span></code></pre></div>
+<p>Using cell counts instead of proportions. Note: These are random numbers, not the actual cell counts of the experiment</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FlowSorted.Blood<span class="fl">.450</span>k)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>RGsetTargets2 <span class="ot">&lt;-</span> FlowSorted.Blood<span class="fl">.450</span>k[,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                             FlowSorted.Blood<span class="fl">.450</span>k<span class="sc">$</span>CellType <span class="sc">==</span> <span class="st">&quot;WBC&quot;</span>]</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sampleNames</span>(RGsetTargets2) <span class="ot">&lt;-</span> <span class="fu">paste</span>(RGsetTargets2<span class="sc">$</span>CellType,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">seq_len</span>(<span class="fu">dim</span>(RGsetTargets2)[<span class="dv">2</span>]), <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>RGsetTargets2</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; class: RGChannelSet </span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dim: 622399 6 </span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; metadata(0):</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; assays(2): Green Red</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rownames(622399): 10600313 10600322 ... 74810490 74810492</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rowData names(0):</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; colnames(6): WBC_1 WBC_2 ... WBC_5 WBC_6</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; colData names(8): Sample_Name Slide ... CellType Sex</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Annotation</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   array: IlluminaHumanMethylation450k</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   annotation: ilmn12.hg19</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>propEPIC2<span class="ot">&lt;-</span><span class="fu">estimateCellCounts2</span>(RGsetTargets2, <span class="at">compositeCellType =</span> <span class="st">&quot;Blood&quot;</span>,</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>                             <span class="at">processMethod =</span> <span class="st">&quot;preprocessNoob&quot;</span>,</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>                             <span class="at">probeSelect =</span> <span class="st">&quot;IDOL&quot;</span>,</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>                             <span class="at">cellTypes =</span> <span class="fu">c</span>(<span class="st">&quot;CD8T&quot;</span>, <span class="st">&quot;CD4T&quot;</span>, <span class="st">&quot;NK&quot;</span>, <span class="st">&quot;Bcell&quot;</span>,</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>                             <span class="st">&quot;Mono&quot;</span>, <span class="st">&quot;Neu&quot;</span>), <span class="at">cellcounts =</span> <span class="fu">rep</span>(<span class="dv">10000</span>,<span class="dv">6</span>))</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; snapshotDate(): 2021-10-19</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; snapshotDate(): 2021-10-19</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; see ?FlowSorted.Blood.EPIC and browseVignettes(&#39;FlowSorted.Blood.EPIC&#39;) for documentation</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; loading from cache</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [convertArray] Casting as IlluminaHumanMethylationEPIC</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [estimateCellCounts2] Combining user data with reference (flow sorted) data.</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in asMethod(object): NAs introduced by coercion</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [estimateCellCounts2] Processing user and reference data together.</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [estimateCellCounts2] Using IDOL L-DMR probes for composition estimation.</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [estimateCellCounts2] Estimating proportion composition (prop), if you provide cellcounts those will be provided as counts in the composition estimation.</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(propEPIC2<span class="sc">$</span>prop)</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         CD8T   CD4T     NK  Bcell   Mono    Neu</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; WBC_1 0.1458 0.2032 0.0973 0.0397 0.0999 0.4388</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; WBC_2 0.0513 0.2054 0.0718 0.0651 0.1317 0.5053</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; WBC_3 0.1228 0.1680 0.0466 0.0335 0.0750 0.5835</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; WBC_4 0.0892 0.1843 0.0516 0.0797 0.0677 0.5563</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; WBC_5 0.0298 0.1570 0.0326 0.0315 0.0636 0.7110</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; WBC_6 0.0787 0.1934 0.0503 0.0545 0.0708 0.5803</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(propEPIC2<span class="sc">$</span>counts)</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       CD8T CD4T  NK Bcell Mono  Neu</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; WBC_1 1458 2032 973   397  999 4388</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; WBC_2  513 2054 718   651 1317 5053</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; WBC_3 1228 1680 466   335  750 5835</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; WBC_4  892 1843 516   797  677 5563</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; WBC_5  298 1570 326   315  636 7110</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; WBC_6  787 1934 503   545  708 5803</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>percEPIC2<span class="ot">&lt;-</span><span class="fu">round</span>(propEPIC2<span class="sc">$</span>prop<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>)</span></code></pre></div>
+<p>Blood Extended deconvolution please contact <a href="mailto:Technology.Transfer@dartmouth.edu" class="email">Technology.Transfer@dartmouth.edu</a></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Blood Extended deconvolution </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Do not run</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (FlowSorted.BloodExtended.EPIC)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Extract the mix samples</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>FlowSorted.Blood.EPIC <span class="ot">&lt;-</span> <span class="fu">libraryDataGet</span>(<span class="st">&#39;FlowSorted.Blood.EPIC&#39;</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; snapshotDate(): 2021-10-19</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; snapshotDate(): 2021-10-19</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; see ?FlowSorted.Blood.EPIC and browseVignettes(&#39;FlowSorted.Blood.EPIC&#39;) for documentation</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; loading from cache</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2 separate the reference from the testing dataset if you want to run </span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co"># examples for estimations for this function example</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>RGsetTargets <span class="ot">&lt;-</span> FlowSorted.Blood.EPIC[,</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>FlowSorted.Blood.EPIC<span class="sc">$</span>CellType <span class="sc">==</span> <span class="st">&quot;MIX&quot;</span>]</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="fu">sampleNames</span>(RGsetTargets) <span class="ot">&lt;-</span> <span class="fu">paste</span>(RGsetTargets<span class="sc">$</span>CellType,</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">seq_len</span>(<span class="fu">dim</span>(RGsetTargets)[<span class="dv">2</span>]), <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>RGsetTargets</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; class: RGChannelSet </span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dim: 1051815 12 </span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; metadata(0):</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; assays(2): Green Red</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rownames(1051815): 1600101 1600111 ... 99810990 99810992</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rowData names(0):</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; colnames(12): MIX_1 MIX_2 ... MIX_11 MIX_12</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; colData names(32): Sample_Plate Sample_Well ... filenames normalmix</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Annotation</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   array: IlluminaHumanMethylationEPIC</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   annotation: ilm10b4.hg19</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: use your favorite package for deconvolution.</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Deconvolute the target data set 450K or EPIC blood DNA methylation. </span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="co"># We recommend ONLY the IDOL method, the automatic method can lead to severe</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="co"># biases.</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="co"># We recommend using Noob processMethod = &quot;preprocessNoob&quot; in minfi for the </span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="co"># target and reference datasets. </span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Cell types included are &quot;Bas&quot;, &quot;Bmem&quot;, &quot;Bnv&quot;, &quot;CD4mem&quot;, &quot;CD4nv&quot;, </span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;CD8mem&quot;, &quot;CD8nv&quot;, &quot;Eos&quot;, &quot;Mono&quot;, &quot;Neu&quot;, &quot;NK&quot;, and &quot;Treg&quot;</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Use estimateCellCounts2 from FlowSorted.Blood.EPIC. </span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Do not run with limited RAM the normalization step requires a big amount </span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="co"># of memory resources. Use the parameters as specified below for </span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a><span class="co"># reproducibility.</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">memory.limit</span>()<span class="sc">&gt;</span><span class="dv">8000</span>){</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>    prop_ext<span class="ot">&lt;-</span><span class="fu">estimateCellCounts2</span>(RGsetTargets,</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">compositeCellType =</span></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">&quot;BloodExtended&quot;</span>,</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">processMethod =</span> <span class="st">&quot;preprocessNoob&quot;</span>,</span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">probeSelect =</span> <span class="st">&quot;IDOL&quot;</span>,</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">cellTypes =</span> <span class="fu">c</span>(<span class="st">&quot;Bas&quot;</span>, <span class="st">&quot;Bmem&quot;</span>, <span class="st">&quot;Bnv&quot;</span>,</span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">&quot;CD4mem&quot;</span>, <span class="st">&quot;CD4nv&quot;</span>,</span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>                                              <span class="st">&quot;CD8mem&quot;</span>, <span class="st">&quot;CD8nv&quot;</span>, <span class="st">&quot;Eos&quot;</span>,</span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>                                              <span class="st">&quot;Mono&quot;</span>, <span class="st">&quot;Neu&quot;</span>, <span class="st">&quot;NK&quot;</span>, <span class="st">&quot;Treg&quot;</span>),</span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">CustomCpGs =</span><span class="cf">if</span>(RGsetTargets<span class="sc">@</span>annotation[<span class="dv">1</span>]<span class="sc">==</span><span class="st">&quot;IlluminaHumanMethylationEPIC&quot;</span>){</span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>    IDOLOptimizedCpGsBloodExtended}<span class="cf">else</span>{IDOLOptimizedCpGsBloodExtended450k})</span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a>   perc_ext<span class="ot">&lt;-</span><span class="fu">round</span>(prop_ext<span class="sc">$</span>prop<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>)</span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>   <span class="fu">head</span>(perc_ext)</span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [estimateCellCounts2] Combining user data with reference (flow sorted) data.</span></span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [estimateCellCounts2] Processing user and reference data together.</span></span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [estimateCellCounts2] Using IDOL L-DMR probes for composition estimation.</span></span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [estimateCellCounts2] Estimating proportion composition (prop), if you provide cellcounts those will be provided as counts in the composition estimation.</span></span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Bas Bmem  Bnv CD4mem CD4nv CD8mem CD8nv Eos Mono  Neu   NK Treg</span></span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_1   0  3.9 13.5    4.0   3.4    9.7   5.6 0.2 18.8 21.0 16.5  0.3</span></span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_2   0  1.5  3.2    7.9   8.8    2.1   0.0 0.4  6.2 63.8  2.2  0.3</span></span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_3   0  0.9  1.7    5.4   4.6    2.9   1.1 0.7 11.0 67.0  0.6  0.2</span></span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_4   0  0.9  1.3    9.0   8.6    6.3   2.9 0.0  7.5 57.9  2.1  0.0</span></span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_5   0  2.2  5.2    8.8   8.6   15.1   8.8 0.2 21.3 11.3 15.5  0.0</span></span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MIX_6   0  1.2  1.8    7.4   7.9    4.9   1.1 0.5  7.3 61.5  3.3  0.0</span></span></code></pre></div>
 <p><strong>References</strong></p>
-<p>LA Salas et al. (2018). An optimized library for reference-based deconvolution of whole-blood biospecimens assayed using the Illumina HumanMethylationEPIC BeadArray. Genome Biology 19, 64. doi: <a href="https://dx.doi.org/10.1186/s13059-018-1448-7">10.1186/s13059-018-1448-7</a>.</p>
-<p>DC Koestler et al. (2016). Improving cell mixture deconvolution by identifying optimal DNA methylation libraries (IDOL). BMC bioinformatics. 17, 120. doi: <a href="https://dx.doi.org/10.1186/s12859-016-0943-7">10.1186/s12859-016-0943-7</a>.</p>
-<p>K Gervin, LA Salas et al. (2019) . Clin Epigenetics 11,125. doi: <a href="https://dx.doi.org/10.1186/s13148-019-0717-y">10.1186/s13148-019-0717-y</a>.</p>
-<p>EA Houseman et al. (2012) DNA methylation arrays as surrogate measures of cell mixture distribution. BMC Bioinformatics 13, 86. doi: <a href="https://dx.doi.org/10.1186/1471-2105-13-86">10.1186/1471-2105-13-86</a>.</p>
+<p>LA Salas et al. (2018). An optimized library for reference-based deconvolution of whole-blood biospecimens assayed using the Illumina HumanMethylationEPIC BeadArray. Genome Biology 19, 64. doi: <a href="https://dx.doi.org/10.1186/s13059-018-1448-7">10.1186/s13059-018-1448-7</a>.</p>
+<p>LA Salas et al. (2022). . Nat Comm (In Press). doi (biorxiv): <a href="https://dx.doi.org/10.1101/2021.04.11.439377">10.1101/2021.04.11.439377</a>.</p>
+<p>DC Koestler et al. (2016). Improving cell mixture deconvolution by identifying optimal DNA methylation libraries (IDOL). BMC bioinformatics. 17, 120. doi: <a href="https://dx.doi.org/10.1186/s12859-016-0943-7">10.1186/s12859-016-0943-7</a>.</p>
+<p>K Gervin, LA Salas et al. (2019) . Clin Epigenetics 11,125. doi: <a href="https://dx.doi.org/10.1186/s13148-019-0717-y">10.1186/s13148-019-0717-y</a>.</p>
+<p>EA Houseman et al. (2012) DNA methylation arrays as surrogate measures of cell mixture distribution. BMC Bioinformatics 13, 86. doi: <a href="https://dx.doi.org/10.1186/1471-2105-13-86">10.1186/1471-2105-13-86</a>.</p>
 <p><a href="http://bioconductor.org/packages/release/bioc/html/minfi.html">minfi</a> Tools to analyze &amp; visualize Illumina Infinium methylation arrays.</p>
+</div>
 
 
 

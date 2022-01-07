@@ -136,7 +136,7 @@ percEPIC<-round(propEPIC$prop*100,1)
 ```
 
 # Advanced user deconvolution CP/QP, CIBERSORT and/or RPC deconvolution
-```{r eval=FALSE}
+```{r eval=TRUE}
 
 noobset<- preprocessNoob(RGsetTargets)
 #or from estimateCellCounts2 returnAll=TRUE
@@ -147,7 +147,7 @@ if (memory.limit()>8000){
  IDOLOptimizedCpGs.compTable, contrastWBC=NULL, nonnegative=TRUE,
  lessThanOne=FALSE)
 
-head(propEPIC)
+print(head(propEPIC))
 percEPIC<-round(propEPIC*100,1)
 }
 
@@ -156,13 +156,13 @@ percEPIC<-round(propEPIC*100,1)
 # Example not to run
 
 # library(EpiDISH)
-# RPC <- epidish(getBeta(noobset)[IDOLOptimizedCpGs,], 
-# IDOLOptimizedCpGs.compTable), method = "RPC")
+# RPC <- epidish(getBeta(noobset)[IDOLOptimizedCpGs,],
+# IDOLOptimizedCpGs.compTable, method = "RPC")
 # RPC$estF#RPC proportion estimates
 # percEPICRPC<-round(RPC$estF*100,1)#percentages
-
+# 
 # CBS <- epidish(getBeta(noobset)[IDOLOptimizedCpGs,],
-# IDOLOptimizedCpGs.compTable), method = "CBS")
+# IDOLOptimizedCpGs.compTable, method = "CBS")
 # CBS$estF#CBS proportion estimates
 # percEPICCBS<-round(CBS$estF*100,1)#percentages
 ```
@@ -242,9 +242,9 @@ percEPIC2<-round(propEPIC2$prop*100,1)
 
 
 Blood Extended deconvolution
+please contact <Technology.Transfer@dartmouth.edu>
 ```{r Blood extended deconvolution, eval=FALSE}
 # Blood Extended deconvolution 
-# please contact \email{Technology.Transfer@@dartmouth.edu}
 
 # Do not run
 library (FlowSorted.BloodExtended.EPIC)
@@ -285,7 +285,9 @@ if (memory.limit()>8000){
                                     cellTypes = c("Bas", "Bmem", "Bnv",
                                                "CD4mem", "CD4nv",
                                               "CD8mem", "CD8nv", "Eos",
-                                              "Mono", "Neu", "NK", "Treg"))
+                                              "Mono", "Neu", "NK", "Treg"),
+    CustomCpGs =if(RGsetTargets@annotation[1]=="IlluminaHumanMethylationEPIC"){
+    IDOLOptimizedCpGsBloodExtended}else{IDOLOptimizedCpGsBloodExtended450k})
 
    perc_ext<-round(prop_ext$prop*100,1)
    head(perc_ext)
