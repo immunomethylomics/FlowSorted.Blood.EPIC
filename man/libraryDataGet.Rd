@@ -18,7 +18,7 @@ This function will return an object matching the title of the ExperimenHub
 Function to load the library data from ExperimentHub
 }
 \examples{
-FlowSorted.Blood.EPIC<-
-libraryDataGet('FlowSorted.Blood.EPIC')
+FlowSorted.Blood.EPIC <-
+    libraryDataGet("FlowSorted.Blood.EPIC")
 FlowSorted.Blood.EPIC
 }

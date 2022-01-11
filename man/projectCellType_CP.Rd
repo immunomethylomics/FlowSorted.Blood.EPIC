@@ -27,64 +27,69 @@ default. The user should not modify this}
 \item{lessThanOne}{Should the predictions sum less than one. Default is FALSE}
 }
 \value{
-A N x K matrix of cell proportion estimates across the K cell types for each 
+A N x K matrix of cell proportion estimates across the K cell types for each
 of the N subjects contained in the Target Set.
 }
 \description{
 This function predicts the underlying cellular composition of
-heterogeneous tissue  types (i.e., WB) using the constrained projection 
-procedure described by 
-\href{https://dx.doi.org/10.1186/s12859-016-0943-7}{Houseman et al. 2012}. 
+heterogeneous tissue  types (i.e., WB) using the constrained projection
+procedure described by
+\href{https://dx.doi.org/10.1186/s12859-016-0943-7}{Houseman et al. 2012}.
 This is equivalent to the internal projectCellType function in minfi,
-\href{https://dx.doi.org/10.1186/gb-2014-15-2-r31}{Jaffe et al. 2014}. We 
-recommend this function only for advanced users. Please preprocess your 
+\href{https://dx.doi.org/10.1186/gb-2014-15-2-r31}{Jaffe et al. 2014}. We
+recommend this function only for advanced users. Please preprocess your
 dataset filtering potential bad quality samples.
 }
 \examples{
 # Step 1: Load the reference library to extract the artificial mixtures
-FlowSorted.Blood.EPIC<-libraryDataGet('FlowSorted.Blood.EPIC')
+FlowSorted.Blood.EPIC <- libraryDataGet("FlowSorted.Blood.EPIC")
 FlowSorted.Blood.EPIC
 
-# Step 2 separate the reference from the testing dataset if you want to run 
+# Step 2 separate the reference from the testing dataset if you want to run
 # examples for estimations for this function example
 
-RGsetTargets <- FlowSorted.Blood.EPIC[,
-             FlowSorted.Blood.EPIC$CellType == "MIX"]
-             
+RGsetTargets <- FlowSorted.Blood.EPIC[
+    ,
+    FlowSorted.Blood.EPIC$CellType == "MIX"
+]
+
 sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
-                            seq_len(dim(RGsetTargets)[2]), sep = "_")
+    seq_len(dim(RGsetTargets)[2]),
+    sep = "_"
+)
 RGsetTargets
 
 # Step 3: apply the CP approach using the preloaded matrix of IDOL.
-# Deconvolute a target data set consisting of EPIC DNA methylation 
+# Deconvolute a target data set consisting of EPIC DNA methylation
 # data profiled in blood, using your prefered method.
 
 # You can use our IDOL optimized DMR library for the EPIC array.  This object
-# contains a matrix of dimensions 450 X 6 consisting on average methylation 
-# values obtained from the IDs of the IDOL optimized CpG probes.  These 
-# CpGs are used as the backbone for deconvolution and were selected because 
-# their methylation signature differs across the six normal leukocyte 
+# contains a matrix of dimensions 450 X 6 consisting on average methylation
+# values obtained from the IDs of the IDOL optimized CpG probes.  These
+# CpGs are used as the backbone for deconvolution and were selected because
+# their methylation signature differs across the six normal leukocyte
 # subtypes.
 
-head (IDOLOptimizedCpGs.compTable)
-# If you need to deconvolute a 450k legacy dataset use 
+head(IDOLOptimizedCpGs.compTable)
+# If you need to deconvolute a 450k legacy dataset use
 # IDOLOptimizedCpGs450klegacy.compTable instead
 
-# We recommend using Noob processMethod = "preprocessNoob" in minfi for the 
-# target and reference datasets. 
+# We recommend using Noob processMethod = "preprocessNoob" in minfi for the
+# target and reference datasets.
 # Cell types included are "CD8T", "CD4T", "NK", "Bcell", "Mono", "Neu"
 
-# If you need to normalize your data do not run with limited RAM. The 
-#normalization step requires a big amount of memory resources
+# If you need to normalize your data do not run with limited RAM. The
+# normalization step requires a big amount of memory resources
 
-if (memory.limit()>8000){
- propEPIC<-projectCellType_CP (
- getBeta(preprocessNoob(RGsetTargets))[IDOLOptimizedCpGs,], 
- IDOLOptimizedCpGs.compTable, contrastWBC=NULL, nonnegative=TRUE, 
- lessThanOne=FALSE)
-                                
-head(propEPIC)
-percEPIC<-round(propEPIC*100,1)
+if (memory.limit() > 8000) {
+    propEPIC <- projectCellType_CP(
+        getBeta(preprocessNoob(RGsetTargets))[IDOLOptimizedCpGs, ],
+        IDOLOptimizedCpGs.compTable,
+        contrastWBC = NULL, nonnegative = TRUE,
+        lessThanOne = FALSE
+    )
+
+    head(propEPIC)
+    percEPIC <- round(propEPIC * 100, 1)
 }
-
 }

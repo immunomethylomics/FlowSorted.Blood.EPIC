@@ -242,9 +242,10 @@ percEPIC2<-round(propEPIC2$prop*100,1)
 
 
 Blood Extended deconvolution
-please contact <Technology.Transfer@dartmouth.edu>
+
 ```{r Blood extended deconvolution, eval=FALSE}
-# Blood Extended deconvolution 
+# Blood Extended deconvolution or any external reference
+#please contact <Technology.Transfer@dartmouth.edu>
 
 # Do not run
 library (FlowSorted.BloodExtended.EPIC)
@@ -294,6 +295,9 @@ if (memory.limit()>8000){
 }
 ```
 
+```{r}
+sessionInfo()
+```
   
  **References**  
 
