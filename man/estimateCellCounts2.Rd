@@ -118,7 +118,7 @@ datasets and IDOL probes L-DMR lists
 # Step 1: Load the reference library to extract the artificial mixtures
 # Note: If your machine does not allow access to internet you can download
 # and save the file. Then load it manually into the R environment
-library(FlowSorted.Blood.EPIC)
+# library(FlowSorted.Blood.EPIC)
 FlowSorted.Blood.EPIC <- libraryDataGet("FlowSorted.Blood.EPIC")
 
 # Step 2 separate the reference from the testing dataset if you want to run

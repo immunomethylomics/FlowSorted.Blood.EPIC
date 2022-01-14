@@ -79,10 +79,10 @@ head(IDOLOptimizedCpGs450klegacy)
  *see ?estimateCellCounts2 for details*  
 ```{r eval=TRUE}
 # Step 1: Load the reference library to extract the artificial mixtures
-# if (memory.limit()>8000){
-# FlowSorted.Blood.EPIC <- libraryDataGet('FlowSorted.Blood.EPIC')
-# FlowSorted.Blood.EPIC
-# }
+if (memory.limit()>8000){
+FlowSorted.Blood.EPIC <- libraryDataGet('FlowSorted.Blood.EPIC')
+FlowSorted.Blood.EPIC
+}
 FlowSorted.Blood.EPIC
 # Note: If your machine does not allow access to internet you can download
 # and save the file. Then load it manually into the R environment
