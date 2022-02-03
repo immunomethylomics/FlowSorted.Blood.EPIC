@@ -316,11 +316,9 @@ percEPIC2 <- round(propEPIC2$prop * 100, 1)
 #            "Bas", "Bmem", "Bnv",
 #            "CD4mem", "CD4nv",
 #            "CD8mem", "CD8nv", "Eos",
-#            Mono", "Neu", "NK", "Treg"
-#        ),
+#            "Mono", "Neu", "NK", "Treg"),
 #CustomCpGs =if(RGsetTargets@annotation[1]=="IlluminaHumanMethylationEPIC"){
-#IDOLOptimizedCpGsBloodExtended}else{IDOLOptimizedCpGsBloodExtended450k})
-#    )
+#IDOLOptimizedCpGsBloodExtended}else{IDOLOptimizedCpGsBloodExtended450k}))
 #    perc_ext<-round(prop_ext$prop*100,1)
 #    head(perc_ext)
 # }

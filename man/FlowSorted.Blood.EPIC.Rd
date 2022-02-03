@@ -53,7 +53,6 @@ IDOLOptimizedCpGs, and the IDOLOptimizedCpGs450klegacy object for legacy
 450K datasets. See the objects help for details.
 }
 \examples{
-FlowSorted.Blood.EPIC
 # FlowSorted.Blood.EPIC<-
 # libraryDataGet('FlowSorted.Blood.EPIC')
 # FlowSorted.Blood.EPIC

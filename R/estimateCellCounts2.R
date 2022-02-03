@@ -3,9 +3,6 @@
 #' estimateCellCounts2 function allows the use of customized reference
 #' datasets and IDOL probes L-DMR lists
 #' @import minfi
-#' @import SummarizedExperiment
-#' @import S4Vectors
-#' @import IlluminaHumanMethylationEPICanno.ilm10b4.hg19
 #' @import ExperimentHub
 #' @importFrom utils data
 #' @importFrom utils read.csv
@@ -22,7 +19,10 @@
 #' @importFrom quadprog solve.QP
 #' @importFrom nlme lme
 #' @importFrom nlme getVarCov
-#'
+#' @importFrom SummarizedExperiment colData
+#' @importFrom SummarizedExperiment rowRanges
+#' @importFrom S4Vectors DataFrame
+#' 
 #' @examples
 #' # FlowSorted.Blood.EPIC
 #' # Step 1: Load the reference library to extract the artificial mixtures
@@ -226,11 +226,9 @@
 #' #            "Bas", "Bmem", "Bnv",
 #' #            "CD4mem", "CD4nv",
 #' #            "CD8mem", "CD8nv", "Eos",
-#' #            Mono", "Neu", "NK", "Treg"
-#' #        ),
+#' #            "Mono", "Neu", "NK", "Treg"),
 #' #CustomCpGs =if(RGsetTargets@annotation[1]=="IlluminaHumanMethylationEPIC"){
-#' #IDOLOptimizedCpGsBloodExtended}else{IDOLOptimizedCpGsBloodExtended450k})
-#' #    )
+#' #IDOLOptimizedCpGsBloodExtended}else{IDOLOptimizedCpGsBloodExtended450k}))
 #' #    perc_ext<-round(prop_ext$prop*100,1)
 #' #    head(perc_ext)
 #' # }
@@ -637,10 +635,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     }
     if ((probeSelect == "IDOL") &&
         (compositeCellType == "CordBloodCombined")) {
-        IDOLOptimizedCpGsCordBlood<-NULL
-        requireNamespace("FlowSorted.CordBloodCombined.450k")
-        CustomCpGs <-
-            FlowSorted.CordBloodCombined.450k::IDOLOptimizedCpGsCordBlood
+        CustomCpGs <- FlowSorted.Blood.EPIC::IDOLOptimizedCpGsCordBlood
     }
     if ((probeSelect == "IDOL") &&
         (compositeCellType == "Blood")) {

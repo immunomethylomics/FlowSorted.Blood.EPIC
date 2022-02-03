@@ -84,6 +84,7 @@ FlowSorted.Blood.EPIC <- libraryDataGet('FlowSorted.Blood.EPIC')
 FlowSorted.Blood.EPIC
 }
 FlowSorted.Blood.EPIC
+library(minfi)
 # Note: If your machine does not allow access to internet you can download
 # and save the file. Then load it manually into the R environment
 
@@ -171,7 +172,6 @@ Umbilical Cord Blood
 ```{r Umbilical Cord Blood, eval=FALSE}
 # UMBILICAL CORD BLOOD DECONVOLUTION
 
-# Do not run
 library (FlowSorted.CordBloodCombined.450k)
 # Step 1: Load the reference library to extract the umbilical cord samples
 FlowSorted.CordBloodCombined.450k <- 

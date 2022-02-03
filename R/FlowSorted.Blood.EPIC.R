@@ -53,7 +53,6 @@
 #' }
 #'
 #' @examples
-#' FlowSorted.Blood.EPIC
 #' # FlowSorted.Blood.EPIC<-
 #' # libraryDataGet('FlowSorted.Blood.EPIC')
 #' # FlowSorted.Blood.EPIC
