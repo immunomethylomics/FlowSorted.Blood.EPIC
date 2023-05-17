@@ -67,7 +67,6 @@
 #' # Do not run with limited RAM the normalization step requires a big amount
 #' # of memory resources
 #'
-#' if (memory.limit() > 8000) {
 #'     propEPIC <- estimateCellCounts2(RGsetTargets,
 #'         compositeCellType = "Blood",
 #'         processMethod = "preprocessNoob",
@@ -80,11 +79,9 @@
 #'
 #'     head(propEPIC$prop)
 #'     percEPIC <- round(propEPIC$prop * 100, 1)
-#' }
 #'
 #' # #Advanced deconvolution CP/QP, CIBERSORT and/or RPC deconvolution
 #' # noobset<- preprocessNoob(RGsetTargets)
-#' # if (memory.limit()>8000){
 #' #  propEPIC<-projectCellType_CP (
 #' #  getBeta(noobset)[IDOLOptimizedCpGs,],
 #' #  IDOLOptimizedCpGs.compTable, contrastWBC=NULL, nonnegative=TRUE,
@@ -92,7 +89,7 @@
 #' #
 #' # head(propEPIC)
 #' # percEPIC<-round(propEPIC*100,1)
-#' # }
+#' 
 #' # #If you prefer CIBERSORT or RPC deconvolution use EpiDISH or similar
 #' # #Example not to run
 #' # library(EpiDISH)
@@ -147,7 +144,6 @@
 #' # of memory resources. Use the parameters as specified below for
 #' # reproducibility.
 #' #
-#' if (memory.limit() > 8000) {
 #'     propUCB <- estimateCellCounts2(RGsetTargets,
 #'         compositeCellType = "CordBloodCombined",
 #'         processMethod = "preprocessNoob",
@@ -160,7 +156,6 @@
 #'
 #'     head(propUCB$prop)
 #'     percUCB <- round(propUCB$prop * 100, 1)
-#' }
 #'
 #' # Using cell counts instead of proportions
 #' library(FlowSorted.Blood.450k)
@@ -217,7 +212,6 @@
 #' ## of memory resources. Use the parameters as specified below for
 #' ## reproducibility.
 #' #
-#' # if (memory.limit()>8000){
 #' #    prop_ext <- estimateCellCounts2(RGsetTargets,
 #' #        compositeCellType = "BloodExtended",
 #' #        processMethod = "preprocessNoob",
@@ -231,7 +225,7 @@
 #' #IDOLOptimizedCpGsBloodExtended}else{IDOLOptimizedCpGsBloodExtended450k}))
 #' #    perc_ext<-round(prop_ext$prop*100,1)
 #' #    head(perc_ext)
-#' # }
+#' 
 #' ## End of example
 #' @references LA Salas et al. (2018). \emph{An optimized library for
 #' reference-based deconvolution of whole-blood biospecimens assayed using the
@@ -239,8 +233,8 @@
 #' \href{https://dx.doi.org/10.1186/s13059-018-1448-7}{10.1186/s13059-018-1448-7}
 #' @references LA Salas et al. (2022). \emph{Enhanced cell deconvolution of
 #' peripheral blood using DNA methylation for high-resolution immune
-#' profiling}. Nat Comm (In Press). doi (biorxiv):
-#' \href{https://dx.doi.org/10.1101/2021.04.11.439377}{10.1101/2021.04.11.439377}
+#' profiling}. Nat Comm 13, 761. doi :
+#' \href{https://doi.org/10.1038/s41467-021-27864-7}{10.1038/s41467-021-27864-7}
 #' @references DC Koestler et al. (2016). \emph{Improving cell mixture
 #' deconvolution by identifying optimal DNA methylation libraries (IDOL)}.
 #' BMC bioinformatics. 17, 120. doi:

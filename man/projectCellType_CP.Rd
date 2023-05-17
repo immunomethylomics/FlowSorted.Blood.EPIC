@@ -81,7 +81,6 @@ head(IDOLOptimizedCpGs.compTable)
 # If you need to normalize your data do not run with limited RAM. The
 # normalization step requires a big amount of memory resources
 
-if (memory.limit() > 8000) {
     propEPIC <- projectCellType_CP(
         getBeta(preprocessNoob(RGsetTargets))[IDOLOptimizedCpGs, ],
         IDOLOptimizedCpGs.compTable,
@@ -91,5 +90,4 @@ if (memory.limit() > 8000) {
 
     head(propEPIC)
     percEPIC <- round(propEPIC * 100, 1)
-}
 }
