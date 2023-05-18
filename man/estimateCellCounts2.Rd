@@ -196,79 +196,79 @@ head(IDOLOptimizedCpGs)
 # UMBILICAL CORD BLOOD DECONVOLUTION
 
 
-library(FlowSorted.CordBloodCombined.450k)
-# Step 1: Load the reference library to extract the umbilical cord samples
-FlowSorted.CordBloodCombined.450k <-
-    libraryDataGet("FlowSorted.CordBloodCombined.450k")
-FlowSorted.CordBloodCombined.450k
+#library(FlowSorted.CordBloodCombined.450k)
+## Step 1: Load the reference library to extract the umbilical cord samples
+#FlowSorted.CordBloodCombined.450k <-
+#    libraryDataGet("FlowSorted.CordBloodCombined.450k")
+#FlowSorted.CordBloodCombined.450k
 
-# Step 2 separate the reference from the testing dataset if you want to run
-# examples for estimations for this function example
+## Step 2 separate the reference from the testing dataset if you want to run
+## examples for estimations for this function example
 
-RGsetTargets <- FlowSorted.CordBloodCombined.450k[,
-    FlowSorted.CordBloodCombined.450k$CellType == "WBC"
-]
-sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
-    seq_len(dim(RGsetTargets)[2]),
-    sep = "_"
-)
-RGsetTargets
+#RGsetTargets <- FlowSorted.CordBloodCombined.450k[,
+#    FlowSorted.CordBloodCombined.450k$CellType == "WBC"
+#]
+#sampleNames(RGsetTargets) <- paste(RGsetTargets$CellType,
+#    seq_len(dim(RGsetTargets)[2]),
+#    sep = "_"
+#)
+#RGsetTargets
 
-# Step 3: use your favorite package for deconvolution.
-# Deconvolute a target data set consisting of 450K DNA methylation
-# data profiled in blood, using your prefered method.
-# You can use our IDOL optimized DMR library for the Cord Blood,  This object
-# contains a vector of length 517 consisting of the IDs of the IDOL optimized
-# CpG probes.  These CpGs are used as the backbone for deconvolution and were
-# selected because their methylation signature differs across the six normal
-# leukocyte subtypes plus the nucleated red blood cells.
-data("IDOLOptimizedCpGsCordBlood")
-head(IDOLOptimizedCpGsCordBlood)
-# We recommend using Noob processMethod = "preprocessNoob" in minfi for the
-# target and reference datasets.
-# Cell types included are "CD8T", "CD4T", "NK", "Bcell", "Mono", "Gran",
-# "nRBC"
-# To use the IDOL optimized list of CpGs (IDOLOptimizedCpGsCordBlood) use
-# estimateCellCounts2 from FlowSorted.Blood.EPIC.
-# Do not run with limited RAM the normalization step requires a big amount
-# of memory resources. Use the parameters as specified below for
-# reproducibility.
+## Step 3: use your favorite package for deconvolution.
+## Deconvolute a target data set consisting of 450K DNA methylation
+## data profiled in blood, using your prefered method.
+## You can use our IDOL optimized DMR library for the Cord Blood,  This object
+## contains a vector of length 517 consisting of the IDs of the IDOL optimized
+## CpG probes.  These CpGs are used as the backbone for deconvolution and were
+## selected because their methylation signature differs across the six normal
+## leukocyte subtypes plus the nucleated red blood cells.
+#data("IDOLOptimizedCpGsCordBlood")
+#head(IDOLOptimizedCpGsCordBlood)
+## We recommend using Noob processMethod = "preprocessNoob" in minfi for the
+## target and reference datasets.
+## Cell types included are "CD8T", "CD4T", "NK", "Bcell", "Mono", "Gran",
+## "nRBC"
+## To use the IDOL optimized list of CpGs (IDOLOptimizedCpGsCordBlood) use
+## estimateCellCounts2 from FlowSorted.Blood.EPIC.
+## Do not run with limited RAM the normalization step requires a big amount
+## of memory resources. Use the parameters as specified below for
+## reproducibility.
 #
-    propUCB <- estimateCellCounts2(RGsetTargets,
-        compositeCellType = "CordBloodCombined",
-        processMethod = "preprocessNoob",
-        probeSelect = "IDOL",
-        cellTypes = c(
-            "CD8T", "CD4T", "NK",
-            "Bcell", "Mono", "Gran", "nRBC"
-        )
-    )
+#    propUCB <- estimateCellCounts2(RGsetTargets,
+#        compositeCellType = "CordBloodCombined",
+#        processMethod = "preprocessNoob",
+#        probeSelect = "IDOL",
+#        cellTypes = c(
+#            "CD8T", "CD4T", "NK",
+#            "Bcell", "Mono", "Gran", "nRBC"
+#        )
+#    )
+#
+#    head(propUCB$prop)
+#    percUCB <- round(propUCB$prop * 100, 1)
 
-    head(propUCB$prop)
-    percUCB <- round(propUCB$prop * 100, 1)
-
-# Using cell counts instead of proportions
-library(FlowSorted.Blood.450k)
-RGsetTargets2 <- FlowSorted.Blood.450k[,
-    FlowSorted.Blood.450k$CellType == "WBC"
-]
-sampleNames(RGsetTargets2) <- paste(RGsetTargets2$CellType,
-    seq_len(dim(RGsetTargets2)[2]),
-    sep = "_"
-)
-RGsetTargets2
-propEPIC2 <- estimateCellCounts2(RGsetTargets2,
-    compositeCellType = "Blood",
-    processMethod = "preprocessNoob",
-    probeSelect = "IDOL",
-    cellTypes = c(
-        "CD8T", "CD4T", "NK", "Bcell",
-        "Mono", "Neu"
-    ), cellcounts = rep(10000, 6)
-)
-head(propEPIC2$prop)
-head(propEPIC2$counts)
-percEPIC2 <- round(propEPIC2$prop * 100, 1)
+## Using cell counts instead of proportions
+#library(FlowSorted.Blood.450k)
+#RGsetTargets2 <- FlowSorted.Blood.450k[,
+#    FlowSorted.Blood.450k$CellType == "WBC"
+#]
+#sampleNames(RGsetTargets2) <- paste(RGsetTargets2$CellType,
+#    seq_len(dim(RGsetTargets2)[2]),
+#    sep = "_"
+#)
+#RGsetTargets2
+#propEPIC2 <- estimateCellCounts2(RGsetTargets2,
+#    compositeCellType = "Blood",
+#    processMethod = "preprocessNoob",
+#    probeSelect = "IDOL",
+#    cellTypes = c(
+#        "CD8T", "CD4T", "NK", "Bcell",
+#        "Mono", "Neu"
+#    ), cellcounts = rep(10000, 6)
+#)
+#head(propEPIC2$prop)
+#head(propEPIC2$counts)
+#percEPIC2 <- round(propEPIC2$prop * 100, 1)
 
 ## Blood Extended deconvolution or any external reference
 ## please contact \email{Technology.Transfer@dartmouth.edu}
