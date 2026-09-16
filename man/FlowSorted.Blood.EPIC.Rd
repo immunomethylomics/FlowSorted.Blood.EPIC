@@ -12,12 +12,8 @@ The FlowSorted.Blood.EPIC object is based in samples assayed
 by Brock Christensen and colleagues; Salas et al. 2018.
 \href{https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110554}{GSE110554}
 }
-\usage{
-FlowSorted.Blood.EPIC
-#See ?estimateCellCounts2 for cell deconvolution guidelines
-}
 \value{
-RGChannelSet 49 samples
+An object of class \code{RGChannelSet} containing 49 samples.
 }
 \description{
 Illumina Human Methylation data from EPIC on immunomagnetic sorted adult

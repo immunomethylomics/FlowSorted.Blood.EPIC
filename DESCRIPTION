@@ -1,27 +1,76 @@
 Package: FlowSorted.Blood.EPIC
 Type: Package
 Title: Illumina EPIC data on immunomagnetic sorted peripheral adult blood cells
-Version: 2.17.0
-Date: 2021-10-26
-Authors@R: c( person(c("Lucas", "A."), "Salas", role = c("cre", "aut"),
-            email = "lucas.a.salas.diaz@dartmouth.edu"),
-            person(c("Devin", "C."), "Koestler", role = c("aut"),
-            email = "dkoestler@kumc.edu"),
-            person(c("Rondi", "A."), "Butler", role = c("ctb")),
-            person(c("Helen", "M."), "Hansen", role = c("ctb")),
-            person(c("John", "K."), "Wiencke", role = c("ctb")),
-            person(c("Karl", "T."), "Kelsey", role = c("ctb")),
-            person(c("Brock", "C."), "Christensen", role = c("ctb")),
-            person(c("Kasper", "Daniel"), "Hansen", role = c("ctb"),
-            comment = "author and maintainer of the original minfi estimateCellCounts and internal functions"),
-            person("Jean-Philippe", "Fortin", role = "ctb", 
-            comment = "contributor in the original minfi estimateCellCounts and internal functions"),
-            person(c("Shan", "V."), "Andrews", role = "ctb",
-            comment = "contributor in the original minfi estimateCellCounts and internal functions"),
-            person(c("E.", "Andres"), "Houseman", role = c("ctb"),
-            comment = "author of the original quadratic programming function used for cell projection"),
-            person(c("Andrew", "E"), "Jaffe", role = c("ctb"),
-            comment = "author of the original estimateCellCounts and internal functions within minfi"))
+Version: 2.17.1
+Authors@R: c(
+    person(
+        given = c("Lucas", "A."),
+        family = "Salas",
+        email = "lucas.a.salas.diaz@dartmouth.edu",
+        role = c("aut", "cre"),
+        comment = c(ORCID = "0000-0002-2279-4097")
+    ),
+    person(
+        given = c("Devin", "C."),
+        family = "Koestler",
+        email = "dkoestler@kumc.edu",
+        role = "aut"
+    ),
+    person(
+        given = c("Rondi", "A."),
+        family = "Butler",
+        role = "ctb"
+    ),
+    person(
+        given = c("Helen", "M."),
+        family = "Hansen",
+        role = "ctb"
+    ),
+    person(
+        given = c("John", "K."),
+        family = "Wiencke",
+        role = "ctb"
+    ),
+    person(
+        given = c("Karl", "T."),
+        family = "Kelsey",
+        role = "ctb"
+    ),
+    person(
+        given = c("Brock", "C."),
+        family = "Christensen",
+        role = "ctb"
+    ),
+    person(
+        given = c("Kasper", "D."),
+        family = "Hansen",
+        role = "ctb",
+        comment = "Contributor to the original minfi implementation"
+    ),
+    person(
+        given = "Jean-Philippe",
+        family = "Fortin",
+        role = "ctb",
+        comment = "Contributor to the original minfi implementation"
+    ),
+    person(
+        given = c("Shan", "V."),
+        family = "Andrews",
+        role = "ctb",
+        comment = "Contributor to the original minfi implementation"
+    ),
+    person(
+        given = c("E.", "Andres"),
+        family = "Houseman",
+        role = "ctb",
+        comment = "Author of the original constrained-projection method"
+    ),
+    person(
+        given = c("Andrew", "E."),
+        family = "Jaffe",
+        role = "ctb",
+        comment = "Contributor to the original minfi implementation"
+    ))
 Description: Raw data objects to be used for blood cell proportion
         estimation in minfi and similar packages. 
         The FlowSorted.Blood.EPIC object is based in samples assayed
@@ -37,7 +86,7 @@ biocViews: ExperimentData, Homo_sapiens_Data, Tissue, MicroarrayData, Genome,
 NeedsCompilation: no
 LazyData: yes
 LazyDataCompression: gzip
-Suggests: knitr,rmarkdown, FlowSorted.CordBlood.450k, 
+Suggests: knitr,rmarkdown,
     FlowSorted.Blood.450k(>= 1.0.1), EpiDISH,FlowSorted.CordBloodNorway.450k,
     testthat, IlluminaHumanMethylation450kmanifest(>= 0.2.0), 
     IlluminaHumanMethylationEPICmanifest,
@@ -45,6 +94,6 @@ Suggests: knitr,rmarkdown, FlowSorted.CordBlood.450k,
     IlluminaHumanMethylationEPICanno.ilm10b4.hg19
 VignetteBuilder: knitr
 Encoding: UTF-8
-RoxygenNote: 7.2.3
 URL: https://github.com/immunomethylomics/FlowSorted.Blood.EPIC
-BugReports: https://github.com/immunomethylomics/FlowSorted.Blood.EPIC/issues.
+BugReports: https://github.com/immunomethylomics/FlowSorted.Blood.EPIC/issues
+Config/roxygen2/version: 8.1.0

@@ -1,3 +1,11 @@
+Changes in version 2.17.1
++ FlowSorted.CordBlood.450k was removed from Suggests because it was
+  deprecated by Bioconductor.
++ compositeCellType = "CordBlood" now gives an informative error directing
+  users to FlowSorted.CordBloodCombined.450k.
++ The maintainer ORCID and package metadata were updated.
++ Added the missing colData<- namespace import.
+
 Changes in version 0.99.36 (2018-03-24)
 + Submitted to Bioconductor
 + Added NEWS file

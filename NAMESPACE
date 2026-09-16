@@ -8,20 +8,33 @@ import(minfi)
 import(quadprog)
 importFrom(AnnotationHub,query)
 importFrom(S4Vectors,DataFrame)
-importFrom(SummarizedExperiment,colData)
-importFrom(SummarizedExperiment,rowRanges)
-importFrom(genefilter,rowFtests)
-importFrom(genefilter,rowttests)
-importFrom(graphics,legend)
-importFrom(graphics,plot)
-importFrom(nlme,getVarCov)
-importFrom(nlme,lme)
+importFrom(SummarizedExperiment,
+  "colData<-",
+  colData,
+  rowRanges
+)
+importFrom(genefilter,
+  rowFtests,
+  rowttests
+)
+importFrom(graphics,
+  legend,
+  plot
+)
+importFrom(nlme,
+  getVarCov,
+  lme
+)
 importFrom(quadprog,solve.QP)
-importFrom(stats,as.formula)
-importFrom(stats,lm)
-importFrom(stats,model.matrix)
-importFrom(stats,pf)
-importFrom(stats,vcov)
-importFrom(utils,data)
-importFrom(utils,memory.limit)
-importFrom(utils,read.csv)
+importFrom(stats,
+  as.formula,
+  lm,
+  model.matrix,
+  pf,
+  vcov
+)
+importFrom(utils,
+  data,
+  memory.limit,
+  read.csv
+)

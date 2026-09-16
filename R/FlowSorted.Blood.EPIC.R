@@ -57,8 +57,8 @@
 #' # libraryDataGet('FlowSorted.Blood.EPIC')
 #' # FlowSorted.Blood.EPIC
 #' # table(FlowSorted.Blood.EPIC$CellType)
-#' @return RGChannelSet 49 samples
-#' @usage
-#' FlowSorted.Blood.EPIC
-#' #See ?estimateCellCounts2 for cell deconvolution guidelines
-"FlowSorted.Blood.EPIC"
+#' @return An object of class \code{RGChannelSet} containing 49 samples.
+#' @name FlowSorted.Blood.EPIC
+#' @docType data
+#' @keywords datasets
+NULL

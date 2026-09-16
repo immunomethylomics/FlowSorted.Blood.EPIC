@@ -19,8 +19,7 @@
 #' @importFrom quadprog solve.QP
 #' @importFrom nlme lme
 #' @importFrom nlme getVarCov
-#' @importFrom SummarizedExperiment colData
-#' @importFrom SummarizedExperiment rowRanges
+#' @importFrom SummarizedExperiment colData "colData<-" rowRanges
 #' @importFrom S4Vectors DataFrame
 #' 
 #' @examples
@@ -361,6 +360,13 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
                                 verbose = TRUE, lessThanOne = FALSE,
                                 cellcounts = NULL,
                                 ...) {
+    if (compositeCellType == "CordBlood") {
+        stop(paste(
+            "FlowSorted.CordBlood.450k has been deprecated by Bioconductor.",
+            "Use compositeCellType = \"CordBloodCombined\" with",
+            "FlowSorted.CordBloodCombined.450k instead."
+        ), call. = FALSE)
+    }
     if (is(rgSet, "RGChannelSetExtended")) {
         rgSet <- as(rgSet, "RGChannelSet")
     }

@@ -26,19 +26,10 @@ test_that("errors if bad parameters", {
         IDOLOptimizedCpGs = IDOLOptimizedCpGs,
         returnAll = FALSE
     )))
-    expect_warning(expect_error(expect_message(estimateCellCounts2(RGsetTargets,
-        compositeCellType = "CordBlood",
-        processMethod = "preprocessNoob",
-        probeSelect = "IDOL",
-        cellTypes = c(
-            "CD8T", "CD4T", "NK", "Bcell",
-            "Mono", "Gran"
-        ),
-        referencePlatform =
-            "IlluminaHumanMethylationEPIC",
-        IDOLOptimizedCpGs = IDOLOptimizedCpGs,
-        returnAll = FALSE
-    ))))
+    expect_error(
+        estimateCellCounts2(NULL, compositeCellType = "CordBlood"),
+        regexp = "FlowSorted\\.CordBlood\\.450k.*CordBloodCombined"
+    )
 })
 
 test_that("errors if bad parameters", {
