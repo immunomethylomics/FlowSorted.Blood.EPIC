@@ -1,22 +1,58 @@
-#' libraryDataGet
+#' Retrieve a reference dataset from ExperimentHub
+#'
 #' @description
-#' Function to load the library data from ExperimentHub
-#' @import ExperimentHub
-#' @importFrom AnnotationHub query
-#' @param
-#' title        title of the data, e.g., 'FlowSorted.Blood.EPIC'
-#' @return
-#' The function will look for the dataset in ExperimentHub and load the object
+#' Retrieves one ExperimentHub resource matching the supplied title.
+#'
+#' @param title A single, non-empty character string identifying the
+#'   ExperimentHub resource, for example `"FlowSorted.Blood.EPIC"`.
+#'
+#' @return The ExperimentHub resource matching `title`.
+#'
 #' @examples
-#' FlowSorted.Blood.EPIC <-
-#'     libraryDataGet("FlowSorted.Blood.EPIC")
+#' FlowSorted.Blood.EPIC <- libraryDataGet("FlowSorted.Blood.EPIC")
 #' FlowSorted.Blood.EPIC
-#' @return
-#' This function will return an object matching the title of the ExperimenHub
+#'
 #' @export
 libraryDataGet <- function(title) {
-    assign(title, ExperimentHub()[[query(
-        ExperimentHub(),
+  if (
+    !is.character(title) ||
+    length(title) != 1L ||
+    is.na(title) ||
+    !nzchar(title)
+  ) {
+    stop(
+      "`title` must be a single, non-empty character string.",
+      call. = FALSE
+    )
+  }
+
+  hub <- ExperimentHub::ExperimentHub()
+  matches <- AnnotationHub::query(hub, title)
+  resource_ids <- unique(matches$ah_id)
+
+  if (length(resource_ids) == 0L) {
+    stop(
+      sprintf(
+        "No ExperimentHub resource matched title '%s'.",
         title
-    )$ah_id]])
+      ),
+      call. = FALSE
+    )
+  }
+
+  if (length(resource_ids) > 1L) {
+    stop(
+      sprintf(
+        paste0(
+          "Multiple ExperimentHub resources matched title '%s': ",
+          "%s."
+        ),
+        title,
+        paste(resource_ids, collapse = ", ")
+      ),
+      call. = FALSE
+    )
+  }
+
+  hub[[resource_ids[[1L]]]]
 }

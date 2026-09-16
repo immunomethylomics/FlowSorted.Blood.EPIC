@@ -2,23 +2,22 @@
 % Please edit documentation in R/libraryDataGet.R
 \name{libraryDataGet}
 \alias{libraryDataGet}
-\title{libraryDataGet}
+\title{Retrieve a reference dataset from ExperimentHub}
 \usage{
 libraryDataGet(title)
 }
 \arguments{
-\item{title}{title of the data, e.g., 'FlowSorted.Blood.EPIC'}
+\item{title}{A single, non-empty character string identifying the
+ExperimentHub resource, for example `"FlowSorted.Blood.EPIC"`.}
 }
 \value{
-The function will look for the dataset in ExperimentHub and load the object
-
-This function will return an object matching the title of the ExperimenHub
+The ExperimentHub resource matching `title`.
 }
 \description{
-Function to load the library data from ExperimentHub
+Retrieves one ExperimentHub resource matching the supplied title.
 }
 \examples{
-FlowSorted.Blood.EPIC <-
-    libraryDataGet("FlowSorted.Blood.EPIC")
+FlowSorted.Blood.EPIC <- libraryDataGet("FlowSorted.Blood.EPIC")
 FlowSorted.Blood.EPIC
+
 }

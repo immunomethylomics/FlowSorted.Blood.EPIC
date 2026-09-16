@@ -6,7 +6,6 @@ export(projectCellType_CP)
 import(ExperimentHub)
 import(minfi)
 import(quadprog)
-importFrom(AnnotationHub,query)
 importFrom(S4Vectors,DataFrame)
 importFrom(SummarizedExperiment,
   "colData<-",
