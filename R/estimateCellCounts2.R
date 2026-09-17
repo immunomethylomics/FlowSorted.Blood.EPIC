@@ -821,11 +821,6 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
             "low",
             "high", "range"
         )
-        tstatList <- lapply(tIndexes, function(i) {
-            x <- rep(0, ncol(p))
-            x[i] <- 1
-            return(rowttests(p, factor(x)))
-        })
         trainingProbes <- CustomCpGs
         trainingProbes <- trainingProbes[trainingProbes %in% rownames(p)]
         p <- p[trainingProbes, ]
