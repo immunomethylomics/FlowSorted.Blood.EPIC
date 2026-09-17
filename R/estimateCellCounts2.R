@@ -311,14 +311,13 @@
 #'                    rgSet belongs to another platform, it will be converted
 #'                    using minfi function convertArray.
 #' @param
-#' referenceset It is NULL by default.
-#'
-#'             A custom reference RGChannelSet object (in quotes) if it is not
-#'             a package installed. This option also allows the user to perform
-#'             the deconvolution in closed computing clusters without internet
-#'             access to ExperimentHub. For that download and save the
-#'             reference and input the resulting object here. If using an
-#'             installed reference package set to NULL.
+#' referenceset A custom `RGChannelSet` or `RGChannelSetExtended` object.
+#'             The default is `NULL`, which uses the installed reference
+#'             package. Supplying the object directly is recommended. For
+#'             backward compatibility, a single character string naming an
+#'             object in the calling environment is also accepted. This option
+#'             permits use on computing clusters without access to
+#'             ExperimentHub.
 #' @param
 #' CustomCpGs a custom vector of probe names for cell deconvolution. For
 #'                 custom lists it should be a vector object (no quotes).
@@ -530,7 +529,10 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
     referencePkg <- sprintf("FlowSorted.%s.%s", compositeCellType, platform)
     subverbose <- max(as.integer(verbose) - 1L, 0L)
     if (!is.null(referenceset)) {
-        referenceRGset <- get(referenceset)
+        referenceRGset <- .resolveReferenceSet(
+            referenceset,
+            envir = parent.frame()
+        )
         if (is(referenceRGset, "RGChannelSetExtended")) {
             referenceRGset <- as(referenceRGset, "RGChannelSet")
         }

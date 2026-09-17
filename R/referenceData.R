@@ -85,3 +85,48 @@
     call. = FALSE
   )
 }
+
+.resolveReferenceSet <- function(referenceset, envir) {
+    if (
+        is.character(referenceset) &&
+        length(referenceset) == 1L &&
+        !is.na(referenceset) &&
+        nzchar(referenceset)
+    ) {
+        if (!exists(
+            referenceset,
+            envir = envir,
+            inherits = TRUE
+        )) {
+            stop(
+                sprintf(
+                    "Custom reference object '%s' was not found.",
+                    referenceset
+                ),
+                call. = FALSE
+            )
+        }
+
+        referenceset <- get(
+            referenceset,
+            envir = envir,
+            inherits = TRUE
+        )
+    }
+
+    if (
+        !is(referenceset, "RGChannelSet") &&
+        !is(referenceset, "RGChannelSetExtended")
+    ) {
+        stop(
+            paste0(
+                "`referenceset` must be an RGChannelSet, ",
+                "an RGChannelSetExtended, or a single character ",
+                "string naming one of these objects."
+            ),
+            call. = FALSE
+        )
+    }
+
+    referenceset
+}

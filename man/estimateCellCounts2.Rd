@@ -73,14 +73,13 @@ c("IlluminaHumanMethylation450k",
 rgSet belongs to another platform, it will be converted
 using minfi function convertArray.}
 
-\item{referenceset}{It is NULL by default.
-
-            A custom reference RGChannelSet object (in quotes) if it is not
-            a package installed. This option also allows the user to perform
-            the deconvolution in closed computing clusters without internet
-            access to ExperimentHub. For that download and save the
-            reference and input the resulting object here. If using an
-            installed reference package set to NULL.}
+\item{referenceset}{A custom `RGChannelSet` or `RGChannelSetExtended` object.
+The default is `NULL`, which uses the installed reference
+package. Supplying the object directly is recommended. For
+backward compatibility, a single character string naming an
+object in the calling environment is also accepted. This option
+permits use on computing clusters without access to
+ExperimentHub.}
 
 \item{CustomCpGs}{a custom vector of probe names for cell deconvolution. For
 custom lists it should be a vector object (no quotes).}
@@ -326,7 +325,7 @@ Illumina HumanMethylationEPIC BeadArray}. Genome Biology 19, 64. doi:
 
 LA Salas et al. (2022). \emph{Enhanced cell deconvolution of
 peripheral blood using DNA methylation for high-resolution immune
-profiling}. Nat Comm 13, 761 (2022). doi: 
+profiling}. Nat Comm 13, 761 (2022). doi:
 \href{https://doi.org/10.1038/s41467-021-27864-7}{10.1038/s41467-021-27864-7}
 
 DC Koestler et al. (2016). \emph{Improving cell mixture

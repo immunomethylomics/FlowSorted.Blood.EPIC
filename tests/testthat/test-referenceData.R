@@ -43,3 +43,32 @@ test_that("reference loader retrieves traditional data objects", {
 
   expect_s4_class(reference, "RGChannelSet")
 })
+
+test_that("reference resolver handles custom reference objects", {
+  skip_if_not_installed("FlowSorted.Blood.450k")
+
+  reference <- .loadReferenceObject(
+    "FlowSorted.Blood.450k"
+  )
+  expect_identical(
+    .resolveReferenceSet(reference, environment()),
+    reference
+  )
+  named_reference <- reference
+  expect_identical(
+    .resolveReferenceSet("named_reference", environment()),
+    named_reference
+  )
+
+  expect_error(
+    .resolveReferenceSet("missing_reference", environment()),
+    "was not found",
+    fixed = TRUE
+  )
+
+  expect_error(
+    .resolveReferenceSet(1, environment()),
+    "must be an RGChannelSet",
+    fixed = TRUE
+  )
+})
