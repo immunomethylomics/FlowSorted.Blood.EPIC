@@ -21,7 +21,7 @@
 #' @importFrom nlme getVarCov
 #' @importFrom SummarizedExperiment colData "colData<-" rowRanges
 #' @importFrom S4Vectors DataFrame
-#' 
+#'
 #' @examples
 #' # FlowSorted.Blood.EPIC
 #' # Step 1: Load the reference library to extract the artificial mixtures
@@ -178,7 +178,7 @@
 #' #head(propEPIC2$prop)
 #' #head(propEPIC2$counts)
 #' #percEPIC2 <- round(propEPIC2$prop * 100, 1)
-#' 
+#'
 #' ## Blood Extended deconvolution or any external reference
 #' ## please contact \email{Technology.Transfer@dartmouth.edu}
 #'
@@ -232,7 +232,7 @@
 #' \href{https://dx.doi.org/10.1186/s13059-018-1448-7}{10.1186/s13059-018-1448-7}
 #' @references LA Salas et al. (2022). \emph{Enhanced cell deconvolution of
 #' peripheral blood using DNA methylation for high-resolution immune
-#' profiling}. Nat Comm 13, 761 (2022). doi: 
+#' profiling}. Nat Comm 13, 761 (2022). doi:
 #' \href{https://doi.org/10.1038/s41467-021-27864-7}{10.1038/s41467-021-27864-7}
 #' @references DC Koestler et al. (2016). \emph{Improving cell mixture
 #' deconvolution by identifying optimal DNA methylation libraries (IDOL)}.
@@ -538,37 +538,7 @@ estimateCellCounts2 <- function(rgSet, compositeCellType = "Blood",
             referenceRGset <- preprocessRaw(referenceRGset)
         }
     } else {
-        if (!require(referencePkg, character.only = TRUE) &&
-            referencePkg != "FlowSorted.BloodExtended.EPIC") {
-            stop(strwrap(sprintf(
-                "Could not find reference data package for
-                                compositeCellType '%s' and referencePlatform
-                                '%s' (inferred package name is '%s')",
-                compositeCellType, platform, referencePkg
-            ),
-            width = 80, prefix = " ", initial = ""
-            ))
-        }
-        if (!require(referencePkg, character.only = TRUE) &&
-            referencePkg == "FlowSorted.BloodExtended.EPIC") {
-            stop(strwrap(sprintf(
-                "Could not find reference data package for
-                                compositeCellType '%s' and referencePlatform
-                                '%s' (inferred package name is '%s'),
-                                please contact
-                                Technology.Transfer@dartmouth.edu",
-                compositeCellType, platform, referencePkg
-            ),
-            width = 80, prefix = " ", initial = ""
-            ))
-        }
-        if ((referencePkg != "FlowSorted.Blood.EPIC") &&
-            (referencePkg != "FlowSorted.CordBloodCombined.450k")) {
-            referenceRGset <- get(referencePkg)
-        } else if ((referencePkg == "FlowSorted.Blood.EPIC") |
-            (referencePkg == "FlowSorted.CordBloodCombined.450k")) {
-            referenceRGset <- libraryDataGet(referencePkg)
-        }
+      referenceRGset <- .loadReferenceObject(referencePkg)
         if (!is(rgSet, "RGChannelSet")) {
             referenceRGset <- preprocessRaw(referenceRGset)
         }
