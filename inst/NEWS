@@ -1,3 +1,15 @@
+Changes in version 2.17.2
++ Added regression tests protecting adult-blood IDOL estimates.
++ Hardened ExperimentHub reference retrieval and validation.
++ Added direct custom RGChannelSet and RGChannelSetExtended support while
+  retaining character-name compatibility.
++ Avoided attaching reference-data packages during estimation.
++ Moved minfi and ExperimentHub from Depends to Imports.
++ Removed obsolete memory.limit usage and the unreachable nlme pathway.
++ Declared MatrixGenerics::rowRanges explicitly.
++ Removed unused probe statistics from the IDOL workflow.
++ Improved vignette chunk labeling and execution.
+
 Changes in version 2.17.1
 + FlowSorted.CordBlood.450k was removed from Suggests because it was
   deprecated by Bioconductor.
@@ -14,7 +26,7 @@ Changes in version 0.99.37 (2018-10-25)
 + Made the following significant changes
   o Initial release to Bioconductor
   o Updated manuscript reference
-  
+
 Changes in version 1.3.1 (2019-10-24)
 + Made the following significant changes
   o Corrected combineArrays problems
@@ -24,7 +36,7 @@ Changes in version 1.3.1 (2019-10-24)
 Changes in version 1.5.2 (2019-11-05)
 + Made the following significant changes
   o Added the projectCellType_CP function for projecting the cell counts on beta values
-  
+
 Changes in version 1.99.1 (2022-01-04)
 + Made the following significant changes
   o The IDOL libraries are automatically selected

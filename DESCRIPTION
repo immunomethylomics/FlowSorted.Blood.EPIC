@@ -1,7 +1,7 @@
 Package: FlowSorted.Blood.EPIC
 Type: Package
-Title: Illumina EPIC data on immunomagnetic sorted peripheral adult blood cells
-Version: 2.17.1
+Title: Illumina EPIC Data from Immunomagnetically Sorted Peripheral Blood Cells
+Version: 2.17.2
 Authors@R: c(
     person(
         given = c("Lucas", "A."),
@@ -72,8 +72,8 @@ Authors@R: c(
         comment = "Contributor to the original minfi implementation"
     ))
 Description: Raw data objects to be used for blood cell proportion
-        estimation in minfi and similar packages. 
-        The FlowSorted.Blood.EPIC object is based in samples assayed
+        estimation in minfi and similar packages.
+        The FlowSorted.Blood.EPIC object is based on samples assayed
         by Brock Christensen and colleagues; for details see Salas et al. 2018.
         https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110554.
 License: GPL-3
@@ -82,8 +82,9 @@ Imports: genefilter, quadprog, graphics, stats, utils, AnnotationHub,
         minfi (>= 1.21.2), ExperimentHub,
         SummarizedExperiment, S4Vectors, MatrixGenerics
 Enhances: FlowSorted.CordBloodCombined.450k(>= 1.11.5)
-biocViews: ExperimentData, Homo_sapiens_Data, Tissue, MicroarrayData, Genome,
-        TissueMicroarrayData, MethylationArrayData
+biocViews: ExperimentData, ExperimentHub, Homo_sapiens_Data, Tissue,
+        MicroarrayData, Genome, TissueMicroarrayData,
+        MethylationArrayData
 NeedsCompilation: no
 LazyData: yes
 LazyDataCompression: gzip
