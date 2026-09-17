@@ -43,7 +43,7 @@ knitr::opts_chunk$set(
  1. *FlowSorted.Blood.EPIC* is the RGChannelSet object containing the reference 
  library
  
-```{r eval=TRUE}
+```{r package-data}
 library(FlowSorted.Blood.EPIC)
 FlowSorted.Blood.EPIC <- libraryDataGet('FlowSorted.Blood.EPIC')
 FlowSorted.Blood.EPIC
@@ -52,13 +52,13 @@ FlowSorted.Blood.EPIC
  [GSE110554](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110554)  
 
  2. *IDOLOptimizedCpGs* the IDOL L-DMR library for EPIC arrays  
-```{r eval=FALSE}
+```{r idol-epic}
 data("IDOLOptimizedCpGs") 
 head(IDOLOptimizedCpGs)  
 ```  
  3. *IDOLOptimizedCpGs450klegacy* the IDOL L-DMR library for legacy 450k 
  arrays  
-```{r eval=FALSE}
+```{r idol-450k}
 data("IDOLOptimizedCpGs450klegacy") 
 head(IDOLOptimizedCpGs450klegacy)  
 ```  
@@ -75,7 +75,7 @@ head(IDOLOptimizedCpGs450klegacy)
  method described in Houseman et al. 2012.  and adapted in minfi.
  CIBERSORT and RPC are allowed using external packages.  
  *see ?estimateCellCounts2 for details*  
-```{r eval=TRUE}
+```{r adult-blood}
 # Step 1: Load the reference library to extract the artificial mixtures
 FlowSorted.Blood.EPIC <- libraryDataGet('FlowSorted.Blood.EPIC')
 FlowSorted.Blood.EPIC
@@ -131,7 +131,7 @@ percEPIC<-round(propEPIC$prop*100,1)
 ```
 
 # Advanced user deconvolution CP/QP, CIBERSORT and/or RPC deconvolution
-```{r eval=TRUE}
+```{r advanced-deconvolution}
 
 noobset<- preprocessNoob(RGsetTargets)
 #or from estimateCellCounts2 returnAll=TRUE
@@ -162,7 +162,7 @@ percEPIC<-round(propEPIC*100,1)
 ```
  
 Umbilical Cord Blood
-```{r Umbilical Cord Blood, eval=FALSE}
+```r
 # # UMBILICAL CORD BLOOD DECONVOLUTION
 # 
 # library (FlowSorted.CordBloodCombined.450k)
@@ -216,7 +216,7 @@ Umbilical Cord Blood
 
 Using cell counts instead of proportions. 
 Note: These are random numbers, not the actual cell counts of the experiment
-```{r cell counts, eval=FALSE}
+```r
 # library(FlowSorted.Blood.450k)
 # RGsetTargets2 <- FlowSorted.Blood.450k[,
 #                              FlowSorted.Blood.450k$CellType == "WBC"]
@@ -236,7 +236,7 @@ Note: These are random numbers, not the actual cell counts of the experiment
 
 Blood Extended deconvolution
 
-```{r Blood extended deconvolution, eval=FALSE}
+```r
 # # Blood Extended deconvolution or any external reference
 # #please contact <Technology.Transfer@dartmouth.edu>
 # 
@@ -288,7 +288,7 @@ Blood Extended deconvolution
 
 ```
 
-```{r}
+```{r session-info}
 sessionInfo()
 ```
   
