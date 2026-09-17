@@ -51,17 +51,15 @@
 #' # If you need to normalize your data do not run with limited RAM. The
 #' # normalization step requires a big amount of memory resources
 #'
-#' if (memory.limit() > 8000) {
-#'     propEPIC <- projectCellType_CP(
-#'         getBeta(preprocessNoob(RGsetTargets))[IDOLOptimizedCpGs, ],
-#'         IDOLOptimizedCpGs.compTable,
-#'         contrastWBC = NULL, nonnegative = TRUE,
-#'         lessThanOne = FALSE
-#'     )
+#' propEPIC <- projectCellType_CP(
+#'     getBeta(preprocessNoob(RGsetTargets))[IDOLOptimizedCpGs, ],
+#'     IDOLOptimizedCpGs.compTable,
+#'     contrastWBC = NULL, nonnegative = TRUE,
+#'     lessThanOne = FALSE
+#' )
 #'
-#'     head(propEPIC)
-#'     percEPIC <- round(propEPIC * 100, 1)
-#' }
+#' head(propEPIC)
+#' percEPIC <- round(propEPIC * 100, 1)
 #' @param
 #' Y  A J x N matrix of methylation beta-values collected from mixed/
 #'    heterogeneous biospecimen (i.e., Whole Blood).  Target set.

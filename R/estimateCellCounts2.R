@@ -5,7 +5,6 @@
 #' @import minfi
 #' @importFrom utils data
 #' @importFrom utils read.csv
-#' @importFrom utils memory.limit
 #' @importFrom  graphics legend
 #' @importFrom  graphics plot
 #' @importFrom  stats as.formula
