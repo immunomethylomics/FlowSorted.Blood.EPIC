@@ -14,7 +14,8 @@
 #' @importFrom  stats  vcov
 #' @importFrom genefilter rowFtests
 #' @importFrom genefilter rowttests
-#' @importFrom SummarizedExperiment colData "colData<-" rowRanges
+#' @importFrom SummarizedExperiment colData "colData<-"
+#' @importFrom MatrixGenerics rowRanges
 #' @importFrom S4Vectors DataFrame
 #'
 #' @examples

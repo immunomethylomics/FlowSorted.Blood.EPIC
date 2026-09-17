@@ -80,7 +80,7 @@ License: GPL-3
 Depends: R (>= 4.6.0)
 Imports: genefilter, quadprog, graphics, stats, utils, AnnotationHub,
         minfi (>= 1.21.2), ExperimentHub,
-        SummarizedExperiment, S4Vectors
+        SummarizedExperiment, S4Vectors, MatrixGenerics
 Enhances: FlowSorted.CordBloodCombined.450k(>= 1.11.5)
 biocViews: ExperimentData, Homo_sapiens_Data, Tissue, MicroarrayData, Genome,
         TissueMicroarrayData, MethylationArrayData

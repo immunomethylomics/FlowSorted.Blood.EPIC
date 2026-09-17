@@ -4,11 +4,11 @@ export(estimateCellCounts2)
 export(libraryDataGet)
 export(projectCellType_CP)
 import(minfi)
+importFrom(MatrixGenerics,rowRanges)
 importFrom(S4Vectors,DataFrame)
 importFrom(SummarizedExperiment,
   "colData<-",
-  colData,
-  rowRanges
+  colData
 )
 importFrom(genefilter,
   rowFtests,
