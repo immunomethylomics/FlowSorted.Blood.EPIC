@@ -3,9 +3,7 @@
 export(estimateCellCounts2)
 export(libraryDataGet)
 export(projectCellType_CP)
-import(ExperimentHub)
 import(minfi)
-import(quadprog)
 importFrom(S4Vectors,DataFrame)
 importFrom(SummarizedExperiment,
   "colData<-",

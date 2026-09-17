@@ -3,7 +3,6 @@
 #' estimateCellCounts2 function allows the use of customized reference
 #' datasets and IDOL probes L-DMR lists
 #' @import minfi
-#' @import ExperimentHub
 #' @importFrom utils data
 #' @importFrom utils read.csv
 #' @importFrom utils memory.limit
@@ -16,7 +15,6 @@
 #' @importFrom  stats  vcov
 #' @importFrom genefilter rowFtests
 #' @importFrom genefilter rowttests
-#' @importFrom quadprog solve.QP
 #' @importFrom nlme lme
 #' @importFrom nlme getVarCov
 #' @importFrom SummarizedExperiment colData "colData<-" rowRanges

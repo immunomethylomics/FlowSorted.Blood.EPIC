@@ -77,8 +77,9 @@ Description: Raw data objects to be used for blood cell proportion
         by Brock Christensen and colleagues; for details see Salas et al. 2018.
         https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110554.
 License: GPL-3
-Depends: R (>= 3.5), minfi(>= 1.21.2), ExperimentHub
+Depends: R (>= 4.6.0)
 Imports: genefilter, nlme, quadprog, graphics, stats, utils, AnnotationHub,
+        minfi (>= 1.21.2), ExperimentHub,
         SummarizedExperiment, S4Vectors
 Enhances: FlowSorted.CordBloodCombined.450k(>= 1.11.5)
 biocViews: ExperimentData, Homo_sapiens_Data, Tissue, MicroarrayData, Genome,

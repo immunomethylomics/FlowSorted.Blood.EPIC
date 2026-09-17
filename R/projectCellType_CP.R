@@ -9,7 +9,7 @@
 #' recommend this function only for advanced users. Please preprocess your
 #' dataset filtering potential bad quality samples.
 #'
-#' @import    quadprog
+#' @importFrom quadprog solve.QP
 #' @examples
 #' # Step 1: Load the reference library to extract the artificial mixtures
 #' FlowSorted.Blood.EPIC <- libraryDataGet("FlowSorted.Blood.EPIC")
