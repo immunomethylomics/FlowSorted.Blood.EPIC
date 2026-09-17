@@ -18,10 +18,6 @@ importFrom(graphics,
   legend,
   plot
 )
-importFrom(nlme,
-  getVarCov,
-  lme
-)
 importFrom(quadprog,solve.QP)
 importFrom(stats,
   as.formula,

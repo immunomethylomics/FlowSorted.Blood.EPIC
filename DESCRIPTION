@@ -78,7 +78,7 @@ Description: Raw data objects to be used for blood cell proportion
         https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110554.
 License: GPL-3
 Depends: R (>= 4.6.0)
-Imports: genefilter, nlme, quadprog, graphics, stats, utils, AnnotationHub,
+Imports: genefilter, quadprog, graphics, stats, utils, AnnotationHub,
         minfi (>= 1.21.2), ExperimentHub,
         SummarizedExperiment, S4Vectors
 Enhances: FlowSorted.CordBloodCombined.450k(>= 1.11.5)

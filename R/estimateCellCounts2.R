@@ -14,8 +14,6 @@
 #' @importFrom  stats  vcov
 #' @importFrom genefilter rowFtests
 #' @importFrom genefilter rowttests
-#' @importFrom nlme lme
-#' @importFrom nlme getVarCov
 #' @importFrom SummarizedExperiment colData "colData<-" rowRanges
 #' @importFrom S4Vectors DataFrame
 #'
@@ -964,7 +962,7 @@ pickCompProbes <- function(mSet, cellTypes = NULL, numProbes = 50,
     return(out)
 }
 
-validationCellType <- function(Y, pheno, modelFix, modelBatch = NULL,
+validationCellType <- function(Y, pheno, modelFix,
                                 L.forFstat = NULL, verbose = FALSE) {
     N <- dim(pheno)[1]
     pheno$y <- rep(0, N)
@@ -977,7 +975,8 @@ validationCellType <- function(Y, pheno, modelFix, modelBatch = NULL,
         rownames(L.forFstat) <- colnames(xTest)[-1]
     }
     # Initialize various containers
-    sigmaResid <- sigmaIcept <- nObserved <- nClusters <- Fstat <- rep(NA, M)
+    sigmaResid <- nObserved <- Fstat <- rep(NA, M)
+    sigmaIcept <- nClusters <- numeric(M)
     coefEsts <- matrix(NA, M, sizeModel)
     coefVcovs <- list()
     if (verbose) {
@@ -993,27 +992,10 @@ validationCellType <- function(Y, pheno, modelFix, modelBatch = NULL,
             cat(".")
         } # Report progress
 
-        try({ # Try to fit a mixed model to adjust for plate
-            if (!is.null(modelBatch)) {
-                fit <- try(lme(modelFix, random = modelBatch, data = pheno[ii, ]))
-                OLS <- inherits(fit, "try-error")
-                # If LME can't be fit, just use OLS
-            } else {
-                OLS <- TRUE
-            }
-
-            if (OLS) {
-                fit <- lm(modelFix, data = pheno[ii, ])
-                fitCoef <- fit$coef
-                sigmaResid[j] <- summary(fit)$sigma
-                sigmaIcept[j] <- 0
-                nClusters[j] <- 0
-            } else {
-                fitCoef <- fit$coef$fixed
-                sigmaResid[j] <- fit$sigma
-                sigmaIcept[j] <- sqrt(getVarCov(fit)[1])
-                nClusters[j] <- length(fit$coef$random[[1]])
-            }
+        try({
+            fit <- lm(modelFix, data = pheno[ii, ])
+            fitCoef <- fit$coef
+            sigmaResid[j] <- summary(fit)$sigma
             coefEsts[j, ] <- fitCoef
             coefVcovs[[j]] <- vcov(fit)
 
@@ -1035,7 +1017,7 @@ validationCellType <- function(Y, pheno, modelFix, modelBatch = NULL,
 
     out <- list(
         coefEsts = coefEsts, coefVcovs = coefVcovs, modelFix = modelFix,
-        modelBatch = modelBatch,
+        modelBatch = NULL,
         sigmaIcept = sigmaIcept, sigmaResid = sigmaResid,
         L.forFstat = L.forFstat, Pval = Pval,
         orderFstat = order(-Fstat), Fstat = Fstat, nClusters = nClusters,
